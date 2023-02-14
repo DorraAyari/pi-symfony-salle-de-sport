@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
+     <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/flaticon.css" type="text/css">
     <link rel="stylesheet" href="front/css/owl.carousel.min.css" type="text/css">
@@ -30,7 +30,7 @@
         <div class="loader"></div>
     </div>
 
- <!-- Offcanvas Menu Section Begin -->
+    <!-- Offcanvas Menu Section Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="canvas-close">
@@ -43,7 +43,7 @@
             <ul>
                 <li><a href="./index.html">Home</a></li>
                 <li><a href="./about-us.html">About Us</a></li>
-                <li><a href="./classes.html">Classes</a></li>
+                <li><a href="./class-details.html">Classes</a></li>
                 <li><a href="./services.html">Services</a></li>
                 <li><a href="./team.html">Our Team</a></li>
                 <li><a href="#">Pages</a>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-lg-6">
                     <nav class="nav-menu">
-                        <ul>
+                      <ul>
                             <li ><a href="{{ path('app_home') }}">Home</a></li>
                 <li><a  href="{{ path('app_about') }}" >About Us</a></li>
                             <li><a href="{{ path('app_cours') }}">Classes</a></li>
@@ -132,10 +132,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>About us</h2>
+                        <h2>Timetable</h2>
                         <div class="bt-option">
                             <a href="./index.html">Home</a>
-                            <span>About</span>
+                            <a href="#">Pages</a>
+                            <span>Services</span>
                         </div>
                     </div>
                 </div>
@@ -144,259 +145,161 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- ChoseUs Section Begin -->
-    <section class="choseus-section spad">
+    <!-- Class Timetable Section Begin -->
+    <section class="class-timetable-section spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="section-title">
-                        <span>Why chose us?</span>
-                        <h2>PUSH YOUR LIMITS FORWARD</h2>
+                        <span>Find Your Time</span>
+                        <h2>Find Your Time</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="table-controls">
+                        <ul>
+                            <li class="active" data-tsfilter="all">All event</li>
+                            <li data-tsfilter="fitness">Fitness tips</li>
+                            <li data-tsfilter="motivation">Motivation</li>
+                            <li data-tsfilter="workout">Workout</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-034-stationary-bike"></span>
-                        <h4>Modern equipment</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            dolore facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-033-juice"></span>
-                        <h4>Healthy nutrition plan</h4>
-                        <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel
-                            facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-002-dumbell"></span>
-                        <h4>Proffesponal training plan</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            dolore facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-014-heart-beat"></span>
-                        <h4>Unique to your needs</h4>
-                        <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel
-                            facilisis.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ChoseUs Section End -->
-
-    <!-- About US Section Begin -->
-    <section class="aboutus-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="about-video set-bg" data-setbg="front/img/about-us.jpg">
-                        <a href="https://www.youtube.com/watch?v=EzKkl64rRbM" class="play-btn video-popup"><i
-                                class="fa fa-caret-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 p-0">
-                    <div class="about-text">
-                        <div class="section-title">
-                            <span>About Us</span>
-                            <h2>What we have done</h2>
-                        </div>
-                        <div class="at-desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-                                viverra maecenas accumsan lacus vel facilisis. aliquip ex ea commodo consequat sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                        </div>
-                        <div class="about-bar">
-                            <div class="ab-item">
-                                <p>Body building</p>
-                                <div id="bar1" class="barfiller">
-                                    <span class="fill" data-percentage="80"></span>
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ab-item">
-                                <p>Training</p>
-                                <div id="bar2" class="barfiller">
-                                    <span class="fill" data-percentage="85"></span>
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ab-item">
-                                <p>Fitness</p>
-                                <div id="bar3" class="barfiller">
-                                    <span class="fill" data-percentage="75"></span>
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- About US Section End -->
-
-    <!-- Team Section Begin -->
-    <section class="team-section spad">
-        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="team-title">
-                        <div class="section-title">
-                            <span>Our Team</span>
-                            <h2>TRAIN WITH EXPERTS</h2>
-                        </div>
-                        <a href="#" class="primary-btn btn-normal appoinment-btn">appointment</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="ts-slider owl-carousel">
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-1.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-2.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-3.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-4.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-5.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="front/img/team/team-6.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Team Section End -->
-
-    <!-- Banner Section Begin -->
-    <section class="banner-section set-bg" data-setbg="front/img/banner-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="bs-text">
-                        <h2>registration now to get more deals</h2>
-                        <div class="bt-tips">Where health, beauty and fitness meet.</div>
-                        <a href="#" class="primary-btn  btn-normal">Appointment</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Banner Section End -->
-
-    <!-- Testimonial Section Begin -->
-    <section class="testimonial-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Testimonial</span>
-                        <h2>Our cilent say</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="ts_slider owl-carousel">
-                <div class="ts_item">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <div class="ti_pic">
-                                <img src="front/img/testimonial/testimonial-1.jpg" alt="">
-                            </div>
-                            <div class="ti_text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt<br /> ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-                                    gravida. Risus commodo<br /> viverra maecenas accumsan lacus vel facilisis.</p>
-                                <h5>Marshmello Gomez</h5>
-                                <div class="tt-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ts_item">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <div class="ti_pic">
-                                <img src="front/img/testimonial/testimonial-2.jpg" alt="">
-                            </div>
-                            <div class="ti_text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt<br /> ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-                                    gravida. Risus commodo<br /> viverra maecenas accumsan lacus vel facilisis.</p>
-                                <h5>Marshmello Gomez</h5>
-                                <div class="tt-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="class-timetable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                    <th>Sunday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="class-time">6.00am - 8.00am</td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>WEIGHT LOOSE</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Cardio</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Yoga</h5>
+                                        <span>Keaf Shen</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Fitness</h5>
+                                        <span>Kimberly Stone</span>
+                                    </td>
+                                    <td class="dark-bg blank-td"></td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Boxing</h5>
+                                        <span>Rachel Adam</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Body Building</h5>
+                                        <span>Robert Cage</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="class-time">10.00am - 12.00am</td>
+                                    <td class="blank-td"></td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Fitness</h5>
+                                        <span>Kimberly Stone</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>WEIGHT LOOSE</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Cardio</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Body Building</h5>
+                                        <span>Robert Cage</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Karate</h5>
+                                        <span>Donald Grey</span>
+                                    </td>
+                                    <td class="blank-td"></td>
+                                </tr>
+                                <tr>
+                                    <td class="class-time">5.00pm - 7.00pm</td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Boxing</h5>
+                                        <span>Rachel Adam</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Karate</h5>
+                                        <span>Donald Grey</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Body Building</h5>
+                                        <span>Robert Cage</span>
+                                    </td>
+                                    <td class="blank-td"></td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Yoga</h5>
+                                        <span>Keaf Shen</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Cardio</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Fitness</h5>
+                                        <span>Kimberly Stone</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="class-time">7.00pm - 9.00pm</td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Cardio</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                    <td class="dark-bg blank-td"></td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Boxing</h5>
+                                        <span>Rachel Adam</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>Yoga</h5>
+                                        <span>Keaf Shen</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="motivation">
+                                        <h5>Karate</h5>
+                                        <span>Donald Grey</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="fitness">
+                                        <h5>Boxing</h5>
+                                        <span>Rachel Adam</span>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>WEIGHT LOOSE</h5>
+                                        <span>RLefew D. Loee</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Testimonial Section End -->
+    <!-- Class Timetable Section End -->
 
     <!-- Get In Touch Section Begin -->
     <div class="gettouch-section">
@@ -515,7 +418,7 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="front/js/jquery-3.3.1.min.js"></script>
+   <script src="front/js/jquery-3.3.1.min.js"></script>
     <script src="front/js/bootstrap.min.js"></script>
     <script src="front/js/jquery.magnific-popup.min.js"></script>
     <script src="front/js/masonry.pkgd.min.js"></script>
@@ -523,6 +426,7 @@
     <script src="front/js/jquery.slicknav.js"></script>
     <script src="front/js/owl.carousel.min.js"></script>
     <script src="front/js/main.js"></script>
+
 
 
 </body>
