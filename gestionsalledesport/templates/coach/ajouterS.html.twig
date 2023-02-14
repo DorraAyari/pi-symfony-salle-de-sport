@@ -1,0 +1,31 @@
+<h1> Ajouter un coach </h1>
+
+ 
+{{form_start(coach,{'attr': {'novalidate': 'novalidate'}} )}}
+<table>
+<tr>
+
+<td>  {{ form_label(coach.nom,"nom") }} 
+</td> 
+<td> {{ form_widget(coach.nom)}} 
+ </td> 
+<td>  {{ form_errors(coach.nom) }} 
+</td> 
+
+</tr> 
+<tr>
+
+<td>  {{ form_label(coach.description,"description") }} 
+</td> 
+<td> {{ form_widget(coach.description)}} 
+ </td> 
+<td>  {{ form_errors(coach.description) }} 
+</td> 
+<td>  
+        {{ form_row(coach.image) }}
+</td> 
+
+</tr>
+</table>
+ {{ form_widget(coach.save)}} 
+{{form_end(coach)}}
