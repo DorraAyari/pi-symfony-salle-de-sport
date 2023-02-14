@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlogRepository::class)]
@@ -19,11 +20,11 @@ class Blog
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -54,27 +55,29 @@ class Blog
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+    // public function getImage(): ?string
+    // {
+    //     return $this->image;
+    // }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
+    // public function setImage(string $image): self
+    // {
+    //     $this->image = $image;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getDate(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(string $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
         return $this;
     }
+
+    
 }
