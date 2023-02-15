@@ -18,15 +18,17 @@ class Coach
     #[ORM\Column(length: 20)]
     #[Assert\NotBlank(message:"Nom champs obligatoire")]
     private ?string $nom = null;
+    #[Assert\NotBlank(message:"Description champs obligatoire")]
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     
+    #[Assert\NotBlank(message:"Non coach obligatoire")]
 
     #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]
     private Collection $cours;
-    
+
 
     #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Image::class , cascade: ['persist'])]
     private Collection $images;
