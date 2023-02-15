@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +56,7 @@
       <div class="sidebar-heading">
         Interface
       </div>
-{# hello #}
+
       <!-- Nav Item - Pages Collapse Menu -->
       {# <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -229,7 +228,10 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-        
+        <center>
+        <h3><a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a></h3>
+        </center>
+        <br>
           <!-- Page Heading -->
           {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
@@ -237,66 +239,47 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
+              <h6 class="m-0 font-weight-bold text-primary">LIST BLOG</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               {# hnee besh nekhdem khedmti  #}
-<div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">ADD YOUR NEW BLOG</h1>
-                  </div>
-                  {# <form class="user"> #}
-                  {{form_start(blog,{'attr': {'novalidate': 'novalidate'}} )}}
-                    <table>
-<tr>
-
-<td>  {{ form_label(blog.nom,"nom") }} 
-</td> 
-<td> {{ form_widget(blog.nom)}} 
- </td> 
-<td>  {{ form_errors(blog.nom) }} 
-</td> 
-
-</tr> 
-<tr>
-
-<td>  {{ form_label(blog.description,"description") }} 
-</td> 
-<td> {{ form_widget(blog.description)}} 
- </td> 
-<td>  {{ form_errors(blog.description) }} 
-</td> 
-<td>  
-        {{ form_row(blog.image) }}
-</td> 
-
-</tr>
-</table>
-{{ form_widget(blog.save)}} 
-{{form_end(blog)}}
-              <hr>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                {% for blog in blog %}
+                  <thead>
+                    <tr>
+                      <th>sujet</th>
+                      <th>description</th>
+                      <th>current date </th>
+                      <th>image </th>
+                      <th>Update </th>
+                      <th>Delete </th>
+                      
+                    </tr>
+                  </thead>
+                  {# <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </tfoot> #}
+                  <tbody>
+                    <tr>
+                      <td>{{ blog.nom }}</td>
+                      <td>{{ blog.description }}</td>
+                      <td>{{ blog.createdAt |date('Y-m-d')}}</td>
+                      <td> <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/></td>
+                      <td><a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > Update blog </a></td>
+                      <td><a class="primary-btn pricing-btn"  href="{{path('deleteblog',{ id:blog.id})}}" > Delete blog </a></td>
+                    </tr>
+                   
+            
+                  </tbody>
+                  {% endfor %}
+                </table>
               </div>
             </div>
           </div>
@@ -328,7 +311,24 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
