@@ -16,7 +16,9 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
+            <center>
               <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
+              </center>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -25,7 +27,7 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-5 d-none d-lg-block bg-login-image"></div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -36,12 +38,15 @@
                     <table>
 <tr>
 
-<td>  {{ form_label(blog.nom,"nom") }} 
+<td>  {{ form_label(blog.nom,"Sujet") }} 
 </td> 
 <td> {{ form_widget(blog.nom)}} 
  </td> 
-<td>  {{ form_errors(blog.nom) }} 
+ <tr>
+ 
+<td> <th> {{ form_errors(blog.nom) }} </th>
 </td> 
+
 
 </tr> 
 <tr>
@@ -50,14 +55,22 @@
 </td> 
 <td> {{ form_widget(blog.description)}} 
  </td> 
-<td>  {{ form_errors(blog.description) }} 
+ <tr>
+<td> <th> {{ form_errors(blog.description) }} </th>
 </td> 
-<td>  
-        {{ form_row(blog.image) }}
+
+<tr>
+<td>  {{ form_label(blog.image,"Image") }} 
 </td> 
+<td> {{ form_widget(blog.image)}} 
+ </td> 
+<td>  {{ form_errors(blog.image) }} 
+</td>
+</tr>
 
 </tr>
 </table>
+<br>
 {{ form_widget(blog.save)}} 
 {{form_end(blog)}}
               <hr>

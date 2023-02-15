@@ -58,9 +58,7 @@ class BlogadminController extends AbstractController
 
             // On copie le fichier dans le dossier uploads
             $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
+                $this->getParameter('images_directory'), $fichier);
 
             // On stocke l'image dans la base de données (son nom)
             $blog->setImage($fichier);

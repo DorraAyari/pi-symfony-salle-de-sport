@@ -4,7 +4,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
         <center>
-        <h3><a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a></h3>
+        <h3><a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > ADD BLOG </a></h3>
         </center>
         <br>
           <!-- Page Heading -->
@@ -19,7 +19,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                {% for blog in blog %}
+                
                   <thead>
                     <tr>
                       <th>sujet</th>
@@ -41,17 +41,17 @@
                       <th>Salary</th>
                     </tr>
                   </tfoot> #}
+                  {% for blog in blog %}
                   <tbody>
                     <tr>
                       <td>{{ blog.nom }}</td>
                       <td>{{ blog.description }}</td>
                       <td>{{ blog.createdAt |date('Y-m-d')}}</td>
-                      <td> <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/></td>
+                      <td> <img style="width:200x;height:200px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/></td>
                       <td><a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > Update blog </a></td>
                       <td><a class="primary-btn pricing-btn"  href="{{path('deleteblog',{ id:blog.id})}}" > Delete blog </a></td>
                     </tr>
                    
-            
                   </tbody>
                   {% endfor %}
                 </table>

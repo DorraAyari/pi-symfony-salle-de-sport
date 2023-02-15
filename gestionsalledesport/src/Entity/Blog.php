@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,10 +18,11 @@ class Blog
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[assert\NotBlank(message:"nom obligatoire ")]
+    #[assert\NotBlank(message:"sujet obligatoire ")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[assert\NotBlank(message:"description obligatoire")]
     private ?string $description = null;
 
     // #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -30,6 +33,14 @@ class Blog
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'blogid', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
     
     
 
@@ -95,6 +106,36 @@ class Blog
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setBlogid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getBlogid() === $this) {
+                $commentaire->setBlogid(null);
+            }
+        }
 
         return $this;
     }
