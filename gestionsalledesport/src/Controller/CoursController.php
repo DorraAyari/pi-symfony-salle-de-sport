@@ -24,14 +24,6 @@ class CoursController extends AbstractController
         ]);
     }
 
-   
-    #[Route('/c', name: 'app_cours')]
-    public function affiche(): Response
-    {
-        return $this->render('frontcoach/cours.html.twig', [
-            'controller_name' => 'CoursController',
-        ]);
-    }
 
 
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]
