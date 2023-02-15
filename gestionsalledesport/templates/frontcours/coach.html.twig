@@ -1,8 +1,6 @@
 {% extends "front/base.html.twig" %}
 
-
 {% block body %}
-
     <section class="breadcrumb-section set-bg" data-setbg="front/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
@@ -37,7 +35,7 @@
  <div class="row">
  
                 <div class="col-lg-4 col-sm-6">
-                                         {% for coach in coachs %}
+                     {% for coach in coachs %}
 
                     <div class="ts-item set-bg" >
 
@@ -57,11 +55,12 @@
                     </div>
                 </div>
              
-                                {% endfor %}
+                      {% endfor %}
 
                 </div>
             </div>
         </div>
+       
     </section>
 
-{% endblock %}
+ {% endblock %}
