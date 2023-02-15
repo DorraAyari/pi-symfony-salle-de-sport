@@ -19,7 +19,7 @@ class BlogType extends AbstractType
             ->add('nom',TextType::class)
             ->add('save',SubmitType::class)
             ->add('description',TextType::class)
-            ->add('date',DateType::class)
+            // ->add('createdAt',DateType::class)
             ->add('image', FileType::class, [
                 'label' => false,
                 'multiple' => true,

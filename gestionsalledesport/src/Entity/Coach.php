@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CoachRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Repository\CoachRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CoachRepository::class)]
 class Coach
 {
@@ -16,22 +16,27 @@ class Coach
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message:"Nom champs obligatoire")]
     private ?string $nom = null;
+    #[Assert\NotBlank(message:"Description champs obligatoire")]
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     
+    #[Assert\NotBlank(message:"Non coach obligatoire")]
 
     #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]
     private Collection $cours;
-    
+
 
     #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Image::class , cascade: ['persist'])]
     private Collection $images;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+    
 
     public function __construct()
     {
@@ -141,4 +146,8 @@ class Coach
 
         return $this;
     }
+
+   public function __toString() {
+    return $this->nom;
+}
 }
