@@ -11,7 +11,16 @@ class CoursType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('field_name')
+        ->add('nom')
+        ->add('desription')
+        ->add('image', FileType::class, [
+            'label' => false,
+            'multiple' => true,
+            'mapped' => false,
+            'required' => false,
+            
+        ])
+        ->add('coach')
         ;
     }
 

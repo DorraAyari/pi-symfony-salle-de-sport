@@ -19,11 +19,13 @@ class Cours
     #[ORM\Column(length: 255)]
     private ?string $desription = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     private ?coach $coach = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -54,17 +56,7 @@ class Cours
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+    
 
     public function getCoach(): ?coach
     {
@@ -74,6 +66,18 @@ class Cours
     public function setCoach(?coach $coach): self
     {
         $this->coach = $coach;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

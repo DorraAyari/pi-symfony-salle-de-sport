@@ -16,13 +16,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class CoachController extends AbstractController
 {
     #[Route('/coach', name: 'app_coach')]
-    public function index(): Response
+    public function index(CoachRepository $coachRepository): Response
     {
-        return $this->render('coach/coach.html.twig', [
-            'controller_name' => 'CoachController',
+        $coach=$coachRepository->findAll();
+        return $this->render('frontcoach/coach.html.twig', [
+            'coachs' => $coach,
         ]);
     }
-    #[Route('/readAll', name: 'readAll')]
+  
+    #[Route('/read', name: 'readAll')]
     public function afficheall(CoachRepository $coachRepository): Response
     {
         $coach=$coachRepository->findAll();
@@ -37,7 +39,7 @@ class CoachController extends AbstractController
        $coach = new Coach;
        $form = $this->createForm(CoachType::class,$coach);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
 
             // On boucle sur les images
@@ -84,13 +86,16 @@ class CoachController extends AbstractController
         foreach($image as $image){
             // On génère un nouveau nom de fichier
             $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-
+            try {
             // On copie le fichier dans le dossier uploads
             $image->move(
                 $this->getParameter('images_directory'),
                 $fichier
             );
+        }  catch (FileException $e) {
+            // handle exception
         }
+    }
             // On stocke l'image dans la base de données (son nom)
             $coach->setImage($fichier);
         $em=$doctrine->getManager();
@@ -98,6 +103,8 @@ class CoachController extends AbstractController
        $em->persist($coach);
        //flush=push
        $em->flush();
+     
+
        return $this->redirectToRoute('readAll', [
     ]);
        }
