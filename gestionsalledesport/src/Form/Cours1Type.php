@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Coach;
 use App\Entity\Cours;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +23,17 @@ class Cours1Type extends AbstractType
                 'required' => false,
                 
             ])        
-            ->add('coach')
+            ->add(
+                'Coach', EntityType::class,
+                [
+                    'class' => Coach::class,
+                    'choice_label' => 'nom',
+                    'expanded' => false, //on peut choisir une seule
+                    'multiple' => false,
+
+                ]
+                
+            )
         ;
     }
 
