@@ -4,11 +4,12 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\File;
 
 class CoachType extends AbstractType
 {
@@ -17,7 +18,6 @@ class CoachType extends AbstractType
         $builder
         
             ->add('nom',TextType::class)
-            ->add('save',SubmitType::class)
             ->add('description',TextType::class)
             
             ->add('image', FileType::class, [
@@ -27,9 +27,12 @@ class CoachType extends AbstractType
                 'required' => false,
                 
             ])
-        
-    
+           
+            ->add('save',SubmitType::class)
+
+
         ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
