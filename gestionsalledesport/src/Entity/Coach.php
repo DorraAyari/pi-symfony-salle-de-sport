@@ -28,10 +28,18 @@ class Coach
     private Collection $cours;
     
 
+    #[ORM\OneToMany(mappedBy: 'oach', targetEntity: Image::class , cascade: ['persist'])]
+    private Collection $images;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    
+
     public function __construct()
     {
         $this->cours = new ArrayCollection();
-        
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,7 +103,48 @@ class Coach
         return $this;
     }
 
-   
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setCoach($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getCoach() === $this) {
+                $image->setCoach(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
    public function __toString() {
     return $this->nom;
 }
