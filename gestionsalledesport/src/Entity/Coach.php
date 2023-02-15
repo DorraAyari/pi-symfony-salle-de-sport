@@ -24,11 +24,11 @@ class Coach
 
     
 
-    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Cours::class)]
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]
     private Collection $cours;
     
 
-    #[ORM\OneToMany(mappedBy: 'oach', targetEntity: Image::class , cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Image::class , cascade: ['persist'])]
     private Collection $images;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -23,7 +23,14 @@ class CoachController extends AbstractController
             'coachs' => $coach,
         ]);
     }
-  
+    #[Route('/c', name: 'app_cours')]
+    public function affiche(): Response
+    {
+        return $this->render('frontcoach/cours.html.twig', [
+            'controller_name' => 'CoachController',
+        ]);
+    }
+
     #[Route('/read', name: 'readAll')]
     public function afficheall(CoachRepository $coachRepository): Response
     {
