@@ -72,7 +72,7 @@ class MemberController extends AbstractController
             'member' => $member,
         ]);
     }
-    #[Route('/modifierS/{id}', name: 'modifierS')]
+    #[Route('/modifier/{id}', name: 'modifier')]
 
     public function modifier(Request $request , ManagerRegistry $doctrine,Member $member): Response
     {
@@ -98,7 +98,7 @@ class MemberController extends AbstractController
 
 
    
-    #[Route('supprimerS/{id}', name: 'supprimerS')]
+    #[Route('supprimer/{id}', name: 'supprimer')]
 
     public function supprimerS($id , ManagerRegistry $doctrine): Response
 {
