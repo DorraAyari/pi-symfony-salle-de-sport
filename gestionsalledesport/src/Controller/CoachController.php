@@ -36,6 +36,7 @@ class CoachController extends AbstractController
 
     public function ajouter(Request $request , ManagerRegistry $doctrine): Response
     {
+        ////edirr
        $coach = new Coach;
        $form = $this->createForm(CoachType::class,$coach);
        $form->handleRequest($request);
