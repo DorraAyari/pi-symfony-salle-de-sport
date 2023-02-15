@@ -1,42 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
+{% extends "admin/base.html.twig" %}
+{% block body %}
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
-  <title>UPDATE BLOG</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="back/css/sb-admin-2.min.css" rel="stylesheet">
+        <!-- End of Topbar -->
 
-</head>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
 
-<body class="bg-gradient-primary">
-
-  <div class="container">
-
-    <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
-        <!-- Nested Row within Card Body -->
-        <div class="row">
-          {# <div class="col-lg-5 d-none d-lg-block bg-register-image"></div> #}
-         <div class="col-lg-5 d-none d-lg-block bg-register-imag"><img src="https://www.ihrsa.org/uploads/Articles/Column-Width/industry-news_muscular-bicep-dumbbell-stock_column.jpg"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
-              <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4"> UPDATE BLOG</h1>
-              </div>
-              {{form_start(blog,{'attr': {'novalidate': 'novalidate'}} )}}
-<table>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+               {# hnee besh nekhdem khedmti  #}
+<div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">ADD YOUR NEW BLOG</h1>
+                  </div>
+                  {# <form class="user"> #}
+                  {{form_start(blog,{'attr': {'novalidate': 'novalidate'}} )}}
+                    <table>
 <tr>
 
 <td>  {{ form_label(blog.nom,"nom") }} 
@@ -61,30 +59,28 @@
 
 </tr>
 </table>
- {{ form_widget(blog.save)}} 
+{{ form_widget(blog.save)}} 
 {{form_end(blog)}}
               <hr>
-              
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+
+
+
+
+
+
+
+            
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
       </div>
-    </div>
-
-  </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="back/vendor/jquery/jquery.min.js"></script>
-  <script src="back/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="back/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="back/js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
-
- 
+{% endblock %}
