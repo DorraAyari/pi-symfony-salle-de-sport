@@ -18,14 +18,21 @@ class CoachType extends AbstractType
     {
         $builder
         
-            ->add('nom',TextType::class)
-            ->add('description',TextType::class)
+            ->add('nom',TextType::class,[
+                'label' => 'nom',
+                'empty_data' => '',
+            ])
+            ->add('description',TextType::class,[
+                'label' => 'description',
+                'empty_data' => '',
+            ])
             
             ->add('image', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false,
+                'label' => 'image',
+                'empty_data' => '',
                 
             ])
            

@@ -27,6 +27,7 @@ class Coach
   
 
     #[ORM\Column(length: 255, nullable: true)]
+
     private ?string $image = null;
 
     #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]

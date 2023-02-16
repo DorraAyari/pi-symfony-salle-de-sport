@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CoursType extends AbstractType
@@ -16,8 +17,14 @@ class CoursType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom')
-        ->add('description')
+        ->add('nom',TextType::class,[
+            'label' => 'nom',
+            'empty_data' => '',
+        ])
+        ->add('description',TextType::class,[
+            'label' => 'description',
+            'empty_data' => '',
+        ])
         ->add(
             'Coach', EntityType::class,
             [

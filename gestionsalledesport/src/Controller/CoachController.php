@@ -50,9 +50,10 @@ class CoachController extends AbstractController
        $form->handleRequest($request);
        if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
-
+        if ($image) {
             // On boucle sur les images
             foreach($image as $image){
+
                 // On génère un nouveau nom de fichier
                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
@@ -61,12 +62,12 @@ class CoachController extends AbstractController
                     $this->getParameter('images_directory'),
                     $fichier
                 );
-
+            }
                 // On stocke l'image dans la base de données (son nom)
                 $coach->setImage($fichier);
-            }
+            
  
- 
+        }
       
 
         $em=$doctrine->getManager();
@@ -88,9 +89,10 @@ class CoachController extends AbstractController
     {
        $form = $this->createForm(CoachType::class,$coach);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted() && $form->isValid()){
+        
         $image = $form->get('image')->getData();
-
+        if ($image) {
         // On boucle sur les images
         foreach($image as $image){
             // On génère un nouveau nom de fichier
@@ -107,6 +109,7 @@ class CoachController extends AbstractController
     }
             // On stocke l'image dans la base de données (son nom)
             $coach->setImage($fichier);
+}
         $em=$doctrine->getManager();
        //persist=ajouter
        $em->persist($coach);

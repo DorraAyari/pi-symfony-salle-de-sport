@@ -12,22 +12,25 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">ADD NEW Coach</h4>
+              <h4 class="m-0 font-weight-bold text-primary">Coach List</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                {# hnee besh nekhdem khedmti  #}
 
-    <h1><a class="btn btn-primary" href="{{path('ajouterS')}}" > ajouter </a></h1>
+    <h1><a class="btn btn-primary" href="{{path('ajouterS')}}" > Add </a></h1>
     <table class="table table-striped-columns"  align="center">
     <thead>
         <tr>
             
-            <th>nom</th>
+            <th>Name</th>
+            <th>Description</th>
             <th>Image</th>
 
-            <th>modifier</th>
-              <th>supprimer</th>
+            <th>Show</th>
+              <th>Update</th>
+                            <th>Delete</th>
+
         </tr>
     </thead>
     <tbody>
@@ -35,10 +38,11 @@
             {% for coach in coachs %}
              
                    
-           <td>  {{ coach.nom }} </td>   
+           <td>  {{ coach.nom }} </td> 
+            <td>  {{ coach.description }} </td>   
          <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ coach.image) }}" alt="{{ coach.image }}"/> </td>
 
-                  <td><a class="btn btn-success" href="{{path('shows',{ id:coach.id}      ) }}" > show </a></td>
+         <td><a class="btn btn-success" href="{{path('shows',{ id:coach.id}      ) }}" > show </a></td>
 
          <td><a class="btn btn-warning" href="{{path('modifierS',{ id:coach.id}      ) }}" > edit </a></td>
          <td> <a class="btn btn-danger" href="{{path('supprimerS',{ id:coach.id}      ) }} " >delete</a>  <td>
@@ -49,22 +53,11 @@
       {% endfor %}
     </tbody>
 </table>
-  </div>
-              </div>
+    </div>
             </div>
           </div>
-        
 
-
-
-
-
-
-
-
-            
-            </div>
-          </div>
+        </div>
 
      
 

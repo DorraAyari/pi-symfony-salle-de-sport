@@ -10,23 +10,26 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">Course</h4>
+              <h4 class="m-0 font-weight-bold text-primary">Course list</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
+    <h1><a class="btn btn-primary" href="{{path('ajouterc')}}" > Add </a></h1>
 
-
-    <h1>Course</h1>
-
-    <table class="table">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom</th>
+                <th>Name</th>
                 <th>Desription</th>
-                 <th>Nom coach</th>
+                 <th>Name coach</th>
                 <th>Image</th>
-                <th>actions</th>
+                              <th>Show</th>
+                                       <th>Update</th>
+                                  <th>Delete</th>
+
+
+
             </tr>
         </thead>
         <tbody>
@@ -38,14 +41,14 @@
                  <td>  {{ cour.coach.nom }} </td>
                   <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ cour.image) }}" alt="{{ cour.image }}"/> </td>
 
-                <td>
-                            <a class="btn btn-danger" href="{{ path('show', {'id': cour.id}) }}" >show</a> 
+              
+              <td>                 <a class="btn btn-danger" href="{{ path('show', {'id': cour.id}) }}" >show</a> 
                                        
-
-        <a class="btn btn-success" href="{{ path('ajouterc', {'id': cour.id}) }}" > modifier </a>
-         <a class="btn btn-success" href="{{ path('modifierc', {'id': cour.id}) }}" >supprimer</a> 
- 
-                </td>
+</td>
+    <td>       <a class="btn btn-success" href="{{ path('modifierc', {'id': cour.id}) }}" > edit </a> </td>  
+     <td>      <a class="btn btn-warning" href="{{ path('supprimercc', {'id': cour.id}) }}" >delete</a> 
+ </td>
+             
             </tr>
         {% else %}
             <tr>
@@ -54,14 +57,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('ajouterc') }}">Create new</a>
-</div>
-  </div>
-  </div>
-   </div>
-              </div>
+ </div>
             </div>
           </div>
+
         </div>
+
 {% endblock %}

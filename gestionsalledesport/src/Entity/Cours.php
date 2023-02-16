@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CoursRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
 class Cours
@@ -14,6 +15,8 @@ class Cours
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Nom champs obligatoire")]
+
     private ?string $nom = null;
 
    
@@ -22,12 +25,15 @@ class Cours
    
 
     #[ORM\Column(length: 255, nullable: true)]
+    
     private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     private ?coach $coach = null;
 
     #[ORM\Column(length: 255)]
+ #[Assert\NotBlank(message:"description champs obligatoire")]
+
     private ?string $description = null;
 
     public function getId(): ?int

@@ -53,7 +53,7 @@ class CoursController extends AbstractController
        $form->handleRequest($request);
        if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
-
+        if ($image) {
             // On boucle sur les images
             foreach($image as $image){
                 // On génère un nouveau nom de fichier
@@ -64,7 +64,7 @@ class CoursController extends AbstractController
                     $this->getParameter('images_directory'),
                     $fichier
                 );
-
+            }
                 // On stocke l'image dans la base de données (son nom)
                 $cours->setImage($fichier);
             }
@@ -91,9 +91,9 @@ class CoursController extends AbstractController
     {
        $form = $this->createForm(CoursType::class,$cours);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
-
+        if ($image) {
         // On boucle sur les images
         foreach($image as $image){
             // On génère un nouveau nom de fichier
@@ -110,6 +110,7 @@ class CoursController extends AbstractController
     }
             // On stocke l'image dans la base de données (son nom)
             $cours->setImage($fichier);
+}
         $em=$doctrine->getManager();
        //persist=ajouter
        $em->persist($cours);
@@ -135,7 +136,7 @@ class CoursController extends AbstractController
     $cours =  $cours->find($id);
     $em->remove($cours);
 $em->flush();
-return $this->redirectToRoute('readAc');
+return $this->redirectToRoute('readc');
 
 }
 }
