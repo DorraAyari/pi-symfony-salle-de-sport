@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Coach;
 use App\Entity\Cours;
-use App\Form\Cours1Type;
+use App\Entity\Image;
+use App\Form\CoachType;
+use App\Form\CoursType;
+use App\Repository\CoachRepository;
 use App\Repository\CoursRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,28 +16,42 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-#[Route('/cours')]
 class CoursController extends AbstractController
 {
-    #[Route('/', name: 'app_cours_index', methods: ['GET'])]
-    public function index(CoursRepository $coursRepository): Response
+    #
+    #[Route('/c', name: 'app_cours')]
+    public function affiche(): Response
     {
-        return $this->render('cours/index.html.twig', [
-            'cour' => $coursRepository->findAll(),
-
+        return $this->render('frontcoach/cours.html.twig', [
+            'controller_name' => 'CoursController',
         ]);
     }
 
-
-
-    #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]
+    #[Route('/readc', name: 'readc')]
+    public function afficheall(CoursRepository $coursR): Response
+    {
+        $cours=$coursR->findAll();
+        return $this->render('cours/index.html.twig', [
+            'cours' => $cours,
+        ]);
+    }
+    #[Route('/show/{id}', name: 'show')]
+    public function show(CoursRepository $coursR,$id): Response
+    {
+        $cours=$coursR->find($id);
+        return $this->render('cours/show.html.twig', [
+            'cours' => $cours,
+        ]);
+    }
+    #[Route('/ajouterc', name: 'ajouterc')]
 
     public function ajouter(Request $request , ManagerRegistry $doctrine): Response
     {
-       $cour = new Cours;
-       $form = $this->createForm(Cours1Type::class,$cour);
+        ////edirr
+       $cours = new Cours;
+       $form = $this->createForm(CoursType::class,$cours);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
 
             // On boucle sur les images
@@ -48,7 +66,7 @@ class CoursController extends AbstractController
                 );
 
                 // On stocke l'image dans la base de données (son nom)
-                $cour->setImage($fichier);
+                $cours->setImage($fichier);
             }
  
  
@@ -56,25 +74,22 @@ class CoursController extends AbstractController
 
         $em=$doctrine->getManager();
        //persist=ajouter
-       $em->persist($cour);
+       $em->persist($cours);
        //flush=push
        $em->flush();
-       return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('cours/new.html.twig', [
-            'cour' => $cour,
-            'form' => $form,
-         
-
-        ]);
+       return $this->redirectToRoute('readc', [
+    ]);
+       }
+       return $this->renderForm('cours/ajouterc.html.twig', [
+        'cours' => $form,
+    ]);
        
     }
-    #[Route('/{id}/edit', name: 'app_cours_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifierc/{id}', name: 'modifierc')]
 
-    public function modifier(Request $request , ManagerRegistry $doctrine, Cours $cour): Response
+    public function modifier(Request $request , ManagerRegistry $doctrine,Cours $cours): Response
     {
-       $form = $this->createForm(Cours1Type::class,$cour);
+       $form = $this->createForm(CoursType::class,$cours);
        $form->handleRequest($request);
        if ($form ->IsSubmitted()){
         $image = $form->get('image')->getData();
@@ -94,39 +109,33 @@ class CoursController extends AbstractController
         }
     }
             // On stocke l'image dans la base de données (son nom)
-            $cour->setImage($fichier);
+            $cours->setImage($fichier);
         $em=$doctrine->getManager();
        //persist=ajouter
-       $em->persist($cour);
+       $em->persist($cours);
        //flush=push
        $em->flush();
      
-       return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
-    }
 
-    return $this->renderForm('cours/edit.html.twig', [
-        'cour' => $cour,
-        'form' => $form,
+       return $this->redirectToRoute('readc', [
     ]);
+       }
+       return $this->renderForm('cours/modifierc.html.twig', [
+        'cours' => $form,
+
+    ]);
+       
+    }
+    #[Route('supprimercc/{id}', name: 'supprimercc')]
+
+    public function supprimerS($id , ManagerRegistry $doctrine): Response
+{
+    $em=$doctrine->getManager();
+    $cours =$doctrine->getRepository(cours::class);
+    $cours =  $cours->find($id);
+    $em->remove($cours);
+$em->flush();
+return $this->redirectToRoute('readAc');
+
 }
-
-    #[Route('/{id}', name: 'app_cours_show', methods: ['GET'])]
-    public function show(Cours $cour): Response
-    {
-        return $this->render('cours/show.html.twig', [
-            'cour' => $cour,
-        ]);
-    }
-
-  
-
-    #[Route('/{id}', name: 'app_cours_delete', methods: ['POST'])]
-    public function delete(Request $request, Cours $cour, CoursRepository $coursRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$cour->getId(), $request->request->get('_token'))) {
-            $coursRepository->remove($cour, true);
-        }
-
-        return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

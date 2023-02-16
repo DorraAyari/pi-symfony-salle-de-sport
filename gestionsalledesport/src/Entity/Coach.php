@@ -24,19 +24,16 @@ class Coach
     private ?string $description = null;
 
     
-    #[Assert\NotBlank(message:"Non coach obligatoire")]
-
-    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]
-    private Collection $cours;
-
-
-    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Image::class , cascade: ['persist'])]
-    private Collection $images;
+  
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Cours::class)]
+    private Collection $cours;
+
+    #[ORM\OneToMany(mappedBy: 'coachs', targetEntity: Image::class)]
+    private Collection $images;
 
     public function __construct()
     {
@@ -44,6 +41,9 @@ class Coach
         $this->images = new ArrayCollection();
     }
 
+    
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -75,66 +75,6 @@ class Coach
 
    
 
-    /**
-     * @return Collection<int, Cours>
-     */
-    public function getCours(): Collection
-    {
-        return $this->cours;
-    }
-
-    public function addCour(Cours $cour): self
-    {
-        if (!$this->cours->contains($cour)) {
-            $this->cours->add($cour);
-            $cour->setCoach($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCour(Cours $cour): self
-    {
-        if ($this->cours->removeElement($cour)) {
-            // set the owning side to null (unless already changed)
-            if ($cour->getCoach() === $this) {
-                $cour->setCoach(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setCoach($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getCoach() === $this) {
-                $image->setCoach(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -150,4 +90,64 @@ class Coach
    public function __toString() {
     return $this->nom;
 }
+
+   /**
+    * @return Collection<int, Cours>
+    */
+   public function getCours(): Collection
+   {
+       return $this->cours;
+   }
+
+   public function addCour(Cours $cour): self
+   {
+       if (!$this->cours->contains($cour)) {
+           $this->cours->add($cour);
+           $cour->setCoach($this);
+       }
+
+       return $this;
+   }
+
+   public function removeCour(Cours $cour): self
+   {
+       if ($this->cours->removeElement($cour)) {
+           // set the owning side to null (unless already changed)
+           if ($cour->getCoach() === $this) {
+               $cour->setCoach(null);
+           }
+       }
+
+       return $this;
+   }
+
+   /**
+    * @return Collection<int, Image>
+    */
+   public function getImages(): Collection
+   {
+       return $this->images;
+   }
+
+   public function addImage(Image $image): self
+   {
+       if (!$this->images->contains($image)) {
+           $this->images->add($image);
+           $image->setCoach($this);
+       }
+
+       return $this;
+   }
+
+   public function removeImage(Image $image): self
+   {
+       if ($this->images->removeElement($image)) {
+           // set the owning side to null (unless already changed)
+           if ($image->getCoach() === $this) {
+               $image->setCoach(null);
+           }
+       }
+
+       return $this;
+   }
 }

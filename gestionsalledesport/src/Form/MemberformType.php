@@ -6,11 +6,12 @@ use App\Entity\Member;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MemberformType extends AbstractType
 {
@@ -47,13 +48,20 @@ class MemberformType extends AbstractType
                 new Assert\Positive(),
             ],
             ]) 
-        ->add('Pack', TextType::class, [
+        ->add('Pack', ChoiceType::class,[
+            'choices'  => [
+                'Standard' => 0,
+                'pro' => 1,
+                'Premium' => 2,
+            ],
             'constraints' => [
                 new Assert\NotBlank(),
+
             ],
+            
         ])
 
-        ->add('submit', SubmitType::class);
+        ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

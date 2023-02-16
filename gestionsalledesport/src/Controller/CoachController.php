@@ -23,11 +23,12 @@ class CoachController extends AbstractController
             'coachs' => $coach,
         ]);
     }
-    #[Route('/c', name: 'app_cours')]
-    public function affiche(): Response
+    #[Route('/shows/{id}', name: 'shows')]
+    public function show(CoachRepository $coursR,$id): Response
     {
-        return $this->render('frontcoach/cours.html.twig', [
-            'controller_name' => 'CoachController',
+        $coach=$coursR->find($id);
+        return $this->render('coach/show.html.twig', [
+            'coach' => $coach,
         ]);
     }
 
@@ -43,6 +44,7 @@ class CoachController extends AbstractController
 
     public function ajouter(Request $request , ManagerRegistry $doctrine): Response
     {
+        ////edirr
        $coach = new Coach;
        $form = $this->createForm(CoachType::class,$coach);
        $form->handleRequest($request);

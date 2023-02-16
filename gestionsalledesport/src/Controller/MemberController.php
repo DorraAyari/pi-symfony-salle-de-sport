@@ -2,75 +2,60 @@
 
 namespace App\Controller;
 
+use App\Entity\Coach;
+use App\Entity\Image;
 use App\Entity\Member;
-
+use App\Form\CoachType;
 use App\Form\MemberformType;
+use App\Repository\CoachRepository;
 use App\Repository\MemberRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-#[Route('/member')]
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 class MemberController extends AbstractController
-{  #[Route('/Member', name: 'app_member')]
-    public function form(Request $request): Response
-    {
-        $Member = new Member();
-        $form = $this->createForm(MemberformType::class, $Member,[ 'action' => '/standard',]);
+{
+   
+   
+    #[Route('/member', name: 'app_member_index')]
+    public function index(MemberRepository $members): Response
+    {        $members=$members->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            // Do something with the form data, for example:
-            $message = sprintf(
-                'You submitted: Surname="%s", Name="%s", Email="%s", Age="%d"',
-                $data['Surname'],
-                $data['Name'],
-                $data['Email'],
-                $data['Age']
-            );
-            $this->addFlash('success', $message);
-
-            return $this->redirectToRoute('success');
-
-        } return $this->render('member/index.html.twig', [
-        'form' => $form->createView(),
-    ]);}
-    
-    #[Route('/', name: 'app_member_index', methods: ['GET'])]
-    public function index(MemberRepository $memberRepository): Response
-    {
         return $this->render('member/index.html.twig', [
-            'members' => $memberRepository->findAll(),
+
+            'members' => $members,
         ]);
     }
 
-    #[Route('/new', name: 'app_member_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MemberRepository $memberRepository): Response
+    #[Route('/new', name: 'app_member_new')]
+
+    public function ajouter(Request $request , ManagerRegistry $doctrine): Response
     {
-        $member = new Member();
-        $form = $this->createForm(MemberformType::class, $member);
-        $form->handleRequest($request);
+        ////edirr
+       $member = new Member;
+       $form = $this->createForm(MemberformType::class,$member);
+       $form->handleRequest($request);
+       if ($form ->IsSubmitted() && $form->isValid()){
+       
+ 
+      
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $memberRepository->save($member, true);
-
-            return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('member/new.html.twig', [
-            'member' => $member,
-            'form' => $form,
-        ]);
+        $em=$doctrine->getManager();
+       //persist=ajouter
+       $em->persist($member);
+       //flush=push
+       $em->flush();
+       return $this->redirectToRoute('app_member_index');
     }
 
-    #[Route('/{id}', name: 'app_member_show', methods: ['GET'])]
-    public function show(Member $member): Response
-    {
-        return $this->render('member/show.html.twig', [
-            'member' => $member,
-        ]);
+    return $this->renderForm('member/new.html.twig', [
+        
+        'member' => $form,
+
+    ]);
     }
     #[Route('/modifier/{id}', name: 'modifier')]
 
@@ -86,18 +71,18 @@ class MemberController extends AbstractController
        $em->flush();
      
 
-       return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);
+       return $this->redirectToRoute('app_member_index');
     }
 
     return $this->renderForm('member/edit.html.twig', [
-        'member' => $member,
-        'form' => $form,
+     
+        'member' => $form,
+
     ]);
        
     }
 
 
-   
     #[Route('supprimer/{id}', name: 'supprimer')]
 
     public function supprimerS($id , ManagerRegistry $doctrine): Response
@@ -110,5 +95,4 @@ $em->flush();
 return $this->redirectToRoute('app_member_index');
 
 }
-    
 }
