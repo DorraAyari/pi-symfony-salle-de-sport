@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BlogRepository::class)]
 class Blog
@@ -14,16 +16,22 @@ class Blog
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[assert\NotBlank(message:"nom obligatoire ")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    // #[ORM\Column(type: Types::DATE_MUTABLE)]
+    // private ?\DateTimeInterface $date = null;
+
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date = null;
+    #[ORM\Column]
+    private ?\DateTime $createdAt = null;
+    
+    
 
     public function getId(): ?int
     {
@@ -54,6 +62,19 @@ class Blog
         return $this;
     }
 
+
+    // public function getDate(): ?\DateTimeInterface
+    // {
+    //     return $this->date;
+    // }
+
+    // public function setDate(\DateTimeInterface $date): self
+    // {
+    //     $this->date = $date;
+
+    //     return $this;
+    // }
+
     public function getImage(): ?string
     {
         return $this->image;
@@ -66,15 +87,17 @@ class Blog
         return $this;
     }
 
-    public function getDate(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->date;
+        return $this->createdAt;
     }
 
-    public function setDate(string $date): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
-        $this->date = $date;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
+
+    
 }

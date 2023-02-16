@@ -1,0 +1,69 @@
+
+
+{% extends "admin/base.html.twig" %}
+
+
+{% block body %}
+    <h1>Create new Cours</h1>
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Ajouter un cours</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+
+ 
+{{form_start(cours,{'attr': {'novalidate': 'novalidate'}} )}}
+<table>
+<tr>
+
+<td>  {{ form_label(cours.nom,"Nom") }} 
+</td> 
+<td> {{ form_widget(cours.nom)}} 
+ </td> 
+<td>  {{ form_errors(cours.nom) }} 
+</td> 
+
+</tr> 
+<tr>
+
+<td>  {{ form_label(cours.description,"Description") }} 
+</td> 
+<td> {{ form_widget(cours.description)}} 
+ </td> 
+<td>  {{ form_errors(cours.description) }} 
+</td> 
+ <tr>
+<td>  {{ form_label(cours.image,"Photo") }} 
+</td> 
+<td> {{ form_widget(cours.image)}} 
+ </td> 
+<td>  {{ form_errors(cours.image) }} 
+</td>
+</tr>
+</tr>
+ <tr>
+
+ </td> 
+
+</tr>
+</tr>
+</table>
+ {{ form_widget(cours.save)}} 
+{{form_end(cours)}}
+
+    </div>
+  </div>
+  </div>
+   </div>
+
+    <a href="{{ path('readc') }}">back to list</a>
+{% endblock %}

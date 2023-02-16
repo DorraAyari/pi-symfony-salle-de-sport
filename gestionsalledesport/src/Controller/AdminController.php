@@ -11,7 +11,9 @@ class AdminController extends AbstractController
     #[Route('/adminProduit', name: 'app_admin')]
     public function index(): Response
     {
-        return $this->render('produit_admin/produit_adm.html.twig', [
+
+        return $this->render('admin/base.html.twig', [
+
             'controller_name' => 'AdminController',
         ]);
     }
