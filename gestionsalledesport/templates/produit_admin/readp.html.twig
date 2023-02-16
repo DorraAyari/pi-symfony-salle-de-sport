@@ -1,0 +1,72 @@
+
+{% extends "admin/base.html.twig" %}
+{% block body %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">ADD NEW Coach</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+               {# hnee besh nekhdem khedmti  #}
+
+    <h1><a class="btn btn-primary" href="{{path('addproduit')}}" > ajouter </a></h1>
+    <table class="table table-striped-columns"  align="center">
+    <thead>
+        <tr>
+            
+            <th>nom</th>
+            <th>Image</th>
+
+            <th>modifier</th>
+              <th>supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for produit in produit %}
+             
+                   
+           <td>  {{ produit.nom }} </td>   
+         <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.image }}"/> </td>
+
+
+         <td><a class="btn btn-success" href="{{path('modifierp',{ id:produit.id}      ) }}" > edit </a></td>
+         <td> <a class="btn btn-danger" href="{{path('supprimerp',{ id:produit.id}      ) }} " >delete</a>  <td>
+ 
+         
+ 
+         
+            
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+  </div>
+              </div>
+            </div>
+          </div>
+        
+
+
+
+
+
+
+
+
+            
+            </div>
+          </div>
+
+     
+
+{% endblock %}

@@ -17,8 +17,8 @@ class ProduitType extends AbstractType
         $builder
            
             ->add('nom',TextType::class)
-            ->add('desc',TextType::class)
-            ->add('image	', FileType::class, [
+            ->add('description',TextType::class)
+            ->add('image', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,

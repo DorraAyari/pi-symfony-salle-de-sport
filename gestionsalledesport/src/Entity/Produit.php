@@ -13,17 +13,22 @@ class Produit
     #[ORM\Column]
     private ?int $id = null;
 
+  
+  
+
+ 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $desc = null;
+    private ?string $description = null;
+
+    #[ORM\Column]
+    private ?int $prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prix = null;
 
     public function getId(): ?int
     {
@@ -54,14 +59,39 @@ class Produit
         return $this;
     }
 
-    public function getDescProduit(): ?string
+ 
+    public function getNom(): ?string
     {
-        return $this->desc;
+        return $this->nom;
     }
 
-    public function setDescProduit(string $desc): self
+    public function setNom(string $nom): self
     {
-        $this->desc = $desc;
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }
@@ -71,23 +101,12 @@ class Produit
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
-    
 
-    public function getPrixProduit(): ?string
-    {
-        return $this->prix;
-    }
 
-    public function setPrixProduit(string $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
 }

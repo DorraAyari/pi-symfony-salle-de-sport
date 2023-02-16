@@ -1,6 +1,8 @@
 
 
-  <div class="container-fluid">
+      {% extends "admin/base.html.twig" %}
+{% block body %}
+   <div class="container-fluid">
         
           <!-- Page Heading -->
           {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
@@ -9,28 +11,15 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-            <center>
-              <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
-              </center>
+              <h4 class="m-0 font-weight-bold text-primary">Add course</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               {# hnee besh nekhdem khedmti  #}
-<div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-5 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">ADD YOUR NEW BLOG</h1>
-                  </div>
-                  {# <form class="user"> #}
-                  {# {{form_start(blog,{'attr': {'novalidate': 'novalidate'}} )}}#}
-                  <table>
-<tr>
 
+
+ 
+{{form_start(produit,{'attr': {'novalidate': 'novalidate'}} )}}
+<table>
 <td>  {{ form_label(produit.nom,"nom produit") }} 
 </td> 
 <td> {{ form_widget(produit.nom)}} 
@@ -44,12 +33,12 @@
 </tr> 
 <tr>
 
-<td>  {{ form_label(produit.desc,"description") }} 
+<td>  {{ form_label(produit.description,"description") }} 
 </td> 
-<td> {{ form_widget(produit.desc)}} 
+<td> {{ form_widget(produit.description)}} 
  </td> 
  <tr>
-<td> <th> {{ form_errors(produit.desc) }} </th>
+<td> <th> {{ form_errors(produit.description) }} </th>
 </td> 
 
 <tr>
@@ -71,31 +60,17 @@
 <td>  {{ form_errors(produit.image) }} 
 </td>
 </tr>
-
 </tr>
 </table>
-<br>
-{{ form_widget(produit.save)}} 
+ {{ form_widget(produit.save)}} 
 {{form_end(produit)}}
-              <hr>
-                </div>
+
+    </div>
+  </div>
+  </div>
+   </div>
               </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-            
-            </div>
-          </div>
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
+  {% endblock %}
