@@ -55,8 +55,47 @@ class ProduitController extends AbstractController
  ]);
  }
 
+ #[Route('/modifierp/{id}', name: 'modifierp')]
 
+    public function modifier(Request $request , ManagerRegistry $doctrine,Produit $produit): Response
+    {
+       $form = $this->createForm(ProduitType::class,$produit);
+       $form->handleRequest($request);
+       if ($form ->IsSubmitted()){
+        $image = $form->get('image')->getData();
 
+        // On boucle sur les images
+        foreach($image as $image){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+            try {
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier
+            );
+        }  catch (FileException $e) {
+            // handle exception
+        }
+    }
+            // On stocke l'image dans la base de données (son nom)
+            $produit->setImage($fichier);
+        $em=$doctrine->getManager();
+       //persist=ajouter
+       $em->persist($produit);
+       //flush=push
+       $em->flush();
+     
+
+       return $this->redirectToRoute('app_produit', [
+    ]);
+       }
+       return $this->renderForm('produit/modifierp.html.twig', [
+        'produit' => $form,
+
+    ]);
+       
+    }
 
 
 
