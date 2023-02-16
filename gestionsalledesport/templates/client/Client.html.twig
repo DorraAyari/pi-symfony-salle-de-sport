@@ -14,14 +14,14 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="front/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="front/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="front/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="front/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="front/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="front/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="front/css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
@@ -41,11 +41,11 @@
         </div>
         <nav class="canvas-menu mobile-menu">
             <ul>
-                <li><a href="{{ path('app_home') }}">Home</a></li>
-                <li><a href="{{ path('app_about') }}">About Us</a></li>
-                <li><a href="./class-details.html">Classes</a></li>
-                <li><a href="./services.html">Services</a></li>
-                <li><a href="{{ path('app_coach') }}">Our Team</a></li>
+                <li><a href="./index.html">Home</a></li>
+                <li><a  href="{{ 'about-us.html.twig' }}">About Us</a></li>
+                <li><a href="./classes.html">Classes</a></li>
+                <li><a href="./Pack.html.twig">Packs</a></li>
+                <li><a href="./team.html">Our Team</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="dropdown">
                         <li><a href="./about-us.html">About us</a></li>
@@ -77,19 +77,19 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="./index.html">
-                            <img style="width:60px;height:60px;"  src="front/img/logo.png" alt="">
+                            <img src="img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li><a href="{{ path('app_home') }}">Home</a></li>
-                            <li><a href="{{ path('app_about') }}">About Us</a></li>
-                            <li><a href="{{ path('app_cours') }}">Classes</a></li>
-                            <li><a href="./services.html">Services</a></li>
-                            <li><a href="{{ path('app_coach') }}">Coach</a></li>
-                            <li class="active"><a href="{{ path('app_blog') }}">blogs</a>
+                            <li ><a href="{{ path('app_home') }}">Home</a></li>
+                <li><a  href="{{ path('app_about') }}" >About Us</a></li>
+                            <li><a href="./class-details.html">Classes</a></li>
+                            <li><a href="{{path('app_pack')}}">Packs</a></li>
+                            <li><a href="./team.html">Our Team</a></li>
+                            <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./about-us.html">About us</a></li>
                                     <li><a href="./class-timetable.html">Classes timetable</a></li>
@@ -126,16 +126,15 @@
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb-bg.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>Our Blog</h2>
+                        <h2>Packs</h2>
                         <div class="bt-option">
                             <a href="./index.html">Home</a>
-                            <a href="#">Pages</a>
-                            <span>Blog</span>
+                            <span>Packs</span>
                         </div>
                     </div>
                 </div>
@@ -144,48 +143,27 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- Blog Section Begin -->
-    <section class="blog-section spad">
     
+    <!-- Pricing Section Begin -->
+    <section class="pricing-section service-pricing spad">
         <div class="container">
-        {# <butt class="button-blog"></butt #}
-        {# <a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a> #}
-        </button>
-        <br></br>
             <div class="row">
-            
-                <div class="col-lg-8 p-0">
-                {% for blog in blog %}
-                    <div class="blog-item">
-                      
-                        <div class="bi-pic">
-                            <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/>
-                        </div>
-                         <div class="bi-text">
-                            <h3 style="color: white;">{{ blog.nom }}</h3>
-                            <ul>
-                                <li>by Admin</li>
-                                <li>{{ blog.createdAt |date('Y-m-d')}}</li>
-                            </ul>
-                            <p>{{ blog.description }}</p>
-                            {# <button type="button" class="btn btn-warning" href="{{path('updateblog',{ id:blog.id})}}">Update</button> #}
-        {# <a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > update blog </a> #}
-
-                             
-                             
-                          </div>
-                       
-                               
+                <div class="col-lg-12">
+                    <div class="section-title">
+                    <h2><div>JOIN US<div>
+                        {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">{{ app.session.flashBag.get('success')[0] }}</div>
+    {% endif %}
+                      <div>{{form(form)}}<div>
+                      </h2>
+                        <button type="submit"></button>
+                             </form>
                     </div>
-                    {% endfor %}
-                    {# <a href="#" class="primary-btn pricing-btn">Enroll now</a> #}
-                  
                 </div>
-                
             </div>
         </div>
     </section>
-    <!-- Blog Section End -->
+    <!-- Pricing Section End -->
 
     <!-- Get In Touch Section Begin -->
     <div class="gettouch-section">
@@ -224,7 +202,7 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img style="width:100px;height:100px;"  src="front/img/logo.png" alt=""></a>
+                            <a href="#"><img src="img/logo.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore dolore magna aliqua endisse ultrices gravida lorem.</p>
@@ -263,14 +241,14 @@
                     <div class="fs-widget">
                         <h4>Tips & Guides</h4>
                         <div class="fw-recent">
-                            <h6><a href="./blog-details.html">Physical fitness may help prevent depression, anxiety</a></h6>
+                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
                             <ul>
                                 <li>3 min read</li>
                                 <li>20 Comment</li>
                             </ul>
                         </div>
                         <div class="fw-recent">
-                            <h6><a href="./blog-details.html">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
+                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
                             <ul>
                                 <li>3 min read</li>
                                 <li>20 Comment</li>
@@ -304,21 +282,17 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="front/js/jquery-3.3.1.min.js"></script>
-    <script src="front/js/bootstrap.min.js"></script>
-    <script src="front/js/jquery.magnific-popup.min.js"></script>
-    <script src="front/js/masonry.pkgd.min.js"></script>
-    <script src="front/js/jquery.barfiller.js"></script>
-    <script src="front/js/jquery.slicknav.js"></script>
-    <script src="front/js/owl.carousel.min.js"></script>
-    <script src="front/js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/jquery.barfiller.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
 
 
- </body>
+</body>
 
 </html>
-
-
-
-

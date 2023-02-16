@@ -19,19 +19,12 @@ class CoursController extends AbstractController
     public function index(CoursRepository $coursRepository): Response
     {
         return $this->render('cours/index.html.twig', [
-            'cours' => $coursRepository->findAll(),
-        ]);
-    }
-    #[Route('/c', name: 'app_cours')]
-    public function affiche(CoursRepository $coursRepository): Response
-    {
-        $cour=$coursRepository->findAll();
-        return $this->render('frontcoach/cours.html.twig', [
-               'cour' => 'CoursController',
+            'cour' => $coursRepository->findAll(),
 
         ]);
     }
-   
+
+
 
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]
 
