@@ -34,9 +34,8 @@ class CoursType extends AbstractType
             'multiple' => true,
             'mapped' => false,
             'required' => false,        
-        ])
+        ]);
         
-        ->add('save',SubmitType::class);
 
     }
 

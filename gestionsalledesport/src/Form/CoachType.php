@@ -29,7 +29,6 @@ class CoachType extends AbstractType
                 
             ])
            
-            ->add('save',SubmitType::class)
 
 
         ;
