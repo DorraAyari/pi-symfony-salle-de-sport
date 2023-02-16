@@ -66,12 +66,12 @@ class Produit
         return $this;
     }
 
-    public function getImageProduit(): ?string
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function produit(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
