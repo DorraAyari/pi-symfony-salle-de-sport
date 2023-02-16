@@ -14,7 +14,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
+              <h4 class="m-0 font-weight-bold text-primary">Detail </h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -23,7 +23,7 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-5 d-none d-lg-block "><img style="width:300px;height:300px;" src="{{ asset('uploads/' ~ cours.image) }}" alt="{{ cours.image }}"/></div>
+              <div class="col-lg-5 d-none d-lg-block "><img style="width:300px;height:300px;" src="{{ asset('uploads/' ~ coach.image) }}" alt="{{ coach.image }}"/></div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -36,11 +36,11 @@
         
             <tr>
                 <th>Nom</th>
-                <td>{{ cours.nom }}</td>
+                <td>{{ coach.nom }}</td>
             </tr>
             <tr>
                 <th>Desription</th>
-                <td>{{ cours.description }}</td>
+                <td>{{ coach.description }}</td>
             </tr>
            
         </tbody>
