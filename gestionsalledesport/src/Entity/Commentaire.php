@@ -16,6 +16,9 @@ class Commentaire
     #[ORM\Column(length: 255)]
     private ?string $comment = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?blog $blogid = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Commentaire
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getBlogid(): ?blog
+    {
+        return $this->blogid;
+    }
+
+    public function setBlogid(?blog $blogid): self
+    {
+        $this->blogid = $blogid;
 
         return $this;
     }

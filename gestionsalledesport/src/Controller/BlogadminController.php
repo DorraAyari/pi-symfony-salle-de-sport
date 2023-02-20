@@ -58,9 +58,7 @@ class BlogadminController extends AbstractController
 
             // On copie le fichier dans le dossier uploads
             $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
+                $this->getParameter('images_directory'), $fichier);
 
             // On stocke l'image dans la base de données (son nom)
             $blog->setImage($fichier);
@@ -87,7 +85,7 @@ class BlogadminController extends AbstractController
     {
        $form = $this->createForm(BlogType::class,$blog);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted()&& $form->isValid()){
         $image = $form->get('image')->getData();
 
         // On boucle sur les images
