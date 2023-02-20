@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BlogType extends AbstractType
 {
@@ -17,8 +18,8 @@ class BlogType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class)
-            ->add('save',SubmitType::class)
-            ->add('description',TextType::class)
+            // ->add('save',SubmitType::class)
+            ->add('description',TextareaType::class)
             // ->add('createdAt',DateType::class)
             ->add('image', FileType::class, [
                 'label' => false,
