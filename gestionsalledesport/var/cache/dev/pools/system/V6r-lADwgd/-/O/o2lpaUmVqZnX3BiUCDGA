@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CBlog%2524commentaire
+
+return [PHP_INT_MAX, []];
