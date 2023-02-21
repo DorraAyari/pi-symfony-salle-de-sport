@@ -35,11 +35,11 @@ class Blog
     private ?\DateTime $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'blogid', targetEntity: Commentaire::class)]
-    private Collection $commentaires;
+    private Collection $commentaire;
 
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
     
     
@@ -113,24 +113,27 @@ class Blog
     /**
      * @return Collection<int, Commentaire>
      */
-    public function getCommentaires(): Collection
+    public function getCommentaire(): Collection
     {
-        return $this->commentaires;
+        return $this->commentaire;
     }
 
     public function addCommentaire(Commentaire $commentaire): self
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire->add($commentaire);
             $commentaire->setBlogid($this);
-        }
+            
+
+
+                    }
 
         return $this;
     }
 
     public function removeCommentaire(Commentaire $commentaire): self
     {
-        if ($this->commentaires->removeElement($commentaire)) {
+        if ($this->commentaire->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)
             if ($commentaire->getBlogid() === $this) {
                 $commentaire->setBlogid(null);

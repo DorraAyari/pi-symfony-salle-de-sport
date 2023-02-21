@@ -41,7 +41,7 @@
                             <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/>
                         </div>
                          <div class="bi-text">
-                            <h3 style="color: white;">{{ blog.nom }}</h3>
+                            <h3 style="color: white;"><a href="{{path('detailsblog',{ id:blog.id})}}">{{ blog.nom }}</h3>
                             <ul>
                                 <li>by Admin</li>
                                 <li>{{ blog.createdAt |date('Y-m-d')}}</li>
