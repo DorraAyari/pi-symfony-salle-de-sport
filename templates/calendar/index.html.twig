@@ -1,0 +1,166 @@
+
+{% extends 'front/base.html.twig' %}
+{% block title %}Calendrier{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css') }}" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+<style>
+        #calendrier{
+          
+             }
+              /* Add a container around the FullCalendar */
+    /* Add a container around the FullCalendar */
+    .calendar-container {
+     
+      
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    </style>
+{% endblock %}
+     {% block body %}
+  <!-- FullCalendar Section Begin -->
+<!--  <div class="calendar-container">
+      <div id="calendrier"></div>
+
+  </div>
+ <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hs-slider owl-carousel">
+            <div class="hs-item set-bg" data-setbg="front/img/hero/hero-1.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                <a href="#" class="primary-btn">Get info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-item set-bg" data-setbg="front/img/hero/hero-2.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                <a href="#" class="primary-btn">Get info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="logo">
+                        <a href="./index.html">
+                            <img style="width:60px;height:60px;" src="front/img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="nav-menu">
+                        <ul>
+                           <li ><a href="{{ path('app_home') }}">Home</a></li>
+                          <li><a  href="{{ path('app_about') }}" >About Us</a></li>
+                            <li><a href="{{ path('app_cours') }}">Classes</a></li>
+                            <li><a  href="{{ path('app_pack') }}">Services</a></li>
+                            <li><a href="{{ path('app_coach') }}">Our Team</a></li>
+                             <li><a href="{{ path('listblog') }}">Our blog</a></li>
+                         
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="top-option">
+                        <div class="to-search search-switch">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div class="to-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas-open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+
+
+   
+        
+    </div>
+    <div id="calendrier">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+ {{ parent() }}
+
+<script>
+    window.onload = () => {
+        let calendarElt = document.querySelector("#calendrier")
+        let calendar = new FullCalendar.Calendar(calendarElt, {
+            initialView: 'timeGridWeek',
+           //  defaultView: 'month',
+            locale: 'fr',
+            headerToolbar: {
+               //     plugins : 'dayGrid','timeGrid','list',
+
+            defaultView: 'timeGridWeek',
+                start: 'prev,next today',
+                center: 'title',
+               end: 'dayGridMonth,timeGridWeek',
+                
+            },
+             buttonText: {
+                        today: 'Aujourd\'hui',
+                        month: 'Mois',
+                        week: 'Semaine',
+                        list: 'Liste'
+                    },
+              events: {{ data|raw }},                   
+            eventResizableFromStart: true,
+            editable:false,
+        })
+      calendar.on('eventChange', (e) => {
+            let url = `/api/${e.event.id}/edit`
+            let donnees = {
+                "title": e.event.title,
+                "description": e.event.extendedProps.description,
+                "start": e.event.start,
+                "end": e.event.end,
+                "backgroundColor": e.event.backgroundColor,
+                "borderColor": e.event.borderColor,
+                "textColor": e.event.textColor,
+                  "salle": e.event.salle.nom,
+            }
+            
+            let xhr = new XMLHttpRequest
+            xhr.open("PUT", url)
+            xhr.send(JSON.stringify(donnees))
+        })
+        calendar.render()
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "front/base.html.twig" %}
+{% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Member list</h2>
+                        <div class="bt-option">
+                            <a href="./index.html">Home</a>
+                            <span>Member list</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <div class="row">
+                <div class="col-lg-12 text-center">
+           
+ 
+{{form_start(member,{'attr': {'novalidate': 'novalidate'}} )}}
+<table>
+
+<tr>
+
+<td>  {{ form_label(member.Name,"Nom") }} 
+</td> 
+<td> {{ form_widget(member.Name)}} 
+ </td> 
+<td>  {{ form_errors(member.Name) }} 
+</td> 
+
+</tr> 
+<tr><tr>
+
+<td>  {{ form_label(member.Surname,"Surname") }} 
+</td> 
+<td> {{ form_widget(member.Surname)}} 
+ </td> 
+<td>  {{ form_errors(member.Surname) }} 
+</td> 
+
+</tr> 
+<tr>
+
+<tr>
+
+<td>  {{ form_label(member.age,"Age") }} 
+</td> 
+<td> {{ form_widget(member.age)}} 
+ </td> 
+<td>  {{ form_errors(member.age) }} 
+</td> 
+
+</tr> 
+<tr>
+
+<td>  {{ form_label(member.email,"Email") }} 
+</td> 
+<td> {{ form_widget(member.email)}} 
+ </td> 
+<td>  {{ form_errors(member.email) }} 
+</td> 
+ <tr>
+<td>  {{ form_label(member.Telnumber,"Telnumber") }} 
+</td> 
+<td> {{ form_widget(member.Telnumber)}} 
+ </td> 
+<td>  {{ form_errors(member.Telnumber) }} 
+</td>
+</tr>
+</tr>
+ <tr>
+<td>  {{ form_label(member.Pack,"Pack") }} 
+</td> 
+<td> {{ form_widget(member.Pack)}} 
+ </td> 
+<td>  {{ form_errors(member.Pack) }} 
+</td>
+</tr>
+</tr>
+</table>
+ {{ form_widget(member.save)}} 
+{{form_end(member)}}
+</div>
+</div>
+{% endblock %}

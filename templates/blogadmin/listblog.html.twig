@@ -1,0 +1,68 @@
+{% extends "admin/base.html.twig" %}
+{% block body %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+        <center>
+        <h3><a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a></h3>
+        </center>
+        <br>
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">LIST BLOG</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                {% for blog in blog %}
+                  <thead>
+                    <tr>
+                      <th>sujet</th>
+                      <th>description</th>
+                      <th>current date </th>
+                      <th>image </th>
+                      <th>Update </th>
+                      <th>Delete </th>
+                      
+                    </tr>
+                  </thead>
+                  {# <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </tfoot> #}
+                  <tbody>
+                    <tr>
+                      <td>{{ blog.nom }}</td>
+                      <td>{{ blog.description }}</td>
+                      <td>{{ blog.createdAt |date('Y-m-d')}}</td>
+                      <td> <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/></td>
+                      <td><a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > Update blog </a></td>
+                      <td><a class="primary-btn pricing-btn"  href="{{path('deleteblog',{ id:blog.id})}}" > Delete blog </a></td>
+                    </tr>
+                   
+            
+                  </tbody>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+     
+      <!-- End of Main Content -->
+{% endblock  %}
+     

@@ -1,0 +1,36 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Add Course</h1>
+          <p class="mb-4">Use the form below to add a new course to the schedule.</p>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add course</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                {{ include('planification/_form.html.twig') }}
+              </div>
+              <a href="{{ path('app_planification_index') }}" class="btn btn-secondary mt-4"><i class="fa fa-angle-left"></i> Back to list</a>
+            </div>
+          </div>
+   </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}

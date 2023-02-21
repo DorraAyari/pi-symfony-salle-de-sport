@@ -1,0 +1,77 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Cours{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/coach-detail.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+    
+        <!-- Page Heading -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Détails du coach</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('uploads/' ~ coach.image) }}" class="img-fluid" alt="{{ coach.image }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">ID</div>
+                                    <div class="info-value">{{ coach.id }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Nom</div>
+                                    <div class="info-value">{{ coach.nom }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">Âge</div>
+                                    <div class="info-value">{{ coach.age }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Occupation</div>
+                                    <div class="info-value">{{ coach.occupation }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">Taille</div>
+                                    <div class="info-value">{{ coach.height }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Poids</div>
+                                    <div class="info-value">{{ coach.weight }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label">Description</div>
+                                    <div class="info-value">{{ coach.description }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}
+

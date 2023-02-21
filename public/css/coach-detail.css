@@ -1,0 +1,14 @@
+.coach-info {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgb(18, 82, 211);
+    border-radius: 4px;
+}
+
+.info-label {
+    font-weight: bold;
+}
+
+.info-value {
+    margin-top: 5px;
+}

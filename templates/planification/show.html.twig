@@ -1,0 +1,61 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/calendar.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<title>Calendar</title>
+<h1>Calendar</h1>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ calendar.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ calendar.title }}</td>
+        </tr>
+        <tr>
+            <th>Start</th>
+            <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>End</th>
+            <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ calendar.description }}</td>
+        </tr>
+        <tr>
+            <th>Background_color</th>
+            <td{% if calendar.backgroundColor %} style="background-color:{{ calendar.backgroundColor }};"{% else %}  style="background-color:#808080;"{% endif %}></td>
+        </tr>
+        <tr>
+            <th>Border_color</th>
+            <td{% if calendar.borderColor %} style="background-color:{{ calendar.borderColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+        </tr>
+        <tr>
+            <th>Text_color</th>
+            <td{% if calendar.textColor %} style="background-color:{{ calendar.textColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+        </tr>
+    </tbody>
+</table>
+<a href="{{ path('app_planification_index') }}" class="btn btn-secondary">back to list</a>
+
+<a href="{{ path('app_planification_edit', {'id': calendar.id}) }}" class="btn btn-primary">edit</a>
+
+{{ include('planification/_delete_form.html.twig') }}
+
+{% endblock %}
+
