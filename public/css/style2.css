@@ -1,0 +1,19 @@
+/* style.css */
+.card-header h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.dataTables_wrapper {
+    margin-top: 1rem;
+}

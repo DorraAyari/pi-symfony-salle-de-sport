@@ -1,0 +1,28 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+ <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add course</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+    {{ include('planification/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_planification_index') }}">back to list</a>
+
+    {{ include('planification/_delete_form.html.twig') }}
+    </div>
+  </div>
+  </div>
+   </div>
+
+{% endblock %}

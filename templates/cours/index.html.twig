@@ -1,0 +1,117 @@
+
+
+{% extends "front/base.html.twig" %}
+{% block body %}
+
+    <!-- Class Details Section Begin -->
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Classes detail</h2>
+                        <div class="bt-option">
+                            <a href="./index.html">Home</a>
+                            <a href="#">Classes</a>
+                            <span>Body building</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <section class="class-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="class-details-text">
+                        <div class="cd-pic">
+                          {% for cours in cours %}
+
+                        </div>
+                        <div class="cd-text">
+
+                               {% endfor %}
+                           
+                        </div>
+                   {% for cours in cours %}      
+                        <div class="cd-trainer">
+                                                    
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                               
+
+                                    <div class="cd-trainer-pic">
+                                        <img  src="{{ asset('uploads/' ~ cours.image) }}" alt="{{ cours.image }}">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                
+                                    <div class="cd-trainer-text">
+                                        <div class="trainer-title">
+                                       
+                              
+                                            <h4>{{cours.coach.nom}}</h4>
+                                            <span>{{cours.nom}}</span>
+                                        </div>
+                                        <div class="trainer-social">
+                                            <a href="#"><i class="fa fa-facebook"></i></a>
+                                            <a href="#"><i class="fa fa-twitter"></i></a>
+                                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                            <a href="#"><i class="fa fa-instagram"></i></a>
+                                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
+                                        </div>
+                                        <p> <h4>{{cours.description}}</h4></p>
+                                        <ul class="trainer-info">
+                                        <li><span>Age</span>{{cours.coach.age}}</li>
+                                            <li><span>Weight</span>{{cours.coach.weight}}</li>
+                                            <li><span>Height</span>{{cours.coach.height}}</li>
+                                            <li><span>Occupation</span>{{cours.coach.occupation}}</li>
+                                        </ul>
+                                        <p>{{cours.description}} </p>
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           {% endfor %}  
+                    </div>
+                </div>
+                 
+                <div class="col-lg-4 col-md-8">
+                    <div class="sidebar-option">
+                        <div class="so-categories">
+                               
+
+                            <h5 class="title">Course</h5>
+                             {% for cours in cours %}
+                            <ul>
+                          <!--      <li><a href="#">Yoga <span>12</span></a></li>
+                                <li><a href="#">Runing <span>32</span></a></li>
+                                <li><a href="#">Weightloss <span>86</span></a></li>
+                                <li><a href="#">Cario <span>25</span></a></li>
+                                <li><a href="#">Body buiding <span>36</span></a></li>
+                                <li><a href="#">Nutrition <span>15</span></a></li> !-->
+                                <li><a href="#">{{ cours.nom }} <span></span></a></li>
+                            </ul>
+
+                              {% endfor %}
+                        </div>
+                   
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Class Details Section End -->
+
+
+    
+{% endblock %}

@@ -1,0 +1,22 @@
+.card-header {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+  
+  .card-body {
+    font-size: 18px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+  
+  p {
+    line-height: 1.5;
+  }
+  
+  .img-fluid {
+    width: 100%;
+    height: auto;
+  }
+  

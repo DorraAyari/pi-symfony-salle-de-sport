@@ -1,0 +1,143 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block body %}
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Course</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+    <h1><a class="btn btn-primary" href="{{path('app_planification_new')}}" > Create new </a></h1>
+
+
+    <h1>Course</h1>
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>BackColor</th>
+
+                <th>Start</th>
+                <th>End</th>
+                <th>TextColor</th>
+               
+                                <th>Description</th>
+ <th>BorderColor</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calendar in calendars %}
+            <tr>
+                <td>{{ calendar.id }}</td>
+                <td>{{ calendar.title }}</td>
+<td{% if calendar.backgroundColor %} style="background-color:{{ calendar.backgroundColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+
+                <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
+
+                                                 <td{% if calendar.textColor %} style="background-color:{{ calendar.textColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+
+                
+                                 <td>{{ calendar.description }}</td>
+                                                                  <td{% if calendar.borderColor %} style="background-color:{{ calendar.borderColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+
+        <td>
+                    <a class="btn btn-success" href="{{ path('app_planification_show', {'id': calendar.id}) }}">Show</a>
+                    <a  class="btn btn-warning" href="{{ path('app_planification_edit', {'id': calendar.id}) }}">Edit</a>
+              <a  class="btn btn-danger" href="{{ path('app_planification_delete', {'id': calendar.id}) }}">Delete</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+         </tbody>
+</table>
+  </div>
+              </div>
+            </div>
+          </div>
+        
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  <style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      color: #212529;
+      border: 1px solid #dee2e6;
+      margin-left: 5px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.active {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background-color: #f8f9fa;
+      color: #212529;
+      border-color: #dee2e6;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+      background-color: #f8f9fa;
+      color: #6c757d;
+      border-color: #dee2e6;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #dee2e6;
+    }
+
+    
+
+    .img-thumbnail {
+      max-width: 100px;
+      height: auto;
+    }
+  </style>
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#dataTable').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": true,
+        "searching": true,
+        "language": {
+          "lengthMenu": "Show _MENU_ entries",
+          "search": "Search:",
+          "paginate": {
+            "first": "First",
+            "last": "Last",
+            "next": "Next",
+            "previous": "Previous"
+          }
+        }
+      });
+    });
+  </script>
+{% endblock %}
+
+
+
