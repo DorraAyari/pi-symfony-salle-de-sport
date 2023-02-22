@@ -1,0 +1,76 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block body %}
+
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Our Blog</h2>
+                        <div class="bt-option">
+                            <a href="./index.html">Home</a>
+                            <a href="#">Pages</a>
+                            <span>Blog</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog-section spad">
+    
+        <div class="container">
+        {# <butt class="button-blog"></butt #}
+        {# <a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a> #}
+        </button>
+        <br></br>
+            <div class="row">
+            
+                <div class="col-lg-8 p-0">
+                {% for blog in blog %}
+                    <div class="blog-item">
+                      
+                        <div class="bi-pic">
+                            <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/>
+                        </div>
+                         <div class="bi-text">
+                            <h3 style="color: white;">{{ blog.nom }}</h3>
+                            <ul>
+                                <li>by Admin</li>
+                                <li>{{ blog.createdAt |date('Y-m-d')}}</li>
+                            </ul>
+                            <p>{{ blog.description }}</p>
+                            {# <button type="button" class="btn btn-warning" href="{{path('updateblog',{ id:blog.id})}}">Update</button> #}
+        {# <a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > update blog </a> #}
+
+                             
+                             
+                          </div>
+                       
+                               
+                    </div>
+                    {% endfor %}
+                    {# <a href="#" class="primary-btn pricing-btn">Enroll now</a> #}
+                  
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+
+
+ </body>
+
+</html>
+
+
+{% endblock %}
