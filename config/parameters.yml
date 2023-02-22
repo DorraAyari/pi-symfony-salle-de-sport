@@ -1,0 +1,4 @@
+# app/config/parameters.yml
+
+parameters:
+    images_directory: '%kernel.project_dir%/public/uploads'

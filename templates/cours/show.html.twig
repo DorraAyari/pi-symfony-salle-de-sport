@@ -1,0 +1,63 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Cours{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/cours.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800 text-primary">Course Detail</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="text-center">
+              <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{ asset('uploads/' ~ cours.image) }}" alt="{{ cours.image }}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td class="font-weight-bold">Id</td>
+                  <td>{{ cours.id }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">Nom</td>
+                  <td>{{ cours.nom }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">Description</td>
+                  <td>{{ cours.description }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">Nom coach</td>
+                  <td>{{ cours.coach.nom }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Page Content -->
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+{% endblock %}

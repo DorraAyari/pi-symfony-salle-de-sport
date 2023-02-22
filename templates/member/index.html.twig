@@ -1,0 +1,65 @@
+
+
+
+{% extends "front/base.html.twig" %}
+{% block body %}
+   <section class="breadcrumb-section set-bg" data-setbg="front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Member list</h2>
+                        <div class="bt-option">
+                            <a href="./index.html">Home</a>
+                            <span>Member list</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <div class="row">
+                <div class="col-lg-12 text-center">
+           
+ 
+    <h1>Member list </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Surname</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Telnumber</th>
+                <th>Pack</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in member %}
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.Surname }}</td>
+                <td>{{ member.Name }}</td>
+                <td>{{ member.Age }}</td>
+                <td>{{ member.Email }}</td>
+                <td>{{ member.Telnumber }}</td>
+                <td>{{ member.Pack }}</td>
+                <td>
+                
+                    <td><a class="btn btn-success" href="{{path('modifier',{ id:member.id}      ) }}" > modifier </a></td>
+         <td> <a class="btn btn-danger" href="{{path('supprimer',{ id:member.id}      ) }} " >supprimer</a>  <td>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_member_new') }}">Create new</a>
+{% endblock  %}
