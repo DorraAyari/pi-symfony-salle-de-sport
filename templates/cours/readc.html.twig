@@ -40,7 +40,7 @@
                   <a href="{{ path('modifierc', {id: cour.id}) }}" class="btn btn-sm btn-warning">
                     <i class="fa fa-edit"></i> Edit
                   </a>
-                  <a href="{{ path('supprimerc', {id: cour.id}) }}" class="btn btn-sm btn-danger">
+                  <a href="{{ path('supprimerc', {id: cour.id}) }}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')">
                     <i class="fa fa-trash"></i> Delete
                   </a>
                 </td>

@@ -32,3 +32,77 @@
     .btn-secondary:hover {
     background-color: #5a6268;
     }
+    /* Additional color picker styles */
+.color-picker {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Updated date picker styles */
+.date-picker {
+    border: none;
+    box-shadow: none;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.date-picker:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #5d5d5d;
+}
+
+/* Additional color picker styles */
+.custom-color-picker {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Updated calendar event styles */
+.calendar-event {
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.calendar-event .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.calendar-event .date {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.calendar-event .description {
+    font-size: 14px;
+}
+
+/* Custom color styles */
+.custom-color {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

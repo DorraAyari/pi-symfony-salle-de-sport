@@ -19,8 +19,14 @@ class CoursType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom',TextType::class)
-        ->add('description',TextType::class)
+        ->add('nom',TextType::class, [
+       
+            'empty_data' => ''
+            ])
+        ->add('description',TextType::class, [
+       
+            'empty_data' => ''
+            ])
         
         ->add('image', FileType::class, [
             'label' => false,
@@ -37,6 +43,7 @@ class CoursType extends AbstractType
                 'choice_label' => 'nom',
                 'expanded' => false, //on peut choisir une seule
                 'multiple' => false,
+                'empty_data' => ''
 
             ]
             
@@ -48,6 +55,7 @@ class CoursType extends AbstractType
                 'choice_label' => 'nom',
                 'expanded' => false, //on peut choisir une seule
                 'multiple' => false,
+                'empty_data' => ''
 
             ]
             
