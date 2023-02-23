@@ -22,24 +22,40 @@ class CoachType extends AbstractType
     {
         $builder
         
-            ->add('nom',TextType::class)
-            ->add('description',TextareaType::class)
+            ->add('nom',TextType::class, [
+       
+                'empty_data' => ''
+                ])
+            ->add('description',TextareaType::class, [
+       
+                'empty_data' => ''
+                ])
             
             ->add('image', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
                 'empty_data' => '',
-
-               
-                
+   
             ])
-            ->add('age',NumberType::class)
-            ->add('height',TextType::class)
+            ->add('age',NumberType::class, [
+       
+                'empty_data' => ''
+                ])
+            ->add('height',TextType::class, [
+       
+                'empty_data' => ''
+                ])
 
             
-            ->add('weight',TextType::class)
-            ->add('occupation',TextType::class)
+            ->add('weight',TextType::class, [
+       
+                'empty_data' => ''
+                ])
+            ->add('occupation',TextType::class, [
+       
+                'empty_data' => ''
+                ])
 
 
         ;

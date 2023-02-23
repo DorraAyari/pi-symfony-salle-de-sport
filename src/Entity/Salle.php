@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\SalleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SalleRepository::class)]
 class Salle
@@ -16,6 +18,9 @@ class Salle
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+   
+    #[Assert\NotNull(message:"Nom champs obligatoire"), Assert\NotBlank(message:"Nom champs obligatoire")]
+
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'Salle', targetEntity: Calendar::class)]
@@ -23,6 +28,12 @@ class Salle
 
     #[ORM\OneToMany(mappedBy: 'Salle', targetEntity: Cours::class)]
     private Collection $cours;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message:"Description champs obligatoire")]
+
+    #[Assert\NotBlank(message:"Description champs obligatoire")]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -103,6 +114,18 @@ class Salle
                 $cour->setSalle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

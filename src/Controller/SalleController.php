@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Salle;
 use App\Form\SalleType;
 use App\Repository\SalleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Twig\NodeVisitor\SafeAnalysisNodeVisitor;
 
 #[Route('/salle')]
 class SalleController extends AbstractController
@@ -35,8 +37,8 @@ class SalleController extends AbstractController
         }
 
         return $this->renderForm('salle/new.html.twig', [
-            'salle' => $salle,
-            'form' => $form,
+            'salle' => $form,
+
         ]);
     }
 
@@ -48,31 +50,41 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_salle_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Salle $salle, SalleRepository $salleRepository): Response
-    {
-        $form = $this->createForm(SalleType::class, $salle);
-        $form->handleRequest($request);
+    #[Route('/{id}/edit', name: 'app_salle_edit')]
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $salleRepository->save($salle, true);
+public function edit(Request $request , ManagerRegistry $doctrine,  Salle $salle): Response
+{
+    $form = $this->createForm(SalleType::class, $salle);
+    $form->handleRequest($request);
+    
+    if ($form->IsSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('app_salle_index', [], Response::HTTP_SEE_OTHER);
+        // On stocke l'image dans la base de données (son nom)
+        $em = $doctrine->getManager();
+        // persist = ajouter
+        $em->persist($salle);
+        // flush = push
+        $em->flush();
+
+
+            return $this->redirectToRoute('app_salle_index');
         }
 
         return $this->renderForm('salle/edit.html.twig', [
-            'salle' => $salle,
-            'form' => $form,
+            'salle' => $form,
+
         ]);
     }
+    #[Route('/{id}/delete', name: 'app_salle_delete')]
 
-    #[Route('/{id}', name: 'app_salle_delete', methods: ['POST'])]
-    public function delete(Request $request, Salle $salle, SalleRepository $salleRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$salle->getId(), $request->request->get('_token'))) {
-            $salleRepository->remove($salle, true);
-        }
+    public function supprimerS($id , ManagerRegistry $doctrine): Response
+{
+    $em=$doctrine->getManager();
+    $salle =$doctrine->getRepository(Salle::class);
+    $salle =  $salle->find($id);
+    $em->remove($salle);
+$em->flush();
+return $this->redirectToRoute('app_salle_index');
 
-        return $this->redirectToRoute('app_salle_index', [], Response::HTTP_SEE_OTHER);
-    }
+}
 }
