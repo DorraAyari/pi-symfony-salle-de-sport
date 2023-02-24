@@ -31,7 +31,7 @@ class Cours
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Description champs obligatoire")]
     #[Assert\Length(
-        max: 255,
+        max: 10000,
         maxMessage: 'La description ne doit pas dépasser 255 caractères',
     )]
     private ?string $description = null;
