@@ -28,6 +28,14 @@ class CoursController extends AbstractController
             'cours' => $cours,
         ]);
     }
+    #[Route('/showcrc/{id}', name: 'showcr')]
+    public function showcr(CoursRepository $coursRepository,$id): Response
+    {
+       $cours=$coursRepository->find($id);
+        return $this->render('cours/detail-cours.html.twig', [
+          'cours' => $cours,
+        ]);
+    }
     #[Route('/showc/{id}', name: 'showc')]
     public function show(CoursRepository $coursRepository,$id): Response
     {
