@@ -1,0 +1,37 @@
+
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Cours{% endblock %}
+
+{% block body %}
+    <h1>Cours</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cour.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ cour.nom }}</td>
+            </tr>
+            <tr>
+                <th>Desription</th>
+                <td>{{ cour.desription }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+         <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ cour.image) }}" alt="{{ cour.image }}"/> </td>
+
+     
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cours_index') }}">back to list</a>
+
+    <a href="{{ path('app_cours_edit', {'id': cour.id}) }}">edit</a>
+
+    {{ include('cours/_delete_form.html.twig') }}
+{% endblock  %}

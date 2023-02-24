@@ -21,10 +21,13 @@ class BlogadminController extends AbstractController
             'controller_name' => 'BlogadminController',
         ]);
     }
+<<<<<<< HEAD:src/Controller/BlogadminController.php
 
     
 
 
+=======
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/BlogadminController.php
     #[Route('/listBlog', name: 'listBlog')]
     public function listBlog(BlogRepository $blogRepository): Response
     {
