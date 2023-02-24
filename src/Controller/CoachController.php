@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Coach;
+<<<<<<< HEAD:src/Controller/CoachController.php
+=======
+use App\Entity\Image;
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
 use App\Form\CoachType;
 use App\Repository\CoachRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,12 +26,20 @@ class CoachController extends AbstractController
             'coachs' => $coach,
         ]);
     }
+<<<<<<< HEAD:src/Controller/CoachController.php
     #[Route('/shows/{id}', name: 'shows')]
     public function show(CoachRepository $coachRepository,$id): Response
     {
         $coach=$coachRepository->find($id);
         return $this->render('coach/show.html.twig', [
             'coach' => $coach,
+=======
+    #[Route('/c', name: 'app_cours')]
+    public function affiche(): Response
+    {
+        return $this->render('frontcoach/cours.html.twig', [
+            'controller_name' => 'CoachController',
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
         ]);
     }
 
@@ -43,12 +55,16 @@ class CoachController extends AbstractController
 
     public function ajouter(Request $request , ManagerRegistry $doctrine): Response
     {
+<<<<<<< HEAD:src/Controller/CoachController.php
         ////edirr
+=======
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
        $coach = new Coach;
        $form = $this->createForm(CoachType::class,$coach);
        $form->handleRequest($request);
        if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
+<<<<<<< HEAD:src/Controller/CoachController.php
         if ($image) {
             // On boucle sur les images
             foreach($image as $image){
@@ -74,6 +90,25 @@ class CoachController extends AbstractController
             }
  
         
+=======
+
+            // On boucle sur les images
+            foreach($image as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $coach->setImage($fichier);
+            }
+ 
+ 
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
       
 
         $em=$doctrine->getManager();
@@ -81,7 +116,10 @@ class CoachController extends AbstractController
        $em->persist($coach);
        //flush=push
        $em->flush();
+<<<<<<< HEAD:src/Controller/CoachController.php
 
+=======
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
        return $this->redirectToRoute('readAll', [
     ]);
        }
@@ -90,6 +128,7 @@ class CoachController extends AbstractController
     ]);
        
     }
+<<<<<<< HEAD:src/Controller/CoachController.php
     
     #[Route('/modifierS/{id}', name: 'modifierS')]
 
@@ -136,6 +175,49 @@ public function modifier(Request $request , ManagerRegistry $doctrine, Coach $co
     ]);
 }
 
+=======
+    #[Route('/modifierS/{id}', name: 'modifierS')]
+
+    public function modifier(Request $request , ManagerRegistry $doctrine,Coach $coach): Response
+    {
+       $form = $this->createForm(CoachType::class,$coach);
+       $form->handleRequest($request);
+       if ($form ->IsSubmitted()){
+        $image = $form->get('image')->getData();
+
+        // On boucle sur les images
+        foreach($image as $image){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+            try {
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier
+            );
+        }  catch (FileException $e) {
+            // handle exception
+        }
+    }
+            // On stocke l'image dans la base de données (son nom)
+            $coach->setImage($fichier);
+        $em=$doctrine->getManager();
+       //persist=ajouter
+       $em->persist($coach);
+       //flush=push
+       $em->flush();
+     
+
+       return $this->redirectToRoute('readAll', [
+    ]);
+       }
+       return $this->renderForm('coach/modifierS.html.twig', [
+        'coach' => $form,
+
+    ]);
+       
+    }
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/CoachController.php
     #[Route('supprimerS/{id}', name: 'supprimerS')]
 
     public function supprimerS($id , ManagerRegistry $doctrine): Response

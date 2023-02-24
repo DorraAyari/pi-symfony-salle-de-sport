@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD:src/Controller/BlogController.php
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 
@@ -11,6 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+=======
+use App\Repository\BlogRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/BlogController.php
 
 class BlogController extends AbstractController
 {
@@ -24,6 +31,7 @@ class BlogController extends AbstractController
             
         ]);
     }
+<<<<<<< HEAD:src/Controller/BlogController.php
     #[Route('/detailsblog/{id}', name: 'detailsblog')]
     public function details(BlogRepository $blogRepository,$id,Request $request,ManagerRegistry $doctrine): Response
     {
@@ -80,3 +88,6 @@ class BlogController extends AbstractController
 //  ]);
  }
 
+=======
+}
+>>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/BlogController.php

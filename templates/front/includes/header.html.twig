@@ -6,7 +6,9 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="./index.html">
-                            <img style="width:60px;height:60px;" src="/front/img/logo.png" alt="">
+
+                            <img style="inline-size:60px;block-size:60px;" src="front/img/logo.png" alt="">
+
                         </a>
                     </div>
                 </div>
@@ -16,6 +18,14 @@
                            <li ><a href="{{ path('app_home') }}">Home</a></li>
                           <li><a  href="{{ path('app_about') }}" >About Us</a></li>
                             <li><a href="{{ path('app_cours') }}">Classes</a></li>
+                            <li><a href="#">Services</a>
+                             <ul class="dropdown">
+                        <li><a href="{{path('app_pack')}}">Packs</a></li>
+                        <li><a href="">Resrvation</a></li>
+                
+                       
+                    </ul></li>
+
                             <li><a  href="{{ path('app_pack') }}">Services</a></li>
                             <li><a href="{{ path('app_coach') }}">Our Team</a></li>
                              <li><a href="{{ path('listblog') }}">Our blog</a></li>

@@ -1,0 +1,62 @@
+{% extends "admin/base.html.twig" %}
+{% block body %}
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Ajouter un coach</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+
+ 
+{{form_start(coach,{'attr': {'novalidate': 'novalidate'}} )}}
+<table>
+<tr>
+
+<td>  {{ form_label(coach.nom,"Nom") }} 
+</td> 
+<td> {{ form_widget(coach.nom)}} 
+ </td> 
+<td>  {{ form_errors(coach.nom) }} 
+</td> 
+
+</tr> 
+<tr>
+
+<td>  {{ form_label(coach.description,"Description") }} 
+</td> 
+<td> {{ form_widget(coach.description)}} 
+ </td> 
+<td>  {{ form_errors(coach.description) }} 
+</td> 
+ <tr>
+<td>  {{ form_label(coach.image,"Photo") }} 
+</td> 
+<td> {{ form_widget(coach.image)}} 
+ </td> 
+<td>  {{ form_errors(coach.image) }} 
+</td>
+</tr>
+</tr>
+</table>
+ {{ form_widget(coach.save)}} 
+{{form_end(coach)}}
+
+    </div>
+  </div>
+  </div>
+   </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  {% endblock %}
+
+   

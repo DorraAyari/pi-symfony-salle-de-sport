@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class CoursType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+        ->add('nom')
+        ->add('desription')
+        ->add('image', FileType::class, [
+            'label' => false,
+            'multiple' => true,
+            'mapped' => false,
+            'required' => false,
+            
+        ])
+        ->add('coach')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            // Configure your form options here
+        ]);
+    }
+}

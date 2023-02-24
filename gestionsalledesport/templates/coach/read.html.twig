@@ -1,0 +1,38 @@
+
+{% extends "admin/base.html.twig" %}
+{% block body %}
+<div class="example-wrapper">
+    <h1>Ajouter un coach</h1>
+    <h1><a class="btn btn-primary" href="{{path('ajouterS')}}" > ajouter </a></h1>
+    <table class="table table-striped-columns"  align="center">
+    <thead>
+        <tr>
+            
+            <th>nom</th>
+            <th>Image</th>
+
+            <th>modifier</th>
+              <th>supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for coach in coachs %}
+             
+                   
+           <td>  {{ coach.nom }} </td>   
+         <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ coach.image) }}" alt="{{ coach.image }}"/> </td>
+         <td><a class="btn btn-success" href="{{path('modifierS',{ id:coach.id}      ) }}" > modifier </a></td>
+         <td> <a class="btn btn-danger" href="{{path('supprimerS',{ id:coach.id}      ) }} " >supprimer</a>  <td>
+ 
+         
+            
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+</div>
+
+     
+
+{% endblock %}
