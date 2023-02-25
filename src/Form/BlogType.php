@@ -16,19 +16,27 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class)
-            ->add('save',SubmitType::class)
-            ->add('description',TextType::class)
+            ->add('nom',TextType::class, [
+                'empty_data' => '',                
+            ])
+            ->add('moredescreption',TextType::class, [
+                'empty_data' => '',                
+            ])
+            ->add('slogan',TextType::class, [
+                'empty_data' => '',                
+            ])
+            ->add('description',TextType::class, [
+                'empty_data' => '',                
+            ])
             // ->add('createdAt',DateType::class)
             ->add('image', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
-            ])
-        
-    
-        ;
+                'empty_data' => '',                
+
+            ]);
+           
 
     }
 

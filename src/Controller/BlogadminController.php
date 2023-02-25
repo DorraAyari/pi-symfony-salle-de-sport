@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Blog;
 use App\Form\BlogType;
 use App\Repository\BlogRepository;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use DateTime;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class BlogadminController extends AbstractController
 {
@@ -21,6 +22,17 @@ class BlogadminController extends AbstractController
             'controller_name' => 'BlogadminController',
         ]);
     }
+
+
+    #[Route('/shows/{id}', name: 'show')]
+    public function show(BlogRepository $blogRepository,$id): Response
+    {
+        $blog=$blogRepository->find($id);
+        return $this->render('blogadmin/details.html.twig', [
+            'blog' => $blog,
+        ]);
+    }
+
 
     #[Route('/listBlog', name: 'listBlog')]
     public function listBlog(BlogRepository $blogRepository): Response
@@ -51,21 +63,29 @@ class BlogadminController extends AbstractController
        $form->handleRequest($request);
        if ($form ->IsSubmitted()&& $form->isValid()){
         $image = $form->get('image')->getData();
+        if ($image) {
+            // On boucle sur les images
+            foreach($image as $image){
 
-        // On boucle sur les images
-        foreach($image as $image){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
+                try {
 
-            // On stocke l'image dans la base de données (son nom)
-            $blog->setImage($fichier);
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
+                }  catch (FileException $e) {
+                    // handle exception
+                // On copie le fichier dans le dossier uploads
+            }
         }
+
+                // On stocke l'image dans la base de données (son nom)
+                $blog->setImage($fichier);
+                
+            }
         $blog->setCreatedAt(new \DateTime());
         // $date = new DateTime();
         // $currentDate = $date->format('Y-m-d');
@@ -88,22 +108,30 @@ class BlogadminController extends AbstractController
     {
        $form = $this->createForm(BlogType::class,$blog);
        $form->handleRequest($request);
-       if ($form ->IsSubmitted()){
+       if ($form ->IsSubmitted() && $form->isValid()){
         $image = $form->get('image')->getData();
+        if ($image) {
+            // On boucle sur les images
+            foreach($image as $image){
 
-        // On boucle sur les images
-        foreach($image as $image){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
+                try {
+
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
+                }  catch (FileException $e) {
+                    // handle exception
+                // On copie le fichier dans le dossier uploads
+            }
         }
-            // On stocke l'image dans la base de données (son nom)
-            $blog->setImage($fichier);
+
+                // On stocke l'image dans la base de données (son nom)
+                $blog->setImage($fichier);
+            }    
         $em=$doctrine->getManager();
        //persist=ajouter
        $em->persist($blog);

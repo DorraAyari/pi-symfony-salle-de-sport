@@ -1,96 +1,65 @@
-{% extends "admin/base.html.twig" %}
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+
 {% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white font-weight-bold"> Add blog</div>
+                    <div class="card-body">
+                        {{ form_start(blog, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="form-group">
+                            {{ form_label(blog.nom, 'Sujet', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le sujet du blog'}}) }}
+                           <div class="text-danger"> {{ form_errors(blog.nom, {'attr': {'class': 'invalid-feedback'}}) }}</li></div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.description, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                          <div class="text-danger">  {{ form_errors(blog.description, {'attr': {'class': 'invalid-feedback'}}) }}</div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.moredescreption, ' More Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.moredescreption, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                         <div class="text-danger">   {{ form_errors(blog.moredescreption, {'attr': {'class': 'invalid-feedback'}}) }}</div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.slogan, ' Slogan', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.slogan, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                          <div class="text-danger">  {{ form_errors(blog.slogan, {'attr': {'class': 'invalid-feedback'}}) }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(blog.image, 'Photo principale', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.image, {'attr': {'class': 'form-control'}}) }}
+                            <div class="text-danger">{{ form_errors(blog.image, {'attr': {'class': 'invalid-feedback'}}) }}</div>
+                        </div>
+                        
+                      
 
 
-
-
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-        
-          <!-- Page Heading -->
-          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">ADD NEW BLOG</h4>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-               {# hnee besh nekhdem khedmti  #}
- <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">ADD YOUR NEW BLOG</h1>
-                  </div>
-                  {# <form class="user"> #}
-                  {{form_start(blog,{'attr': {'novalidate': 'novalidate'}} )}}
-                    <table>
- <tr>
-
-<td>  {{ form_label(blog.nom,"nom") }} 
-</td> 
-<td> {{ form_widget(blog.nom)}} 
- </td> 
- <tr>
- 
-<td> <th> {{ form_errors(blog.nom) }} </th>
-</td>  
-
-</tr> 
-<tr>
-
-<td>  {{ form_label(blog.description,"description") }} 
-</td> 
-<td> {{ form_widget(blog.description)}} 
- </td> 
-<td>  {{ form_errors(blog.description) }} 
-</td> 
-<td>  
-        {{ form_row(blog.image) }}
-</td> 
-
-<td>  {{ form_errors(blog.image) }} 
-</td>
-</tr> 
-
- </tr>
-</table>
-<br>
-<center>
-<button class="btn btn-success" type="submit"  > Save  </button>
-</center>  
- {# {{ form_widget(blog.save)}}    #}
- {{form_end(blog)}}
-
-              <hr>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-3">Add blog </button>
+                            <a href="{{ path('afficheblogadmin') }}" class="btn btn-secondary">Back to list</a>
+                        </div>
+                        {{ form_end(blog) }}
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-
-
-
-
-
-
-
-
-            
-            </div>
-          </div>
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
+    </div>
 {% endblock %}
