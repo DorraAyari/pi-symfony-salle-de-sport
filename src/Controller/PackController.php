@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD:src/Controller/PackController.php
 use App\Entity\Member;
 use App\Form\MemberformType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,11 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-=======
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
->>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/PackController.php
 
 class PackController extends AbstractController
 {
@@ -25,7 +19,6 @@ class PackController extends AbstractController
             'controller_name' => 'PackController',
         ]);
     }
-<<<<<<< HEAD:src/Controller/PackController.php
     #[Route('/modifier/{id}', name: 'modifier')]
 
     public function modifier(Request $request , ManagerRegistry $doctrine,Member $member): Response
@@ -51,7 +44,4 @@ class PackController extends AbstractController
        
     }
 
-
-=======
->>>>>>> fayrouz-pi:gestionsalledesport/src/Controller/PackController.php
 }
