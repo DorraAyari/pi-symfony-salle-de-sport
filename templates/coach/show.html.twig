@@ -1,137 +1,77 @@
 {% extends "admin/base.html.twig" %}
 
-{% block title %}Détails du coach{% endblock %}
+{% block title %}Cours{% endblock %}
 
 {% block stylesheets %}
-  {{ parent() }}
-
-  <!-- Ajout de la police Poppins -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap">
-  <link href="{{ asset('css/coach-detail.css') }}" rel="stylesheet">
-   <style>
-    /* Custom styles for animations and colors */
-    .card-header {
-      background-color: #007bff;
-      color: #fff;
-      border-radius: 0;
-    }
-    .card-header h4 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    .info-value {
-      font-size: 1.2rem;
-      font-weight: 500;
-    }
-    .coach-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    .coach-info i {
-      font-size: 3rem;
-      margin-right: 1rem;
-      color: #007bff;
-    }
-    .coach-info span {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-right: 1rem;
-    }
-    .zoom {
-      transition: transform .2s;
-    }
-    .zoom:hover {
-      transform: scale(1.05);
-    }
-  </style>
+    {{ parent() }}
+    <link href="{{ asset('css/coach-detail.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-<div class="card border-0 shadow my-4 rounded-0 animated fadeIn">
-    <div class="card-header bg-primary text-light py-3 rounded-0">
-      <h4 class="m-0 font-weight-bold h3">Détails du coach</h4>
-      <div class="info-value h5">{{ coach.nom }}</div>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card-img-top zoom">
-            <img src="{{ asset('uploads/' ~ coach.image) }}" class="img-fluid rounded-circle" alt="{{ coach.image }}">
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-id-card fa-3x text-primary animated bounceIn"></i>
-                  <h5 class="card-title">ID</h5>
-                  <p class="card-text">{{ coach.id }}</p>
-                </div>
-              </div>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+    
+        <!-- Page Heading -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Détails du coach</h4>
             </div>
-            <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-user fa-3x text-success animated bounceIn"></i>
-                  <h5 class="card-title">Nom</h5>
-                  <p class="card-text">{{ coach.nom }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-birthday-cake fa-3x text-warning animated bounceIn"></i>
-                  <h5 class="card-title">Âge</h5>
-                  <p class="card-text">{{ coach.age }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-briefcase fa-3x text-info animated bounceIn"></i>
-                  <h5 class="card-title">Occupation</h5>
-                  <p class="card-text">{{ coach.occupation }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-arrows-alt-v fa-3x text-primary animated bounceIn"></i>
-                  <h5 class="card-title">Taille</h5>
-                  <p class="card-text">{{ coach.height }}</p>
-                </div>
-              </div>
-            </div>
-  <div class="col-sm-3">
-              <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-weight fa-3x text-danger animated bounceIn"></i>
-                  <h5 class="card-title">Poids</h5>
-                  <p class="card-text">{{ coach.weight }}</p>
-                </div>
-              </div>
-            </div>
-          
-                        <div class="col-sm-6">
-                         <div class="card bg-light text-center py-4 mb-4">
-                <div class="card-body">
-                  <i class="fas fa-info-circle fa-3x text-secondary animated bounceIn"></i>
-                  <h5 class="card-title">Description</h5>
-                  <p class="card-text">{{ coach.description }}</p>
-                </div>
-              </div>
-            </div>
-                          
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('uploads/' ~ coach.image) }}" class="img-fluid" alt="{{ coach.image }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">ID</div>
+                                    <div class="info-value">{{ coach.id }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Nom</div>
+                                    <div class="info-value">{{ coach.nom }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">Âge</div>
+                                    <div class="info-value">{{ coach.age }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Occupation</div>
+                                    <div class="info-value">{{ coach.occupation }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label">Taille</div>
+                                    <div class="info-value">{{ coach.height }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label">Poids</div>
+                                    <div class="info-value">{{ coach.weight }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label">Description</div>
+                                    <div class="info-value">{{ coach.description }}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
+    <!-- /.container-fluid -->
 {% endblock %}
+
