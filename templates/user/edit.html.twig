@@ -1,0 +1,51 @@
+{% extends 'front/base.html.twig' %}
+{% block body %}
+    <div style="padding: 5rem; background: black" class="mx-auto"></div>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 mx-auto">
+                    <h3 class="col-md-12 text-center mt-5">Edit profile</h3>
+                    {{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+                    <div class="col-md-12 form-group">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email, {
+                            'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="row col-md-12 form-group ml-0 p-0">
+                        <div class="col-md-6">
+                            {{ form_label(form.nom) }}
+                            {{ form_widget(form.nom, {
+                                'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.nom) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.prenom) }}
+                            {{ form_widget(form.prenom, {
+                                'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.prenom) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        {{ form_label(form.numero) }}
+                        {{ form_widget(form.numero, {
+                            'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.numero) }}
+                    </div>
+                    <div class="col-md-12 form-group">
+                        {{ form_label(form.image) }}
+                        {{ form_widget(form.image, {
+                            'attr': {'class': 'form-control p-1'}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <button class="btn w-100 btn-dark my-3">{{ button_label|default('Enregistrer') }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

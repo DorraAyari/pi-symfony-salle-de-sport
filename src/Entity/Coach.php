@@ -20,7 +20,11 @@ class Coach
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-        #[Assert\NotBlank(message:"Description champs obligatoire")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'La description ne doit pas dépasser 255 caractères',
+    )]
+    #[Assert\NotBlank(message:"Nom champs obligatoire")]
 
     private ?string $description = null;
 
@@ -56,10 +60,14 @@ class Coach
     #[ORM\Column(length: 255)]
     private ?string $image;
 
+    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Calendar::class)]
+    private Collection $calendars;
+
  
     public function __construct()
     {
         $this->cours = new ArrayCollection();
+        $this->calendars = new ArrayCollection();
     }
 
 
@@ -189,6 +197,36 @@ class Coach
    public function setImage(string $image): self
    {
        $this->image = $image;
+
+       return $this;
+   }
+
+   /**
+    * @return Collection<int, Calendar>
+    */
+   public function getCalendars(): Collection
+   {
+       return $this->calendars;
+   }
+
+   public function addCalendar(Calendar $calendar): self
+   {
+       if (!$this->calendars->contains($calendar)) {
+           $this->calendars->add($calendar);
+           $calendar->setCoach($this);
+       }
+
+       return $this;
+   }
+
+   public function removeCalendar(Calendar $calendar): self
+   {
+       if ($this->calendars->removeElement($calendar)) {
+           // set the owning side to null (unless already changed)
+           if ($calendar->getCoach() === $this) {
+               $calendar->setCoach(null);
+           }
+       }
 
        return $this;
    }

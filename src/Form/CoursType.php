@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\DataTransformer\StringToFileTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CoursType extends AbstractType
@@ -19,8 +20,14 @@ class CoursType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom',TextType::class)
-        ->add('description',TextType::class)
+        ->add('nom',TextType::class, [
+       
+            'empty_data' => ''
+            ])
+        ->add('description',TextareaType::class, [
+       
+            'empty_data' => ''
+            ])
         
         ->add('image', FileType::class, [
             'label' => false,
@@ -37,6 +44,8 @@ class CoursType extends AbstractType
                 'choice_label' => 'nom',
                 'expanded' => false, //on peut choisir une seule
                 'multiple' => false,
+                'empty_data' => '',
+                'label' => false,
 
             ]
             
@@ -48,6 +57,9 @@ class CoursType extends AbstractType
                 'choice_label' => 'nom',
                 'expanded' => false, //on peut choisir une seule
                 'multiple' => false,
+                'empty_data' => '',
+                'label' => false,
+
 
             ]
             

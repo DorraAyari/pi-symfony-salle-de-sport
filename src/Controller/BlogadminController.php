@@ -23,6 +23,7 @@ class BlogadminController extends AbstractController
         ]);
     }
 
+
     #[Route('/shows/{id}', name: 'show')]
     public function show(BlogRepository $blogRepository,$id): Response
     {

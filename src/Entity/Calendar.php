@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CalendarRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CalendarRepository::class)]
 class Calendar
@@ -15,31 +16,60 @@ class Calendar
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le champ Titre obligatoire")]
+
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message: "Le champ date est obligatoire")]
+    #[Assert\GreaterThan("today", message:"La date doit être postérieure à la date actuelle")]
+    #[Assert\GreaterThanOrEqual("today 06:00", message:"La date doit être après 06h00.")]
+    #[Assert\LessThanOrEqual("today 23:00", message:"La date doit être avant 23h00.")]
+   // #[Assert\DateTime(message: "Le champ date doit être une date valide")]
     private ?\DateTimeInterface $start = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message: "Le champ date est obligatoire")]
+         #[Assert\GreaterThan("today", message:"La date doit être postérieure à la date actuelle")] 
+         #[Assert\GreaterThanOrEqual("today 06:00", message:"La date doit être après 06h00.")]
+         #[Assert\LessThanOrEqual("today 23:00", message:"La date doit être avant 23h00.")]
+      
     private ?\DateTimeInterface $end = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'La description ne doit pas dépasser 255 caractères',
+    
+    )]
+    #[Assert\NotBlank(message: "Le champ description est obligatoire")]
     private ?string $description = null;
 
     #[ORM\Column(length: 7)]
+    #[Assert\NotBlank(message: "Le champ background color est obligatoire")]
     private ?string $background_color = null;
 
     #[ORM\Column(length: 7)]
+    #[Assert\NotBlank(message: "Le champ border color color est obligatoire")]
+
     private ?string $border_color = null;
 
     #[ORM\Column(length: 7)]
     private ?string $text_color = null;
 
     #[ORM\ManyToOne(inversedBy: 'calendars')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
+    #[Assert\NotBlank(message: "Le champ salle est obligatoire")]
     private ?Salle $Salle = null;
 
     #[ORM\ManyToOne(inversedBy: 'calendars')]
+    #[Assert\NotBlank(message: "Le champ cours est obligatoire")]
+
     private ?Cours $Cours = null;
+
+    #[ORM\ManyToOne(inversedBy: 'calendars')]
+    private ?Coach $Coach = null;
 
     public function getId(): ?int
     {
@@ -152,6 +182,18 @@ class Calendar
     public function setCours(?Cours $Cours): self
     {
         $this->Cours = $Cours;
+
+        return $this;
+    }
+
+    public function getCoach(): ?Coach
+    {
+        return $this->Coach;
+    }
+
+    public function setCoach(?Coach $Coach): self
+    {
+        $this->Coach = $Coach;
 
         return $this;
     }

@@ -30,7 +30,10 @@ class Cours
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Description champs obligatoire")]
-
+    #[Assert\Length(
+        max: 10000,
+        maxMessage: 'La description ne doit pas dépasser 255 caractères',
+    )]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class)]
@@ -38,6 +41,8 @@ class Cours
     private Collection $calendars;
 
     #[ORM\ManyToOne(inversedBy: 'Cours')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     #[Assert\NotBlank(message:"Salle champs obligatoire")]
 
     private ?Salle $Salle = null;

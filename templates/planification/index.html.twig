@@ -1,75 +1,61 @@
 {% extends "admin/base.html.twig" %}
 
-
 {% block body %}
-   <div class="container-fluid">
-        
-          <!-- Page Heading -->
-          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary">Planning</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <h1><a class="btn btn-primary" href="{{path('app_planification_new')}}">Create New</a></h1>
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">Course</h4>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-    <h1><a class="btn btn-primary" href="{{path('app_planification_new')}}" > Create new </a></h1>
-
-
-    <h1>Course</h1>
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>BackColor</th>
-
-                <th>Start</th>
-                <th>End</th>
-                <th>TextColor</th>
-               
-                                <th>Description</th>
- <th>BorderColor</th>
-                <th>actions</th>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Start</th>
+             <!--   <th>End</th>!-->
+           <!--   <th>Text Color</th> !-->
+              <th>backColor</th>
+              <th>Description</th>
+              <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for calendar in calendars %}
-            <tr>
+          </thead>
+          <tbody>
+            {% for calendar in calendars %}
+              <tr>
                 <td>{{ calendar.id }}</td>
                 <td>{{ calendar.title }}</td>
-<td{% if calendar.backgroundColor %} style="background-color:{{ calendar.backgroundColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
-
                 <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
+           <!--      <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td> !-->
+     <td  {% if calendar.backgroundColor %} style="background-color:{{ calendar.backgroundColor }};"{% else %} style="width:4px;height:5px;" style="background-color:#808080;"{% endif %}></td>
 
-                                                 <td{% if calendar.textColor %} style="background-color:{{ calendar.textColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
+             <!--   <td{% if calendar.textColor %} style="background-color:{{ calendar.textColor }};"{% else %} style="background-color:#808080;"{% endif %}></td> !-->
+                <td>{{ calendar.description }}</td>
+           <!--      <td{% if calendar.borderColor %} style="background-color:{{ calendar.borderColor }};"{% else %} style="background-color:#808080;"{% endif %}></td> !-->
+
+                <td>
+                <a class="btn btn-success" href="{{ path('app_planification_show', {'id': calendar.id}) }}"> <i class="fa fa-eye"></i> Show</a>
+                <a class="btn btn-warning" href="{{ path('app_planification_edit', {'id': calendar.id}) }}"> <i class="fa fa-edit"></i> Edit</a>
+                <a href="{{ path('app_planification_delete', {'id': calendar.id}) }}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')"> <i class="fa fa-trash"></i> Delete</a>
 
                 
-                                 <td>{{ calendar.description }}</td>
-                                                                  <td{% if calendar.borderColor %} style="background-color:{{ calendar.borderColor }};"{% else %} style="background-color:#808080;"{% endif %}></td>
-
-        <td>
-                    <a class="btn btn-success" href="{{ path('app_planification_show', {'id': calendar.id}) }}">Show</a>
-                    <a  class="btn btn-warning" href="{{ path('app_planification_edit', {'id': calendar.id}) }}">Edit</a>
-              <a  class="btn btn-danger" href="{{ path('app_planification_delete', {'id': calendar.id}) }}">Delete</a>
-
-                </td>
+              </td>
+              
             </tr>
-        {% else %}
+            {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+              <td colspan="9">No records found</td>
             </tr>
-        {% endfor %}
-         </tbody>
-</table>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-              </div>
-            </div>
-          </div>
-        
+</div>
 {% endblock %}
 {% block stylesheets %}
   {{ parent() }}
