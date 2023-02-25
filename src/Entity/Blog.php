@@ -21,19 +21,42 @@ class Blog
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"description champs obligatoire")]
+    #[Assert\Type(
+        type: 'string',
+        message: 'description doit être une chaine de caractére.',
+    )]
     private ?string $description = null;
 
     // #[ORM\Column(type: Types::DATE_MUTABLE)]
     // private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?string $image;
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'blogid', targetEntity: Commentaire::class)]
     private Collection $commentaire;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"more description champs obligatoire")]
+    #[Assert\Type(
+        type: 'string',
+        message: 'le reste de la description doit être une chaine de caractére.',
+    )]
+    private ?string $moredescreption = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"slogan champs obligatoire")]
+    #[Assert\Length(
+        max: 5,
+    maxMessage: "slogan ne peut pas dépasser {{ limit }} caractères.",
+    )]
+    private ?string $slogan = null;
+
+    
 
     public function __construct()
     {
@@ -137,6 +160,30 @@ class Blog
                 $commentaire->setBlogid(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMoredescreption(): ?string
+    {
+        return $this->moredescreption;
+    }
+
+    public function setMoredescreption(string $moredescreption): self
+    {
+        $this->moredescreption = $moredescreption;
+
+        return $this;
+    }
+
+    public function getSlogan(): ?string
+    {
+        return $this->slogan;
+    }
+
+    public function setSlogan(string $slogan): self
+    {
+        $this->slogan = $slogan;
 
         return $this;
     }

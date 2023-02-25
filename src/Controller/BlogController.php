@@ -6,6 +6,7 @@ use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 
 use App\Repository\BlogRepository;
+use App\Repository\CommentaireRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,16 +34,31 @@ class BlogController extends AbstractController
         $commentForm->handleRequest($request);
         if ($commentForm ->IsSubmitted()&& $commentForm->isValid()){
             $commentaire->setBlogid($blog);
-                 $em=$doctrine->getManager();
+                 $em1=$doctrine->getManager();
                 //persist=ajouter
-                $em->persist($commentaire);
+                $em1->persist($commentaire);
                 //flush=push
-                $em->flush();
+                $em1->flush();
+              // On récupère le contenu du champ parentid
+                $parentid= $commentForm->get("parentid")->getData();
+                 // On va chercher le commentaire correspondant
+                 $em = $this->getDoctrine()->getManager();
+
+                 if($parentid != null){
+                 $parent = $em->getRepository(Commentaire::class)->find($parentid);
+                  }
+                // On définit le parent
+                  $commentaire->setParent($parent ?? null);
+
+                 $em->persist($commentaire);
+                 $em->flush();
+
                 return $this->render('blog/blogdetails.html.twig', [
                     'blog' => $blog,
                     'commentForm' => $commentForm->createView(),
         
                 ]);
+               
             }
         return $this->render('blog/blogdetails.html.twig', [
             'blog' => $blog,
@@ -52,31 +68,14 @@ class BlogController extends AbstractController
 
        
     }
-    //hnee besh naamel l commaentaire mteei 
-//     #[Route('/addcomment', name: 'addcomment')]
-
-//     public function addblogadmin(Request $request , ManagerRegistry $doctrine): Response
-//  {
-//     $commentaire = new Commentaire;
-//     $form = $this->createForm(CommentaireType::class,$commentaire);
-//     $form->handleRequest($request);
-//     if ($form ->IsSubmitted()&& $form->isValid()){
-
-
-    
-//      // $date = new DateTime();
-//      // $currentDate = $date->format('Y-m-d');
-//      $em=$doctrine->getManager();
-//     //persist=ajouter
-//     $em->persist($commentaire);
-//     //flush=push
-//     $em->flush();
-//     return $this->redirectToRoute('detailsblog', [
-//  ]);
-//     }
-//     return $this->render('blog/blogdetails.html.twig', [
-//      'commentaire' =>  $form->createView(),
-     
-//  ]);
+    // delete commencter 
+    #[Route('/delete-comment/{id}', name: 'delete_comment')]
+    public function deleteComment(Request $request, Commentaire $commentaire): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($commentaire);
+        $em->flush();
+        return $this->redirectToRoute('detailsblog', ['id' => $commentaire->getBlogid()->getId()]);
+    }
  }
 
