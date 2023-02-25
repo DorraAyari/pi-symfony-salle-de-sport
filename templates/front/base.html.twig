@@ -2,32 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
 
-{% block stylesheets %}
-    <style>
-        #calendrier{
-            width: 80%;
-            margin: auto;
-        }
-    </style>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/barfiller.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/magnific-popup.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
-<link rel="stylesheet" href="{{ asset('https://bootswatch.com/4/darkly/bootstrap.min.css') }}">
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/barfiller.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/magnific-popup.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
 
 
 
@@ -36,7 +31,7 @@
 <body id="page-top">
 {{ include('front/includes/header.html.twig') }}
 {% block body %}
- <!-- Hero Section Begin -->
+    <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hs-slider owl-carousel">
             <div class="hs-item set-bg" data-setbg="front/img/hero/hero-1.jpg">
@@ -67,6 +62,8 @@
             </div>
         </div>
     </section>
+    <!-- Hero Section End -->
+
     <!-- ChoseUs Section Begin -->
     <section class="choseus-section spad">
         <div class="container">
@@ -413,9 +410,9 @@
 {{ include('front/includes/footer.html.twig') }}
 
 {% block javascripts %}
-   
 
- <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
+
+    <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('front/js/masonry.pkgd.min.js') }}"></script>
@@ -423,8 +420,7 @@
     <script src="{{ asset('front/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
-  <script src="{{ asset('https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js') }}" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
 
 {% endblock %}
-
+</body>
 </html>
