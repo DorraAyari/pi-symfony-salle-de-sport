@@ -37,6 +37,11 @@
                             {{ form_widget(cours.image, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(cours.image, {'attr': {'class': 'invalid-feedback'}}) }}
                         </div>
+                          <div class="form-group">
+                            {{ form_label(cours.nbPlacesTotal, 'nbPlacesTotal', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(cours.nbPlacesTotal, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(cours.nbPlacesTotal, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
                       <div class="form-group">
     {{ form_label(cours.Coach, 'Coach', {'label_attr': {'class': 'font-weight-bold'}}) }}
     {{ form_row(cours.Coach, {'attr': {'class': 'form-control'}}) }}
