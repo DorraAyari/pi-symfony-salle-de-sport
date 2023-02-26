@@ -47,9 +47,28 @@ class Cours
 
     private ?Salle $Salle = null;
 
+    #[ORM\Column]
+    #[Assert\Range(
+        min: 0,
+        maxPropertyPath: 'nbPlacesTotal',
+        notInRangeMessage: 'Le nombre de places doit être entre {{ 0 }} et {{ 10 }}.',
+    )]
+    private ?int $nbPlacesTotal;
+
+    #[ORM\Column]
+    private ?int $reservation = null;
+
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: User::class)]
+    private Collection $User;
+
+    
+
     public function __construct()
     {
         $this->calendars = new ArrayCollection();
+        $this->reservation = 0;
+        $this->User = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -68,6 +87,10 @@ class Cours
 
         return $this;
     }
+    public function getNbPlacesDisponibles(): int
+{
+    return $this->nbPlacesTotal - $this->reservation;
+}
 
     public function getCoach(): ?Coach
     {
@@ -146,4 +169,84 @@ class Cours
 
         return $this;
     }
+
+  
+
+    public function setNbPlacesTotal(int $nbPlacesTotal): self
+    {
+        $this->nbPlacesTotal = $nbPlacesTotal;
+
+        return $this;
+    }
+    public function getNbPlacesTotal(): int
+    {
+        return $this->nbPlacesTotal - $this->reservation;
+    }
+    
+    public function getReservation(): ?int
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(int $reservation): self
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+   
+    public function reserve(int $nbPlaces): bool
+{
+    $placesDisponibles = $this->getNbPlacesTotal();
+    if ($nbPlaces > $placesDisponibles) {
+        return false; // pas assez de places disponibles
+    }
+    $this->reservation += $nbPlaces;
+    return true;
+}
+public function cancelReservation(int $nbPlaces): bool
+{
+    if ($nbPlaces > $this->reservation) {
+        return false; // impossible d'annuler plus de réservations que le nombre actuel de réservations
+    }
+    $this->reservation -= $nbPlaces;
+    return true;
+}
+public function getPlacesDisponibles(): int
+{
+    return $this->getNbPlacesTotal() - $this->reservation;
+}
+
+/**
+ * @return Collection<int, User>
+ */
+public function getUser(): Collection
+{
+    return $this->User;
+}
+
+public function addUser(user $User): self
+{
+    if (!$this->User->contains($User)) {
+        $this->User->add($User);
+        $User->setCours($this);
+    }
+
+    return $this;
+}
+
+public function removeUser(User $User): self
+{
+    if ($this->User->removeElement($User)) {
+        // set the owning side to null (unless already changed)
+        if ($User->getCours() === $this) {
+            $User->setCours(null);
+        }
+    }
+
+    return $this;
+}
+
+
 }

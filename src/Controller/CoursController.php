@@ -149,4 +149,29 @@ $em->flush();
 return $this->redirectToRoute('readc');
 
 }
+ #[Route("reserver/{id}", name: 'reserve_cours', methods: ['POST'])]
+
+    public function reserverCours(Cours $cours, Request $request)
+    {
+        $nbPlaces = $request->request->get('nbPlaces');
+        if ($nbPlaces <= 0){
+            $this->addFlash('error', 'Le nombre de places doit être au moins de 1');
+            return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
+        }
+        
+
+        if (!$cours->reserve($nbPlaces)) {
+            $this->addFlash('error', 'Il n\'y a pas assez de places disponibles.');
+            return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
+
+        } else {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Réservation effectuée avec succès !');
+        }
+
+        return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
+    }
+
+
 }
+
