@@ -1,0 +1,48 @@
+{% extends 'front/base.html.twig' %}
+{% block body %}
+    <div style="padding: 5rem; background: black" class="mx-auto">
+    </div>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <h3 class="text-center m-5">Profile</h3>
+                    <img src="{{ asset('uploads/' ~ user.photo) }}"
+                         height="150" width="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td>{{ user.password }}</td>
+                        </tr>
+                        <tr>
+                            <th>Roles</th>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ user.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prenom</th>
+                            <td>{{ user.prenom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numero</th>
+                            <td>{{ user.numero }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="{{ path('app_profile_edit', {'id': user.id}) }}" class="btn btn-dark mb-5 w-100">
+                        Modifier mon profil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

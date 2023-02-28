@@ -1,0 +1,64 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">
+     <style>
+    .my-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    box-shadow: inset 0 1px;}
+      .is-invalid {
+            border-color: red;
+        }
+    
+</style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white font-weight-bold"> Add salle</div>
+                    <div class="card-body">
+                        {{ form_start(salle, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="form-group">
+                            {{ form_label(salle.nom, 'Nom', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(salle.nom, {'attr': {'class': 'form-control my-input', 'placeholder': 'Entrez le nom du cours'}}) }}
+                            {{ form_errors(salle.nom) }} 
+                        </div>
+                     <div class="form-group">
+                            {{ form_label(salle.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(salle.description, {'attr': {'class': 'form-control my-input', 'placeholder': 'Entrez le nom du cours'}}) }}
+                                {{ form_errors(salle.description) }}
+                        </div>
+                     
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-3">Add</button>
+                            <a href="{{ path('app_salle_index') }}" class="btn btn-secondary">Back to list</a>
+                        </div>
+                        {{ form_end(salle) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

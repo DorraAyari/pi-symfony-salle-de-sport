@@ -1,0 +1,65 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white font-weight-bold"> UPDATE BLOG</div>
+                    <div class="card-body">
+                        {{ form_start(blog, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="form-group">
+                            {{ form_label(blog.nom, 'Sujet', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le sujet du blog'}}) }}
+                            {{ form_errors(blog.nom, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.description, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                            {{ form_errors(blog.description, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.moredescreption, ' More Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.moredescreption, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                            {{ form_errors(blog.moredescreption, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(blog.slogan, ' Slogan', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.slogan, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du blog'}}) }}
+                            {{ form_errors(blog.slogan, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(blog.image, 'Photo principale', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(blog.image, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(blog.image, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                        
+                      
+
+
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-3">Update blog </button>
+                            <a href="{{ path('afficheblogadmin') }}" class="btn btn-secondary">Back to list</a>
+                        </div>
+                        {{ form_end(blog) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

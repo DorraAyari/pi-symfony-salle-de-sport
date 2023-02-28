@@ -1,0 +1,188 @@
+
+{% extends "front/base.html.twig" %}
+
+
+{% block body %}
+
+    <!-- Header End -->
+
+    <!-- Blog Details Hero Section Begin -->
+    <section class="blog-details-hero set-bg" data-setbg="{{ asset('uploads/' ~ blog.image) }}">
+        <div class="container">
+            <div class="row">
+            
+                <div class="col-lg-8 p-0 m-auto">
+                    <div class="bh-text">
+                        <h3>{{ blog.nom }}</h3>
+                        
+                        <ul>
+                            <li>by Admin</li>
+                            <li>{{ blog.createdAt |date('Y-m-d')}}</li>
+                            
+                        </ul>
+                    </div>
+                </div> 
+            
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Hero Section End -->
+
+    <!-- Blog Details Section Begin -->
+    <section class="blog-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 p-0 m-auto">
+                    <div class="blog-details-text">
+                        <div class="blog-details-title">
+                            <p>{{ blog.moredescreption }}</p>
+                        </div>
+                        <div class="blog-details-title">
+                             <p> {{ blog.description }} </p>
+                        </div>
+                       
+                        {# <div class="blog-details-pic"> #}
+                            {# <div class="blog-details-pic-item">
+                            <img src="/front/img/blog/details/details-1.jpg" alt=""> #}
+                                {# <img style="width:300x;height:374px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/> #}
+                            {# </div> #}
+                            {# <div class="blog-details-pic-item">
+                                <img src="/front/img/blog/details/details-2.jpg" alt="">
+                            </div> #}
+                        {# </div> #}
+                        <div class="blog-details-quote">
+                            <div class="quote-icon">
+                                <img src="/front/img/blog/details/quote-left.png" alt="">
+                            </div>
+                            <h5>{{ blog.slogan }}</h5>
+                            
+                        </div>
+                        <div class="blog-details-title">
+                            <p>{{ blog.moredescreption }}</p>
+                        </div>
+                        <div class="blog-details-title">
+                             <p> {{ blog.description }} </p>
+                        </div>
+                        
+                        <div class="blog-details-author">
+                           
+                            <div class="ba-text">
+                                <h2 style="color: white;">LEAVE A COMMENT</h2>
+                                {# <div class="bp-social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                </div> #}
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="comment-option">
+                                    <h5 class="co-title">Comment</h5>
+                                    <div class="co-item">
+                                      {% for commentaire in blog.commentaire %}
+                                      
+                                    
+                                        <div class="co-widget">
+                                            <a href="#"><i class="fa fa-heart-o"></i></a>
+                                            {# <a href="#"><i class="fa fa-share-square-o"></i></a> #}
+                                        </div>
+                                        <div class="co-pic">
+     {% if commentaire.user %}
+        <img src="{{ asset('uploads/' ~ commentaire.user.photo) }}" alt="{{ commentaire.user.prenom }}">
+        <h5>{{ commentaire.user.prenom }}</h5>
+    {% endif %}
+      {# <h5>{{ commentaire.user.prenom }}</h5> #}
+    </div>
+                                        <div class="co-text" style="color:white;">
+                                            {{commentaire.comment}}
+                                        </div>
+                                        
+                                        
+                                         <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" style="color:red;">Delete</a></p>
+                                     
+                                           
+                                        {% endfor %}
+                                        
+                                    </div>
+                                     
+                                    {# <div class="co-item reply-comment">
+                                        <div class="co-widget">
+                                            <a href="#"><i class="fa fa-heart-o"></i></a>
+                                            <a href="#"><i class="fa fa-share-square-o"></i></a>
+                                        </div>
+                                        <div class="co-pic">
+                                            <img src="img/blog/details/comment-2.jpg" alt="">
+                                            <h5>Brandon Kelley</h5>
+                                        </div>
+                                        <div class="co-text">
+                                            <p>Neque porro quisquam est, qui dolorem ipsum dolor sit amet, consectetur,
+                                                adipisci velit dolore.</p>
+                                        </div>
+                                    </div> #}
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="leave-comment">
+                                      <div class="col-xs2 col-sm3" id="ajout-commentaire">
+				
+				{{ form_start(commentForm) }}
+				    {{ form_row(commentForm.comment) }}
+                    <p>Message</p>
+                    <div id="editor"></div>
+				{{ form_end(commentForm) }}
+			</div>
+		</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+    <!-- Get In Touch Section Begin -->
+    <div class="gettouch-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="gt-text">
+                        <i class="fa fa-map-marker"></i>
+                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="gt-text">
+                        <i class="fa fa-mobile"></i>
+                        <ul>
+                            <li>125-711-811</li>
+                            <li>125-668-886</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="gt-text email">
+                        <i class="fa fa-envelope"></i>
+                        <p>Support.gymcenter@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Get In Touch Section End -->
+
+
+
+
+</body>
+
+{% endblock %}
+
+

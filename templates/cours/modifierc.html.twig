@@ -1,0 +1,67 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white font-weight-bold"> Edit course</div>
+                    <div class="card-body">
+                        {{ form_start(cours, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="form-group">
+                            {{ form_label(cours.nom, 'Nom', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(cours.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom du cours'}}) }}
+                            {{ form_errors(cours.nom, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(cours.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(cours.description, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une description du cours'}}) }}
+                            {{ form_errors(cours.description, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+  <div class="form-group">
+                            {{ form_label(cours.image, 'Photo', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(cours.image, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(cours.image, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                             <div class="form-group">
+                            {{ form_label(cours.nbPlacesTotal, 'nbPlacesTotal', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(cours.nbPlacesTotal, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(cours.nbPlacesTotal, {'attr': {'class': 'invalid-feedback'}}) }}
+                        </div>
+                      <div class="form-group">
+    {{ form_label(cours.Coach, 'Coach', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_row(cours.Coach, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(cours.Coach, {'attr': {'class': 'invalid-feedback'}}) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(cours.Salle, 'Salle', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_row(cours.Salle, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(cours.Salle, {'attr': {'class': 'invalid-feedback'}}) }}
+</div>
+
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-3">Edit</button>
+                            <a href="{{ path('readc') }}" class="btn btn-secondary">Back to list</a>
+                        </div>
+                        {{ form_end(cours) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+.coach-info {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgb(18, 82, 211);
+    border-radius: 4px;
+}
+
+.info-label {
+    font-weight: bold;
+}
+
+.info-value {
+    margin-top: 5px;
+}
+.coach-info i {
+    color: #4e73df; /* Bleu */
+  }
+  
+  .coach-info span {
+    color: #858796; /* Gris */
+  }
+  .body {
+    background: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
+}
+.table {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.table-show {
+    opacity: 1;
+}
+body.light-theme {
+    background-color: white;
+    color: black;
+}
+
+body.dark-theme {
+    background-color: black;
+    color: white;
+}
+
+@media (max-width: 576px) {
+    .col-sm-6 {
+        width: 100%;
+    }
+}

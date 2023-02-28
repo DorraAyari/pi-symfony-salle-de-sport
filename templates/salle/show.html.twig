@@ -1,0 +1,138 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-TbgiBgTXrAnw7KYuUi6BcV7XeXkL//V7Vy81zDyEgJUQj6UfIT6mL+OJzL51TmT9kmceJIXjO+lC0E/LsD/t/g==" crossorigin="anonymous" />
+<style>
+    .card {
+        margin-top: 2rem;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+
+    .table {
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+
+    .table th {
+        border-top: none;
+        background-color: #f7f7f7;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .table td {
+        font-size: 1.1rem;
+    }
+
+    .btn-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        border-radius: 20px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-secondary {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+        font-family: Arial, sans-serif;
+    }
+
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: #5a6268;
+        border-color: #545b62;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+        font-family: Arial, sans-serif;
+    }
+
+    .btn-success:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+        font-family: Arial, sans-serif;
+    }
+
+    .btn-danger:hover {
+        color: #fff;
+        background-color: #c82333;
+        border-color: #bd2130;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Salle</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="bg-light"><i class="fas fa-id-badge text-primary"></i> Id</th>
+                        <td>{{ salle.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light"><i class="fas fa-dumbbell text-danger"></i> Nom</th>
+                        <td>{{ salle.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light"><i class="fas fa-info-circle text-success"></i> Description</th>
+                        <td>{{ salle.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+         
+<br>
+        <a href="{{ path('app_salle_index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to list</a>
+
+        <a href="{{ path('app_salle_edit', {'id': salle.id}) }}" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
+
+        {{ include('salle/_delete_form.html.twig') }}
+    </div>
+</div>
+
+{% endblock %}

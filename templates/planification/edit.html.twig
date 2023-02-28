@@ -1,0 +1,138 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+ {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <style>
+    .my-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    box-shadow: inset 0 1px;
+    }
+      .is-invalid {
+            border-color: red;
+        }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white font-weight-bold"> Edit Planning</div>
+                    <div class="card-body">
+                        {{ form_start(calendar, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="form-group">
+                            {{ form_label(calendar.title, 'Title', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(calendar.title, {'attr': {'class': 'form-control .my-input', 'placeholder': 'Entrez le titre du calendar'}}) }}
+                              {% if form_errors(calendar.title) %}
+                                    <span class="text-danger">{{ form_errors(calendar.title) }}</span>
+                                {% endif %}
+                        </div>
+                           <div class="form-group">
+                            {{ form_label(calendar.start, 'Start', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(calendar.start, {'attr': {'class': 'form-control .my-input'}}) }}
+                               <br>
+                               {% if form_errors(calendar.start) %}
+                                    <span class="text-danger">{{ form_errors(calendar.start) }}</span>
+                                {% endif %}
+                        </div>
+                        <br>
+                         <div class="form-group">
+                            {{ form_label(calendar.end, 'End', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(calendar.end, {'attr': {'class': 'form-control .my-input'}}) }}
+                            <br>
+                             {% if form_errors(calendar.end) %}
+                                    <span class="text-danger">{{ form_errors(calendar.end) }}</span>
+                                {% endif %}
+                        </div>
+                                                <br>
+
+                        <div class="form-group">
+                            {{ form_label(calendar.background_color, 'Background color', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(calendar.background_color, {'attr': {'class': 'form-control .my-input'}}) }}
+                             {% if form_errors(calendar.background_color) %}
+                                    <span class="text-danger">{{ form_errors(calendar.background_color) }}</span>
+                                {% endif %}
+                        </div>
+                     
+                        
+                        <div class="form-group">
+                            {{ form_label(calendar.text_color, 'Text color', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                            {{ form_widget(calendar.text_color, {'attr': {'class': 'form-control .my-input'}}) }}
+                             {% if form_errors(calendar.text_color) %}
+                                    <span class="text-danger">{{ form_errors(calendar.text_color) }}</span>
+                                {% endif %}
+                        </div>
+                      <div class="form-group">
+    {{ form_label(calendar.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_widget(calendar.description, {'attr': {'class': 'form-control .my-input'}}) }}
+     {% if form_errors(calendar.description) %}
+                                    <span class="text-danger">{{ form_errors(calendar.description) }}</span>
+                                {% endif %}
+</div>
+
+<div class="form-group">
+    {{ form_label(calendar.border_color, 'Border color', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_widget(calendar.border_color, {'attr': {'class': 'form-control .my-input'}}) }}
+     {% if form_errors(calendar.border_color) %}
+                                    <span class="text-danger">{{ form_errors(calendar.border_color) }}</span>
+                                {% endif %}
+</div>
+          <div class="form-group">
+    {{ form_label(calendar.Coach, 'Coach', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_widget(calendar.Coach, {'attr': {'class': 'form-control .my-input'}}) }}
+    {{ form_errors(calendar.Coach, {'attr': {'class': 'invalid-feedback'}}) }}
+     {% if form_errors(calendar.Coach) %}
+                                    <span class="text-danger">{{ form_errors(calendar.Coach) }}</span>
+                                {% endif %}
+    
+</div>
+
+<div class="form-group">
+    {{ form_label(calendar.Salle, 'Salle', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_widget(calendar.Salle, {'attr': {'class': 'form-control .my-input'}}) }}
+    {{ form_errors(calendar.Salle, {'attr': {'class': 'invalid-feedback'}}) }}
+
+      {% if form_errors(calendar.Salle) %}
+                                    <span class="text-danger">{{ form_errors(calendar.Salle) }}</span>
+                                {% endif %}
+</div>
+<div class="form-group">
+    {{ form_label(calendar.Cours, 'Cours', {'label_attr': {'class': 'font-weight-bold'}}) }}
+    {{ form_widget(calendar.Cours, {'attr': {'class': 'form-control .my-input'}}) }}
+    {{ form_errors(calendar.Cours, {'attr': {'class': 'invalid-feedback'}}) }}
+      {% if form_errors(calendar.Cours) %}
+                                    <span class="text-danger">{{ form_errors(calendar.Cours) }}</span>
+                                {% endif %}
+</div>
+
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-3">Edit</button>
+                            <a href="{{ path('app_planification_index') }}" class="btn btn-secondary">Back to list</a>
+                        </div>
+
+                        {{ form_end(calendar) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
