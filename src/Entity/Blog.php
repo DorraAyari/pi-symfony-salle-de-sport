@@ -28,14 +28,14 @@ class Blog
     )]
     private ?string $description = null;
 
-    // #[ORM\Column(type: Types::DATE_MUTABLE)]
-    // private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    // #[ORM\Column(length: 255)]
-    // private ?string $image;
+    #[ORM\Column(length: 255)]
+    private ?string $image;
 
-    // #[ORM\Column]
-    // private ?\DateTime $createdAt = null;
+    #[ORM\Column]
+    private ?\DateTime $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'blogid', targetEntity: Commentaire::class)]
     private Collection $commentaire;
@@ -95,41 +95,41 @@ class Blog
     }
 
 
-    // public function getDate(): ?\DateTimeInterface
-    // {
-    //     return $this->date;
-    // }
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
 
-    // public function setDate(\DateTimeInterface $date): self
-    // {
-    //     $this->date = $date;
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function getImage(): ?string
-    // {
-    //     return $this->image;
-    // }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
-    // public function setImage(string $image): self
-    // {
-    //     $this->image = $image;
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function getCreatedAt(): ?\DateTime
-    // {
-    //     return $this->createdAt;
-    // }
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
 
-    // public function setCreatedAt(\DateTime $createdAt): self
-    // {
-    //     $this->createdAt = $createdAt;
+    public function setCreatedAt(\DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * @return Collection<int, Commentaire>

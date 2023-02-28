@@ -36,7 +36,7 @@ class ApiblogController extends AbstractController
         $description = $request->query->get('description');
         $moredescreption = $request->query->get('moredescreption');
         $slogan = $request->query->get('slogan');
-      //  $image = $request->query->get('image');
+        // $image = $request->query->get('image');
     
         $blog->setNom($nom);
         $blog->setDescription($description);
@@ -52,5 +52,5 @@ class ApiblogController extends AbstractController
     
     }
       
-    }
+    } 
 
