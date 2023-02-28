@@ -60,6 +60,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentaires = new ArrayCollection();
     }
 
+    #[ORM\ManyToOne(inversedBy: 'User')]
+    private ?Cours $Cours = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +201,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Commentaire>
      */
@@ -212,8 +217,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $commentaire->setUser($this);
         }
 
+    public function getUser(): ?Cours
+    {
+        return $this->Cours;
+    }
+
+    public function setUser(?Cours $Cours): self
+    {
+        $this->Cours = $Cours;
+
+
         return $this;
     }
+
 
     public function removeCommentaire(Commentaire $commentaire): self
     {
@@ -226,4 +242,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCours(): ?Cours
+    {
+        return $this->Cours;
+    }
+
+    public function setCours(?Cours $Cours): self
+    {
+        $this->Cours = $Cours;
+
+        return $this;
+    }
+
+    
+
 }
