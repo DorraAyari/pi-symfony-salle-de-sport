@@ -84,29 +84,31 @@
                                     <h5 class="co-title">Comment</h5>
                                     <div class="co-item">
                                       {% for commentaire in blog.commentaire %}
+                                      
                                     
                                         <div class="co-widget">
                                             <a href="#"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#"><i class="fa fa-share-square-o"></i></a>
+                                            {# <a href="#"><i class="fa fa-share-square-o"></i></a> #}
                                         </div>
                                         <div class="co-pic">
-                                            {# <img src="/front/img/blog/details/comment-1.jpg" alt=""> #}
-                                            <h5>EMNA JEMAL</h5>
-                                        </div>
+     {% if commentaire.user %}
+        <img src="{{ asset('uploads/' ~ commentaire.user.photo) }}" alt="{{ commentaire.user.prenom }}">
+        <h5>{{ commentaire.user.prenom }}</h5>
+    {% endif %}
+      {# <h5>{{ commentaire.user.prenom }}</h5> #}
+    </div>
                                         <div class="co-text" style="color:white;">
                                             {{commentaire.comment}}
                                         </div>
-                                        <br>
-                                        <p><a href="#ajout-commentaire" data-reply data-id="{{commentaire.id}}" class="btn btn-sm btn-warning">Répondre</a>
-                                         <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" class="btn btn-sm btn-danger">Delete</a></p>
-                                        {# On affiche les réponses #}
-						                    {% for reply in commentaire.replies %}
-						                  	<p> {{commentaire.comment}}</p>
-							               <div>{{reply.comment|raw}}</div>
-						                   {% endfor %}
+                                        
+                                        
+                                         <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" style="color:red;">Delete</a></p>
+                                     
+                                           
                                         {% endfor %}
+                                        
                                     </div>
-                                    
+                                     
                                     {# <div class="co-item reply-comment">
                                         <div class="co-widget">
                                             <a href="#"><i class="fa fa-heart-o"></i></a>
@@ -184,21 +186,3 @@
 {% endblock %}
 
 
-{# {% block javascripts %}
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
-    <script src="{{ asset('js/ckeditor.js') }}"></script>
-	<script>
-		window.onload = () => {
-			document.querySelector("#annonce_contact_title").value = "{{ blog.nom|raw }}";
-			// On met un écouteur d'évènements sur tous les boutons répondre
-			document.querySelectorAll("[data-reply]").forEach(element => {
-				element.addEventListener("click", function(){
-                    console.log(this);
-					document.querySelector("#commentaire_parentid").value = this.dataset.id; 
-				});
-			});
-		}
-		let caroulix = new Caroulix('#carousel');
-		let modal = new Modal('#modale-contact');
-	</script>
-{% endblock %} #}

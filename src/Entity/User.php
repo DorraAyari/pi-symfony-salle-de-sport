@@ -52,6 +52,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
+
     #[ORM\ManyToOne(inversedBy: 'User')]
     private ?Cours $Cours = null;
 
@@ -181,7 +189,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto () : ?string
     {
         return $this->photo;
     }
@@ -193,6 +201,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setUser($this);
+        }
+
     public function getUser(): ?Cours
     {
         return $this->Cours;
@@ -201,6 +225,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUser(?Cours $Cours): self
     {
         $this->Cours = $Cours;
+
+
+        return $this;
+    }
+
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
+        }
 
         return $this;
     }
@@ -218,4 +256,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
+
 }
