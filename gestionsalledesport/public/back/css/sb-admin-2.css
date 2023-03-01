@@ -10594,15 +10594,30 @@ a:focus {
   background-position: center;
   background-size: cover;
 }
-
+.bg-register-imag{
+  background-position: center;
+  background-size: cover;
+}
 .bg-password-image {
   background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
   background-position: center;
   background-size: cover;
 }
+.my-custom-button {
+  color: #fd7e14;
+  font-size: 20px;
+  padding: 10px 20px;
+}
+.button-blog{
+  position: relative;
+    left: 50px;
+}
 
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
+}
+.test{
+  padding-top: 44px;
 }
 
 form.user .form-control-user {
