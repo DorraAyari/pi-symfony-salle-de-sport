@@ -10,43 +10,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 #[Route('/planification')]
 class PlanificationController extends AbstractController
 {
     #[Route('/', name: 'app_planification_index', methods: ['GET'])]
-    public function index(CalendarRepository $calendarRepository): Response
+    public function afficheall(CalendarRepository $calendarRepository, Request $request): Response
     {
+       
+        $searchTerm = $request->query->get('search');
+
+        $calendar = $calendarRepository->findBySearch($searchTerm);
         return $this->render('planification/index.html.twig', [
-            'calendars' => $calendarRepository->findAll(),
+            'calendars' => $calendar,
         ]);
     }
-
+    
     #[Route('/new', name: 'app_planification_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CalendarRepository $calendarRepository, ValidatorInterface $validator): Response
+    public function new(Request $request, CalendarRepository $calendarRepository): Response
     {
         $calendar = new Calendar();
         $form = $this->createForm(CalendarType::class, $calendar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-        $errors = $validator->validate($calendar, null, ['DateValidation']);
-
-        if (count($errors) > 0) {
-            $errorMessages = [];
-
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-
-            return new Response(implode("\n", $errorMessages), 400);
-        }
-
-        // do something with valid entity
-        // ...
-
-        return new Response('Entity is valid', 200);
             $calendarRepository->save($calendar, true);
 
             return $this->redirectToRoute('app_planification_index', [], Response::HTTP_SEE_OTHER);
@@ -54,6 +41,7 @@ class PlanificationController extends AbstractController
 
         return $this->renderForm('planification/new.html.twig', [
             'calendar' => $form,
+
         ]);
     }
 
@@ -65,45 +53,28 @@ class PlanificationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_planification_edit')]
- 
-    public function modifier(Request $request , ManagerRegistry $doctrine, Calendar $calendar,ValidatorInterface $validator): Response
+    #[Route('/{id}/edit', name: 'app_planification_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Calendar $calendar, CalendarRepository $calendarRepository): Response
     {
         $form = $this->createForm(CalendarType::class, $calendar);
         $form->handleRequest($request);
-        
-        if ($form->IsSubmitted() && $form->isValid()) {
-            $errors = $validator->validate($calendar, null, ['DateValidation']);
 
-        if (count($errors) > 0) {
-            $errorMessages = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $calendarRepository->save($calendar, true);
 
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-
-            return new Response(implode("\n", $errorMessages), 400);
-        }
-            $em = $doctrine->getManager();
-            // persist = ajouter
-            $em->persist($calendar);
-            // flush = push
-            $em->flush();
-    
-            return $this->redirectToRoute('app_planification_index');
+            return $this->redirectToRoute('app_planification_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('planification/edit.html.twig', [
-            
+     
             'calendar' => $form,
-
-
         ]);
     }
-    
-    #[Route('supprimer/{id}', name: 'app_planification_delete')]
 
-    public function app_planification_delete($id , ManagerRegistry $doctrine): Response
+   
+    #[Route('supprimerpl/{id}', name: 'app_planification_delete')]
+
+    public function supprimercc($id , ManagerRegistry $doctrine): Response
 {
     $em=$doctrine->getManager();
     $calendar =$doctrine->getRepository(Calendar::class);
@@ -113,4 +84,5 @@ $em->flush();
 return $this->redirectToRoute('app_planification_index');
 
 }
+
 }

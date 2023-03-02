@@ -1,14 +1,26 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\User;
 
 use App\Entity\Cours;
 use App\Form\CoursType;
+use Symfony\Component\Mime\Email;
+use App\Repository\CoachRepository;
+
 use App\Repository\CoursRepository;
+use Symfony\Component\Mime\Address;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ConfigurationSecurity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -40,16 +52,26 @@ class CoursController extends AbstractController
         ]);
     }
     #[Route('/readc', name: 'readc')]
-    public function afficheall(CoursRepository $coursRepository): Response
+    public function afficheall(CoursRepository $coursRepository, Request $request): Response
     {
-        $cours=$coursRepository->findAll();
+        $searchTerm = $request->query->get('search');
+        $cours = $coursRepository->findAll();
+
+    if ($searchTerm) {
+        $cours = $coursRepository->findBySearch($searchTerm);
+    }
+
+    
         return $this->render('cours/readc.html.twig', [
             'cours' => $cours,
+           
         ]);
     }
+    
+    
     #[Route('/ajouterc', name: 'ajouterc')]
 
-    public function ajouter(Request $request , ManagerRegistry $doctrine): Response
+    public function ajouter(Request $request , ManagerRegistry $doctrine, MailerInterface $mailer): Response
     {
        $cours = new Cours;
 
@@ -57,6 +79,7 @@ class CoursController extends AbstractController
        $form->handleRequest($request);
      
     if ($form->isSubmitted() && $form->isValid()) {
+
         $image = $form->get('image')->getData();
         if ($image) {
             // On boucle sur les images
@@ -83,6 +106,8 @@ class CoursController extends AbstractController
         $em = $doctrine->getManager();
         $em->persist($cours);
         $em->flush();
+
+     
        return $this->redirectToRoute('readc', [
     ]);
        }
@@ -149,28 +174,46 @@ $em->flush();
 return $this->redirectToRoute('readc');
 
 }
- #[Route("reserver/{id}", name: 'reserve_cours', methods: ['POST'])]
 
-    public function reserverCours(Cours $cours, Request $request)
-    {
-        $nbPlaces = $request->request->get('nbPlaces');
-        if ($nbPlaces <= 0){
-            $this->addFlash('error', 'Le nombre de places doit être au moins de 1');
-            return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
-        }
-        
 
-        if (!$cours->reserve($nbPlaces)) {
-            $this->addFlash('error', 'Il n\'y a pas assez de places disponibles.');
-            return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
 
-        } else {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Réservation effectuée avec succès !');
-        }
+#[Route("reserver/{id}", name: 'reserve_cours')]
+public function reserverCours(Cours $cours, Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer,Security $security) : Response
+{      
 
+    $user = $security->getUser();
+
+    $nbPlaces = $request->request->get('nbPlaces');
+    if ($nbPlaces <= 0){
+        $this->addFlash('echec', 'Le nombre de places doit être au moins de 1');
         return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
     }
+
+    if (!$cours->reserve($nbPlaces)) {
+        $this->addFlash('error', 'Il n\'y a pas assez de places disponibles.');
+        return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
+    }
+    $entityManager->flush();
+
+    $email = (new TemplatedEmail())
+    ->from('from@example.com')
+    ->to('<dorra.ayari@esprit.tn>')
+    ->subject('Reservation Information')
+    ->text('Sending emails is fun again!')
+    ->htmlTemplate('emails/reservation_confirmation.html.twig')
+        ->context([
+            'cours' => $cours,
+            'nbPlaces' => $nbPlaces,
+            'user' => $user,
+        ]);
+$mailer->send($email);
+
+
+    $this->addFlash('success', 'Réservation effectuée avec succès !');
+
+    return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
+}
+
 
 
 }

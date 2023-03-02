@@ -52,9 +52,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
-    #[ORM\ManyToOne(inversedBy: 'User')]
-    private ?Cours $Cours = null;
+    #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
+    private Collection $Cours;
 
+    public function __construct()
+    {
+        $this->Cours = new ArrayCollection();
+    }
+
+
+
+   
 
     public function getId(): ?int
     {
@@ -193,29 +201,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUser(): ?Cours
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
     {
         return $this->Cours;
     }
 
-    public function setUser(?Cours $Cours): self
+    public function addCour(Cours $cour): self
     {
-        $this->Cours = $Cours;
+        if (!$this->Cours->contains($cour)) {
+            $this->Cours->add($cour);
+        }
 
         return $this;
     }
 
-    public function getCours(): ?Cours
+    public function removeCour(Cours $cour): self
     {
-        return $this->Cours;
-    }
-
-    public function setCours(?Cours $Cours): self
-    {
-        $this->Cours = $Cours;
+        $this->Cours->removeElement($cour);
 
         return $this;
     }
 
+  
+    
     
 }

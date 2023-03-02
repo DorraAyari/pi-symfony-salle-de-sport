@@ -59,8 +59,8 @@ class Coach
 
     private ?string $occupation = null;
 
-   // #[ORM\Column(length: 255)]
-   // private ?string $image;
+    #[ORM\Column(length: 255)]
+     private ?string $image;
 
     #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Calendar::class)]
     private Collection $calendars;
@@ -191,17 +191,17 @@ class Coach
        return $this;
    }
 
-  // public function getImage(): ?string
- //  {
-     // return $this->image;
-   //}
+ public function getImage(): ?string
+  {
+     return $this->image;
+   }
 
-  // public function setImage(string $image): self
-  // {
-    //   $this->image = $image;
+ public function setImage(string $image): self
+   {
+      $this->image = $image;
 
-    //   return $this;
-  // }
+  return $this;
+ }
 
    /**
     * @return Collection<int, Calendar>

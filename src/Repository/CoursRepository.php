@@ -38,6 +38,54 @@ class CoursRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findBySearch($searchTerm)
+{
+    return $this->createQueryBuilder('c')
+        ->where('c.nom LIKE :searchTerm')
+        ->setParameter('searchTerm', '%'.$searchTerm.'%')
+        ->getQuery()
+        ->getResult();
+}
+public function findByNom(string $nom): array
+{
+    $qb = $this->createQueryBuilder('c');
+
+    return $qb->where($qb->expr()->like('c.nom', ':nom'))
+        ->setParameter('nom', '%'.$nom.'%')
+        ->getQuery()
+        ->getResult();
+}
+
+public function findByCoachOrderedByNom($coachName, $orderBy = 'desc')
+{
+    $queryBuilder = $this->createQueryBuilder('c')
+        ->leftJoin('c.Coach', 'Coach')
+        ->where('Coach.nom = :coachName')
+        ->setParameter('coachName', $coachName)
+        ->orderBy('Coach.nom', $orderBy);
+dd($queryBuilder);
+    return $queryBuilder->getQuery()->getResult();
+}
+
+
+public function findAllOrderedBy($orderBy = 'asc')
+{
+    $orderBy = strtolower($orderBy);
+    
+    $queryBuilder = $this->createQueryBuilder('c')
+        ->leftJoin('c.Coach', 'Coach');
+
+    if ($orderBy == 'asc') {
+        $queryBuilder->addOrderBy('Coach.nom', 'ASC');
+    } elseif ($orderBy == 'desc') {
+        $queryBuilder->addOrderBy('Coach.nom', 'DESC');
+    }
+
+    return $queryBuilder->getQuery()->getResult();
+}
+
+
+
 
 //    /**
 //     * @return Cours[] Returns an array of Cours objects

@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CoursRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Mime\Email;
+use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
 class Cours
 {
@@ -22,6 +23,7 @@ class Cours
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'Cours')]
+    #[ORM\JoinColumn(onDelete : "CASCADE")]
     #[Assert\NotBlank(message:"Coach champs obligatoire")]
     private ?Coach $Coach = null;
 
@@ -48,26 +50,24 @@ class Cours
     private ?Salle $Salle = null;
 
     #[ORM\Column]
-    #[Assert\Range(
-        min: 0,
-        maxPropertyPath: 'nbPlacesTotal',
-        notInRangeMessage: 'Le nombre de places doit être entre {{ 0 }} et {{ 10 }}.',
-    )]
+    #[Assert\NotBlank(message:"Nombre de place champs obligatoire")]
+
     private ?int $nbPlacesTotal;
 
     #[ORM\Column]
     private ?int $reservation = null;
 
-    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: User::class)]
-    private Collection $User;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours')]
+    private Collection $users;
 
-    
+ 
 
     public function __construct()
     {
         $this->calendars = new ArrayCollection();
         $this->reservation = 0;
-        $this->User = new ArrayCollection();
+    //  $this->User = new ArrayCollection();
+    $this->users = new ArrayCollection();
 
     }
 
@@ -221,32 +221,31 @@ public function getPlacesDisponibles(): int
 /**
  * @return Collection<int, User>
  */
-public function getUser(): Collection
+public function getUsers(): Collection
 {
-    return $this->User;
+    return $this->users;
 }
 
-public function addUser(user $User): self
+public function addUser(User $user): self
 {
-    if (!$this->User->contains($User)) {
-        $this->User->add($User);
-        $User->setCours($this);
+    if (!$this->users->contains($user)) {
+        $this->users->add($user);
+        $user->addCour($this);
     }
 
     return $this;
 }
 
-public function removeUser(User $User): self
+public function removeUser(User $user): self
 {
-    if ($this->User->removeElement($User)) {
-        // set the owning side to null (unless already changed)
-        if ($User->getCours() === $this) {
-            $User->setCours(null);
-        }
+    if ($this->users->removeElement($user)) {
+        $user->removeCour($this);
     }
 
     return $this;
 }
+
+
 
 
 }

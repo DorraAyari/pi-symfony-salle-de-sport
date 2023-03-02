@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\DataTransformer\StringToFileTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -34,6 +35,12 @@ class CoursType extends AbstractType
             'multiple' => true,
             'mapped' => false,
             'empty_data' => '',
+
+            
+        ])
+        ->add('nbPlacesTotal', NumberType::class, [
+            'empty_data' => ''
+
 
             
         ])

@@ -23,18 +23,25 @@ class Calendar
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message: "Le champ date est obligatoire")]
     #[Assert\GreaterThan("today", message:"La date doit être postérieure à la date actuelle")]
-    #[Assert\GreaterThanOrEqual("today 06:00", message:"La date doit être après 06h00.")]
-    #[Assert\LessThanOrEqual("today 23:00", message:"La date doit être avant 23h00.")]
-   // #[Assert\DateTime(message: "Le champ date doit être une date valide")]
+    #[Assert\Expression(
+        "this.getStart().format('H:i') >= '06:00' and this.getStart().format('H:i') <= '23:00'",
+        message: 'La date doit être entre 06:00 et 23:00'
+    )]
+    #[Assert\Expression(
+        "this.getEnd().format('H:i') >= '06:00' and this.getEnd().format('H:i') <= '23:00'",
+        message: 'La date doit être entre 06:00 et 23:00'
+    )]
     private ?\DateTimeInterface $start = null;
-
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message: "Le champ date est obligatoire")]
-         #[Assert\GreaterThan("today", message:"La date doit être postérieure à la date actuelle")] 
-         #[Assert\GreaterThanOrEqual("today 06:00", message:"La date doit être après 06h00.")]
-         #[Assert\LessThanOrEqual("today 23:00", message:"La date doit être avant 23h00.")]
-      
+    #[Assert\GreaterThan("today", message:"La date doit être postérieure à la date actuelle")] 
+    #[Assert\Expression(
+        "this.getEnd().format('H:i') >= '06:00' and this.getEnd().format('H:i') <= '23:00'",
+        message: 'La date doit être entre 06:00 et 23:00'
+    )]
     private ?\DateTimeInterface $end = null;
+    
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(
@@ -64,6 +71,7 @@ class Calendar
     private ?Salle $Salle = null;
 
     #[ORM\ManyToOne(inversedBy: 'calendars')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[Assert\NotBlank(message: "Le champ cours est obligatoire")]
 
     private ?Cours $Cours = null;
