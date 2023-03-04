@@ -55,9 +55,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
     private Collection $Cours;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Rating::class)]
+    private Collection $ratings;
+
     public function __construct()
     {
         $this->Cours = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
 
@@ -221,6 +225,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCour(Cours $cour): self
     {
         $this->Cours->removeElement($cour);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
+        }
 
         return $this;
     }

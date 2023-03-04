@@ -60,5 +60,53 @@ public function ajouterCoach(Request $request){
     return new JsonResponse($formatted);
 
 }
-  
+
+    #[Route('/api/DeleteCoach', name: 'delete_coach', methods: ['GET,POST'])]
+
+     public function deleteCoachAction(Request $request) {
+
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $coach = $em->getRepository(Coach::class)->find($id);
+        if($coach!=null ) {
+            $em->remove($coach);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Coach a ete supprimee avec success.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("id reclamation invalide.");
+
+
+    }
+    
+    #[Route('/api/updateCoach', name: 'update_coach', methods: ['GET'])]
+    public function modifierCoach(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $coach = $this->getDoctrine()->getManager()
+            ->getRepository(Coach::class)
+            ->find($request->get("id"));
+    
+        if ($coach) {
+            $coach->setNom($request->get("nom"));
+            $coach->setDescription($request->get("description"));
+            $coach->setAge($request->get("age"));
+            $coach->setWeight($request->get("weight"));
+            $coach->setHeight($request->get("height"));
+            $coach->setOccupation($request->get("occupation"));
+    
+            $em->persist($coach);
+            $em->flush();
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("coach a ete modifiee avec success.");
+            return new JsonResponse($formatted);
+        } else {
+            return new JsonResponse("Coach non trouve");
+        }
+    }
+    
+   
 }

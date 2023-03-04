@@ -38,11 +38,11 @@ class Cours
     )]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class)]
+    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class, cascade: ["persist", "remove"])]
     
     private Collection $calendars;
 
-    #[ORM\ManyToOne(inversedBy: 'Cours')]
+    #[ORM\ManyToOne(inversedBy: 'Cours', cascade: ["persist", "remove"])]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     #[Assert\NotBlank(message:"Salle champs obligatoire")]
@@ -57,8 +57,12 @@ class Cours
     #[ORM\Column]
     private ?int $reservation = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours', cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private Collection $users;
+
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class)]
+    private Collection $ratings;
 
  
 
@@ -68,6 +72,7 @@ class Cours
         $this->reservation = 0;
     //  $this->User = new ArrayCollection();
     $this->users = new ArrayCollection();
+    $this->ratings = new ArrayCollection();
 
     }
 
@@ -240,6 +245,41 @@ public function removeUser(User $user): self
 {
     if ($this->users->removeElement($user)) {
         $user->removeCour($this);
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection<int, Rating>
+ */
+public function getRatings(): Collection
+{
+    return $this->ratings;
+}
+public function setRatings(Rating $rating): self
+{
+     $this->ratings = $rating;
+
+    return $this;
+}
+public function addRating(Rating $rating): self
+{
+    if (!$this->ratings->contains($rating)) {
+        $this->ratings->add($rating);
+        $rating->setCours($this);
+    }
+
+    return $this;
+}
+
+public function removeRating(Rating $rating): self
+{
+    if ($this->ratings->removeElement($rating)) {
+        // set the owning side to null (unless already changed)
+        if ($rating->getCours() === $this) {
+            $rating->setCours(null);
+        }
     }
 
     return $this;

@@ -24,7 +24,26 @@
         <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
 
+ <style>
+.rating input {
+  display: none;
+}
 
+.rating label {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+  color: red;
+}
+
+.rating input:checked ~ label {
+  color: red;
+}
+</style>
 
     {% endblock %}
 </head>
@@ -411,7 +430,33 @@
 
 {% block javascripts %}
 
+<script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
 
+ 
+<script>
+// Récupérer l'élément de note et les étoiles
+const ratingInput = document.getElementById('rating');
+const stars = document.querySelectorAll('.rating input');
+
+// Ajouter un gestionnaire d'événements pour chaque étoile
+stars.forEach(star => {
+  star.addEventListener('click', event => {
+    const rating = event.target.value;
+    ratingInput.value = rating;
+
+    // Stocker la note de l'utilisateur dans localStorage
+    localStorage.setItem('userRating', rating);
+  });
+});
+
+// Récupérer la note de l'utilisateur depuis localStorage lors du chargement de la page
+const userRating = localStorage.getItem('userRating');
+if (userRating) {
+  ratingInput.value = userRating;
+}
+
+
+</script>
     <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
@@ -423,4 +468,5 @@
 
 {% endblock %}
 </body>
+
 </html>

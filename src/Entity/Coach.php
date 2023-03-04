@@ -33,7 +33,9 @@ class Coach
     
 
 
-    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Cours::class)]
+    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Cours::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     private Collection $cours;
 
     #[ORM\Column]
@@ -62,7 +64,9 @@ class Coach
     #[ORM\Column(length: 255)]
      private ?string $image;
 
-    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Calendar::class)]
+    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Calendar::class,  cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     private Collection $calendars;
 
  

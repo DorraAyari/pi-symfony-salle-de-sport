@@ -1,19 +1,5 @@
 
 {% block stylesheets %}
-   <!-- Google Font -->
-        
-     <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-              rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
-        <!-- Css Styles -->
-        <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}" type="text/css">
-   
-        <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
 
  <style>
 .rating input {
@@ -36,16 +22,8 @@
 }
 </style>
 {% endblock %}
-
 {% block body %}
-<body id="page-top">
-{{ include('front/includes/header.html.twig') }}
 
-
-    <!-- Hero Section End -->
-
-   
-    <!-- ChoseUs Section End -->
   <!-- Banner Section Begin -->
     <section class="banner-section set-bg" data-setbg="/img/banner-bg.jpg">
         <div class="container">
@@ -53,6 +31,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="bs-text">
                         <h2>Details courses</h2>
+                        <div class="bt-tips">Where health, beauty and fitness meet.</div>
                         <a href="{{ path('app_main_controller') }}" class="primary-btn  btn-normal">Appointment</a>
                     </div>
                 </div>
@@ -151,15 +130,7 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}">></script>
-  <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('front/js/masonry.pkgd.min.js') }}"></script>
- 
-  
-    <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('front/js/main.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
 // Récupérer l'élément de note et les étoiles

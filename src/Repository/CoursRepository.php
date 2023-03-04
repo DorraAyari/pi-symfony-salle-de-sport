@@ -46,6 +46,7 @@ class CoursRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
 }
+
 public function findByNom(string $nom): array
 {
     $qb = $this->createQueryBuilder('c');
