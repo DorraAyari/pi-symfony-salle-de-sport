@@ -62,6 +62,7 @@ class BlogadminController extends AbstractController
        $form = $this->createForm(BlogType::class,$blog);
        $form->handleRequest($request);
        if ($form ->IsSubmitted()&& $form->isValid()){
+        
         $image = $form->get('image')->getData();
         if ($image) {
             // On boucle sur les images

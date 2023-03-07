@@ -17,3 +17,10 @@
 .dataTables_wrapper {
     margin-top: 1rem;
 }
+.liked {
+    color: white;
+}
+
+.disliked {
+    color: white;
+}

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
 {
+   
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -18,18 +19,35 @@ class Commentaire
     #[ORM\Column(length: 255)]
     private ?string $comment = null;
 
-
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\ManyToOne(inversedBy: 'commentaire')]
     private ?Blog $blogid = null;
 
    
-
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?User $user = null;
 
+     #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'commentaire', targetEntity: CommentLike::class)]
+    private Collection $commentLikes;
+
+    public function __construct()
+    {
+        $this->commentLikes = new ArrayCollection();
+    }
+
+   
    
 
+    
 
+    // public function __construct()
+    // {
+    //     $this->replies = new ArrayCollection();
+    // }
+   
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +95,38 @@ class Commentaire
 
         return $this;
     }
-    
 
+    /**
+     * @return Collection<int, CommentLike>
+     */
+    public function getCommentLikes(): Collection
+    {
+        return $this->commentLikes;
+    }
+
+    public function addCommentLike(CommentLike $commentLike): self
+    {
+        if (!$this->commentLikes->contains($commentLike)) {
+            $this->commentLikes->add($commentLike);
+            $commentLike->setCommentaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLike(CommentLike $commentLike): self
+    {
+        if ($this->commentLikes->removeElement($commentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($commentLike->getCommentaire() === $this) {
+                $commentLike->setCommentaire(null);
+            }
+        }
+
+        return $this;
+    }
+   
+    
 }
+
+    

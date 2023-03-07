@@ -32,11 +32,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
+    
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom ne doit pas être vide")]
     private ?string $nom = null;
 
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Prenom ne doit pas être vide")]
     private ?string $prenom = null;
@@ -52,16 +54,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->commentLikes = new ArrayCollection();
+       
     }
 
     #[ORM\ManyToOne(inversedBy: 'User')]
     private ?Cours $Cours = null;
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CommentLike::class)]
+    private Collection $commentLikes;
+
+   
 
 
     public function getId(): ?int
@@ -216,6 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->commentaires->add($commentaire);
             $commentaire->setUser($this);
         }
+    }
 
     public function getUser(): ?Cours
     {
@@ -254,6 +267,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, CommentLike>
+     */
+    public function getCommentLikes(): Collection
+    {
+        return $this->commentLikes;
+    }
+
+    public function addCommentLike(CommentLike $commentLike): self
+    {
+        if (!$this->commentLikes->contains($commentLike)) {
+            $this->commentLikes->add($commentLike);
+            $commentLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLike(CommentLike $commentLike): self
+    {
+        if ($this->commentLikes->removeElement($commentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($commentLike->getUser() === $this) {
+                $commentLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+    
 
     
 

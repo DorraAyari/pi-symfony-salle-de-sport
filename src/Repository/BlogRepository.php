@@ -38,7 +38,15 @@ class BlogRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    
+//order date de event DESC
+public function findAllSortedByDate()
+{
+    return $this->createQueryBuilder('b')
+        ->orderBy('b.createdAt', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
 //     */
