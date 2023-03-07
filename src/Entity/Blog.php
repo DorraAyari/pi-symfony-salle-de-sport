@@ -28,15 +28,16 @@ class Blog
     )]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    // #[ORM\Column(type: Types::DATE_MUTABLE)]
+    // private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image;
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
-
+    
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\OneToMany(mappedBy: 'blogid', targetEntity: Commentaire::class)]
     private Collection $commentaire;
 
@@ -95,17 +96,17 @@ class Blog
     }
 
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
+    // public function getDate(): ?\DateTimeInterface
+    // {
+    //     return $this->date;
+    // }
 
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
+    // public function setDate(\DateTimeInterface $date): self
+    // {
+    //     $this->date = $date;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getImage(): ?string
     {
@@ -129,7 +130,7 @@ class Blog
         $this->createdAt = $createdAt;
 
         return $this;
-    }
+   }
 
     /**
      * @return Collection<int, Commentaire>

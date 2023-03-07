@@ -63,6 +63,45 @@
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
     });
+    // Like and dislike buttons
+let likeButtons = document.querySelectorAll('.like-button');
+let dislikeButtons = document.querySelectorAll('.dislike-button');
+
+likeButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Check if the button is already liked
+        if (button.classList.contains('liked')) {
+            button.classList.remove('liked');
+        } else {
+            button.classList.add('liked');
+
+            // Remove the "disliked" class if it exists
+            if (button.nextElementSibling.classList.contains('disliked')) {
+                button.nextElementSibling.classList.remove('disliked');
+            }
+        }
+    });
+});
+
+dislikeButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Check if the button is already disliked
+        if (button.classList.contains('disliked')) {
+            button.classList.remove('disliked');
+        } else {
+            button.classList.add('disliked');
+
+            // Remove the "liked" class if it exists
+            if (button.previousElementSibling.classList.contains('liked')) {
+                button.previousElementSibling.classList.remove('liked');
+            }
+        }
+    });
+});
 
     /*------------------
         Carousel Slider
