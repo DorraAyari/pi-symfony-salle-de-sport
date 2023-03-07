@@ -27,6 +27,7 @@
         "symfony/form": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
         "symfony/http-client": "5.4.*",
+        "symfony/http-foundation": "5.4.*",
         "symfony/intl": "5.4.*",
         "symfony/mime": "5.4.*",
         "symfony/monolog-bundle": "^3.0",
@@ -107,6 +108,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "5.4.*",
+        "symfony/var-dumper": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     }
 }

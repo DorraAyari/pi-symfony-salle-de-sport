@@ -1,0 +1,59 @@
+
+
+      {% extends "admin/base.html.twig" %}
+{% block body %}
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Détails Produit</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+
+ 
+<div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('uploads/' ~ produit.image) }}" class="img-fluid" alt="{{ produit.image }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:teal;font-weight:1000;">ID</div>
+                                    <div class="info-value">{{ produit.id }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:teal;font-weight:1000;">Nom</div>
+                                    <div class="info-value">{{ produit.nom }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:teal;font-weight:1000;">Description</div>
+                                    <div class="info-value">{{ produit.description }}</div>
+                                </div>
+                                <div class="col-sm-4">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:teal;font-weight:1000;">Prix</div>
+                                    <div class="info-value">{{ produit.prix }}DT</div>
+                                </div>
+
+    </div>
+  </div>
+  </div>
+   </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  {% endblock %}

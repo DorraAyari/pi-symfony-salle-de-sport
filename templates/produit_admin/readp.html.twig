@@ -12,7 +12,11 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
+<<<<<<< HEAD:gestionsalledesport/templates/produit_admin/readp.html.twig
+              <h4 class="m-0 font-weight-bold text-primary">Add new produit</h4>
+=======
               <h4 class="m-0 font-weight-bold text-primary">ADD NEW product</h4>
+>>>>>>> b511338949e966ea3dc6fa06c571545990aa324d:templates/produit_admin/readp.html.twig
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -22,12 +26,11 @@
     <table class="table table-striped-columns"  align="center">
     <thead>
         <tr>
-            
-            <th>nom</th>
+            <th>Nom</th>
             <th>Image</th>
-
-            <th>modifier</th>
-              <th>supprimer</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+            <th>Affiche</th>
         </tr>
     </thead>
     <tbody>
@@ -39,13 +42,10 @@
          <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.image }}"/> </td>
 
 
-         <td><a class="btn btn-success" href="{{path('modifierp',{ id:produit.id}      ) }}" > edit </a></td>
-         <td> <a class="btn btn-danger" href="{{path('supprimerp',{ id:produit.id}      ) }} " >delete</a>  <td>
- 
-         
- 
-         
-            
+         <td><a class="btn btn-outline-success" href="{{path('modifierp',{ id:produit.id} ) }}" > Modifier </a></td>
+         <td> <a class="btn btn-outline-danger" href="{{path('supprimerp',{ id:produit.id} ) }} ">Supprimer</a><td>
+        <td> <a class="btn btn-outline-warning" href="{{path('shows',{ id:produit.id}   ) }} " >Afficher</a><td>
+    
       </tr>
       {% endfor %}
     </tbody>
