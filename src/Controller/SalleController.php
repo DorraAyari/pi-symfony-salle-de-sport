@@ -16,10 +16,14 @@ use Twig\NodeVisitor\SafeAnalysisNodeVisitor;
 class SalleController extends AbstractController
 {
     #[Route('/', name: 'app_salle_index', methods: ['GET'])]
-    public function index(SalleRepository $salleRepository): Response
+    public function index(Request $request,SalleRepository $salleRepository): Response
     {
+        $searchTerm = $request->query->get('search');
+
+        $salles = $salleRepository->findBySearch($searchTerm);
         return $this->render('salle/index.html.twig', [
             'salles' => $salleRepository->findAll(),
+            'salles' => $salles,
         ]);
     }
 

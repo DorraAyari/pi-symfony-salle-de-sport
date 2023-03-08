@@ -16,15 +16,15 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class ApiCoachController extends AbstractController
+class CnoController extends AbstractController
 {
    
     
     #[Route('/api/produit', name: 'prpduit', methods: ['GET'])]
-public function coachs(ProduitRepository $produitRepository, SerializerInterface $serializer): JsonResponse
+public function produit(ProduitRepository $produitRepository, SerializerInterface $serializer): JsonResponse
 {
-    $produit = $coachRepository->findAll();
-    $json = $serializer->serialize($coachs, 'json', [
+    $produit = $produitRepository->findAll();
+    $json = $serializer->serialize($produit, 'json', [
         'circular_reference_handler' => function ($object) {
             return $object->getId();
         },
@@ -45,7 +45,7 @@ public function ajouterProduit(Request $request){
 
     $produit->setNom($nom);
     $produit->setDescription($description);
-    $produit->setAge($prix);
+    $produit->setPrix($prix);
     
     
    // $coach->setImage($image);
@@ -57,5 +57,49 @@ public function ajouterProduit(Request $request){
     return new JsonResponse($formatted);
 
 }
+#[Route('/api/deleteProduit', name: 'supprimer_produittt', methods: ['GET'])]
+public function supprimerrrr(Request $request) {
+
+    $id = $request->get("id");
+
+    $em = $this->getDoctrine()->getManager();
+    $produit = $em->getRepository(Produit::class)->find($id);
+    if($produit!=null ) {
+        $em->remove($produit);
+        $em->flush();
+
+        $serialize = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serialize->normalize("Produit a ete supprimee avec success.");
+        return new JsonResponse($formatted);
+
+    }
+    return new JsonResponse("Produit non trouvé", Response::HTTP_NOT_FOUND);
+
+
+}
+
+
+    #[Route('/api/updateproduit', name: 'update_produita', methods: ['GET'])]
+    public function modifierproduit(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $produit = $this->getDoctrine()->getManager()
+            ->getRepository(Produit::class)
+            ->find($request->get("id"));
+    
+        if ($produit) {
+            $produit->setNom($request->get("nom"));
+            $produit->setDescription($request->get("description"));
+            $produit->setPrix($request->get("prix"));
+            
+    
+            $em->persist($produit);
+            $em->flush();
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("produit est modifiee avec success.");
+            return new JsonResponse($formatted);
+        } else {
+            return new JsonResponse("produit non trouve");
+        }
+    }
   
 }

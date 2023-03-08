@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CoursRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Mime\Email;
+use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
 class Cours
 {
@@ -15,6 +16,7 @@ class Cours
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    private $rating;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Nom champs obligatoire")]
@@ -22,6 +24,7 @@ class Cours
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'Cours')]
+    #[ORM\JoinColumn(onDelete : "CASCADE")]
     #[Assert\NotBlank(message:"Coach champs obligatoire")]
     private ?Coach $Coach = null;
 
@@ -36,11 +39,11 @@ class Cours
     )]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class)]
+    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class, cascade: ["persist", "remove"])]
     
     private Collection $calendars;
 
-    #[ORM\ManyToOne(inversedBy: 'Cours')]
+    #[ORM\ManyToOne(inversedBy: 'Cours', cascade: ["persist", "remove"])]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     #[Assert\NotBlank(message:"Salle champs obligatoire")]
@@ -48,26 +51,31 @@ class Cours
     private ?Salle $Salle = null;
 
     #[ORM\Column]
-    #[Assert\Range(
-        min: 0,
-        maxPropertyPath: 'nbPlacesTotal',
-        notInRangeMessage: 'Le nombre de places doit être entre {{ 0 }} et {{ 10 }}.',
-    )]
+    #[Assert\NotBlank(message:"Nombre de place champs obligatoire")]
+
     private ?int $nbPlacesTotal;
 
     #[ORM\Column]
     private ?int $reservation = null;
 
-    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours', cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private Collection $User;
 
-    
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
+    private Collection $ratings;
+
+ 
 
     public function __construct()
     {
         $this->calendars = new ArrayCollection();
         $this->reservation = 0;
-        $this->User = new ArrayCollection();
+    //  $this->User = new ArrayCollection();
+    $this->User = new ArrayCollection();
+    $this->ratings = new ArrayCollection();
 
     }
 
@@ -103,6 +111,7 @@ class Cours
 
         return $this;
     }
+  
   
     public function getImage(): ?string
     {
@@ -183,7 +192,7 @@ class Cours
         return $this->nbPlacesTotal - $this->reservation;
     }
     
-    public function getReservation(): ?int
+    public function getReservation(): ?Collection
     {
         return $this->reservation;
     }
@@ -221,32 +230,66 @@ public function getPlacesDisponibles(): int
 /**
  * @return Collection<int, User>
  */
-public function getUser(): Collection
+public function getUsers(): Collection
 {
     return $this->User;
 }
 
-public function addUser(user $User): self
+public function addUser(User $user): self
 {
-    if (!$this->User->contains($User)) {
-        $this->User->add($User);
-        $User->setCours($this);
+    if (!$this->User->contains($user)) {
+        $this->User->add($user);
+        $user->addCour($this);
     }
 
     return $this;
 }
 
-public function removeUser(User $User): self
+public function removeUser(User $user): self
 {
-    if ($this->User->removeElement($User)) {
+    if ($this->User->removeElement($user)) {
+        $user->removeCour($this);
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection<int, Rating>
+ */
+public function getRatings(): Collection
+{
+    return $this->ratings;
+}
+public function setRatings(Rating $rating): self
+{
+     $this->ratings = $rating;
+
+    return $this;
+}
+public function addRating(Rating $rating): self
+{
+    if (!$this->ratings->contains($rating)) {
+        $this->ratings->add($rating);
+        $rating->setCours($this);
+    }
+
+    return $this;
+}
+
+public function removeRating(Rating $rating): self
+{
+    if ($this->ratings->removeElement($rating)) {
         // set the owning side to null (unless already changed)
-        if ($User->getCours() === $this) {
-            $User->setCours(null);
+        if ($rating->getCours() === $this) {
+            $rating->setCours(null);
         }
     }
 
     return $this;
 }
+
+
 
 
 }

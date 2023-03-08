@@ -29,7 +29,15 @@ class SalleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findBySearch($searchTerm)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.nom LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+    
     public function remove(Salle $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

@@ -6,6 +6,15 @@
     <div class="card-header py-3">
       <h4 class="m-0 font-weight-bold text-primary">Planning</h4>
     </div>
+    <!-- Search Form -->
+<form method="GET" action="{{ path('app_salle_index') }}" class="mb-4">
+  <div class="input-group">
+    <input type="text" name="search" class="form-control" placeholder="Search with salle name ... " value="{{ app.request.get('calendar') }}">
+    <button type="submit" class="btn btn-outline-secondary">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</form>
     <div class="card-body">
       <div class="table-responsive">
         <h1><a class="btn btn-primary" href="{{path('app_planification_new')}}">Create New</a></h1>
@@ -109,7 +118,7 @@
         "paging": true,
         "ordering": true,
         "info": true,
-        "searching": true,
+        "searching": false,
         "language": {
           "lengthMenu": "Show _MENU_ entries",
           "search": "Search:",

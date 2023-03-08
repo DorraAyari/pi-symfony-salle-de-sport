@@ -55,6 +55,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $photo = null;
 
 
+    #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
+    private Collection $Cours;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
+    private Collection $ratings;
+
+    public function __construct()
+    {
+        $this->Cours = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
+    }
+
+
+
+   
+
+
     #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
     private Collection $commentaires;
@@ -215,6 +234,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+
+
+    /**
      * @return Collection<int, Commentaire>
      */
     public function getCommentaires(): Collection
@@ -231,13 +256,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getUser(): ?Cours
+
     {
         return $this->Cours;
     }
 
-    public function setUser(?Cours $Cours): self
+    public function addCour(Cours $cour): self
     {
-        $this->Cours = $Cours;
+        if (!$this->Cours->contains($cour)) {
+            $this->Cours->add($cour);
+        }
 
 
         return $this;
@@ -256,14 +284,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCours(): ?Cours
+    public function removeCour(Cours $cour): self
     {
-        return $this->Cours;
+        $this->Cours->removeElement($cour);
+
+        return $this;
+    }
+   
+        /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
     }
 
-    public function setCours(?Cours $Cours): self
+    public function addRating(Rating $rating): self
     {
-        $this->Cours = $Cours;
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
+        }
 
         return $this;
     }
@@ -298,7 +351,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+
 
     
 

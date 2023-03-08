@@ -29,6 +29,16 @@ class CoachRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByNom(string $nom): array
+    {
+        $qb = $this->createQueryBuilder('c');
+    
+        return $qb->where($qb->expr()->like('c.nom', ':nom'))
+            ->setParameter('nom', '%'.$nom.'%')
+            ->getQuery()
+            ->getResult();
+    }
+   
 
     public function remove(Coach $entity, bool $flush = false): void
     {

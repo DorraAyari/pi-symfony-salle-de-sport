@@ -9,7 +9,14 @@
       <h1 class="h3 mb-0 text-gray-800">Courses</h1>
       <a class="btn btn-primary" href="{{ path('app_salle_new') }}">Create new</a>
     </div>
-
+<form method="GET" action="{{ path('app_salle_index') }}" class="mb-4">
+  <div class="input-group">
+    <input type="text" name="search" class="form-control" placeholder="Search with salle name ... " value="{{ app.request.get('calendar') }}">
+    <button type="submit" class="btn btn-outline-secondary">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</form>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-body">
@@ -100,7 +107,7 @@
               "paging": true,
         "ordering": true,
         "info": true,
-        "searching": true,
+        "searching": false,
         "language": {
           "lengthMenu": "Show _MENU_ entries",
           "search": "Search:",

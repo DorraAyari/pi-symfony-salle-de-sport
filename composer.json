@@ -13,6 +13,9 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "dompdf/dompdf": "^2.0",
+
+        "knplabs/knp-paginator-bundle": "^5.9",
+
         "facebook/graph-sdk": "^5.1",
         "nelmio/cors-bundle": "^2.3",
         "phpdocumentor/reflection-docblock": "^5.3",

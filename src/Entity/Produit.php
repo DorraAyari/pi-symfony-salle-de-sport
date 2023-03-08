@@ -36,10 +36,12 @@ class Produit
     #[Assert\Positive]
     private ?int $prix;
 
+
     #[ORM\Column(length: 255)]
     
     
     private ?string $image = null;
+
 
     #[ORM\OneToMany(mappedBy: 'Cmd', targetEntity: Command::class)]
     private Collection $cmd;
@@ -116,17 +118,17 @@ class Produit
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+  //  public function getImage(): ?string
+   // {
+  //      return $this->image;
+  //  }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
+ //   public function setImage(string $image): self
+  //  {
+   //     $this->image = $image;
 
-        return $this;
-    }
+     //   return $this;
+   // }
 
     /**
      * @return Collection<int, Command>
