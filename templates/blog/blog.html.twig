@@ -1,9 +1,6 @@
 {% extends "front/base.html.twig" %}
 
-
 {% block body %}
-
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb-bg.jpg">
         <div class="container">
@@ -25,52 +22,57 @@
 
     <!-- Blog Section Begin -->
     <section class="blog-section spad">
-    
         <div class="container">
-        {# <butt class="button-blog"></butt #}
-        {# <a class="primary-btn pricing-btn"  href="{{path('addblog')}}" > add blog </a> #}
-        </button>
-        <br></br>
+         {# <div class="text-center">
+            <a href="{{ path('event_order_by_date_desc') }}" class="btn btn-primary">Order By Date (Descending)</a>
+        </div> #}
+       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        
+         <form method="get" action="{{ path('listblog') }}" class="form-inline">
+  <div class="form-check-inline mr-3">
+  <input class="form-check-input" type="radio" name="sort" id="sortDesc" value="desc" {% if sort == 'desc' %}checked{% endif %}>
+  <label class="form-check-label ml-1" for="sortDesc" style="color: #FF8519;"><i class="fa fa-arrow-down"></i> Newest first</label>
+</div>
+<div class="form-check-inline mr-3">
+  <input class="form-check-input" type="radio" name="sort" id="sortAsc" value="asc" {% if sort == 'asc' %}checked{% endif %}>
+  <label class="form-check-label ml-1" for="sortAsc" style="color: #FF8519;"><i class="fa fa-arrow-up"></i> Oldest first</label>
+</div>
+  
+  <button type="submit" class="btn btn-light" style="color:OrangeRed;">Sort</button>
+</form>
+</div>
+<br>
             <div class="row">
-            
                 <div class="col-lg-8 p-0">
-                {% for blog in blog %}
-                    <div class="blog-item">
-                      
-                        <div class="bi-pic">
-                            <img style="width:300x;height:241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}"/>
+                    {% for blog in blog %}
+                        <div class="blog-item">
+                            <div class="bi-pic">
+                                <img style="width: 300px; height: 241px;" src="{{ asset('uploads/' ~ blog.image) }}" alt="{{ blog.image }}">
+                            </div>
+                            <div class="bi-text">
+                                <h3 style="color: white;"><a style="color: white;" href="{{ path('detailsblog', { id: blog.id }) }}">{{ blog.nom }}</a></h3>
+                                <ul>
+                                    <li>by Admin</li>
+                                    <li>{{ blog.createdAt|date('Y-m-d') }}</li>
+                                </ul>
+                                <p>{{ blog.description }}</p>
+                            </div>
                         </div>
-                         <div class="bi-text" >
-                            <h3 style="color: white;"><a style="color: white;" href="{{path('detailsblog',{ id:blog.id})}}">{{ blog.nom }}</a></h3>
-                            <ul>
-                                <li>by Admin</li>
-                                <li>{{ blog.createdAt |date('Y-m-d')}}</li>
-                            </ul>
-                            <p>{{ blog.description }}</p>
-                            {# <button type="button" class="btn btn-warning" href="{{path('updateblog',{ id:blog.id})}}">Update</button> #}
-        {# <a class="primary-btn pricing-btn"  href="{{path('updateblog',{ id:blog.id})}}" > update blog </a> #}
-
-                             
-                             
-                          </div>
-                       
-                               
-                    </div>
+                        
                     {% endfor %}
-                    {# <a href="#" class="primary-btn pricing-btn">Enroll now</a> #}
-                  
                 </div>
-                
             </div>
         </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+         <a  href="{{ path('blog_pdf') }}" target="_blank" class="btn btn-light" style="color:OrangeRed;">Telecharger la blog en PDF</a>
+         </div>
+         <br>
+
     </section>
+    
     <!-- Blog Section End -->
-
-
-
- </body>
-
-</html>
-
-
+  
+            
 {% endblock %}
+
+       

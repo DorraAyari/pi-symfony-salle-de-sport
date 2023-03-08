@@ -2,12 +2,14 @@
 
 {% block stylesheets %}
     {{ parent() }}
+     {# {{encore_entry_link_tags('notyf')}} #}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="{{ asset('css/coursa.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+     {# {{encore_entry_link_tags('notyf')}} #}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/esm/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -54,7 +56,7 @@
 
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mr-3">Add blog </button>
-                            <a href="{{ path('afficheblogadmin') }}" class="btn btn-secondary">Back to list</a>
+                            <a href="{{ path('afficheblogadmin')}}" class="btn btn-secondary">Back to list</a>
                         </div>
                         {{ form_end(blog) }}
                     </div>

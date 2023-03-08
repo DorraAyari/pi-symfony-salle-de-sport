@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Coach</title>
+    <style>
+        /* Add custom CSS rules here */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-md-4 {
+            width: 33.33333%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+        }
+
+        .date {
+            font-size: 14px;
+        }
+
+        .location {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+
+        <h1 class="text-center">Coach List</h1>
+    </div>
+    <div class="row">
+        {% for coach in coach %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Nom : {{ coach.nom }}</h5>
+                        <p class="card-text">Age : {{ coach.age }}</p>
+                  <p class="card-text">Description : {{ coach.description }}</p>
+              <p class="card-text">Height : {{ coach.height }}</p>
+                <p class="card-text">Weight : {{ coach.weight }}</p>
+                                <p class="card-text">Occupation :{{ coach.occupation }}</p>
+
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -32,11 +32,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
+    
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom ne doit pas être vide")]
     private ?string $nom = null;
 
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Prenom ne doit pas être vide")]
     private ?string $prenom = null;
@@ -52,16 +54,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
-    private Collection $commentaires;
+    #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
+    private Collection $Cours;
+
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
+    private Collection $ratings;
 
     public function __construct()
     {
+        $this->Cours = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->commentLikes = new ArrayCollection();
     }
 
-    #[ORM\ManyToOne(inversedBy: 'User')]
-    private ?Cours $Cours = null;
+
+
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+  
+   
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CommentLike::class)]
+    private Collection $commentLikes;
+
+   
 
 
     public function getId(): ?int
@@ -218,19 +242,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
     }
 
-    public function getUser(): ?Cours
-    {
-        return $this->Cours;
-    }
-
-    public function setUser(?Cours $Cours): self
-    {
-        $this->Cours = $Cours;
-
-
-        return $this;
-    }
-
 
     public function removeCommentaire(Commentaire $commentaire): self
     {
@@ -244,17 +255,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCours(): ?Cours
+
+
+    /**
+     * @return Collection<int, CommentLike>
+     */
+    public function getCommentLikes(): Collection
+    {
+        return $this->commentLikes;
+    }
+
+    public function addCommentLike(CommentLike $commentLike): self
+    {
+        if (!$this->commentLikes->contains($commentLike)) {
+            $this->commentLikes->add($commentLike);
+            $commentLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLike(CommentLike $commentLike): self
+    {
+        if ($this->commentLikes->removeElement($commentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($commentLike->getUser() === $this) {
+                $commentLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+ /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
     {
         return $this->Cours;
     }
 
-    public function setCours(?Cours $Cours): self
+    public function addCour(Cours $cour): self
     {
-        $this->Cours = $Cours;
+        if (!$this->Cours->contains($cour)) {
+            $this->Cours->add($cour);
+        }
 
         return $this;
     }
+
+    public function removeCour(Cours $cour): self
+    {
+        $this->Cours->removeElement($cour);
+
+        return $this;
+    }
+   
+        /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+  
+    
+    
 
     
 

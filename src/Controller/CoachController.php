@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Coach;
 use App\Form\CoachType;
 use App\Repository\CoachRepository;
@@ -30,15 +32,74 @@ class CoachController extends AbstractController
             'coach' => $coach,
         ]);
     }
+//-----------------------------------PDF:-------------------------------------------
+#[Route('/coach/pdf', name: 'coach_pdf')]
+public function pdf(CoachRepository $coachRepository): Response
+{
+    // Configuration de dompdf
+    $pdfOptions= new Options();
+    $pdfOptions->set('defaultFont','Arial');
 
+    // initialisation pdf
+    $dompdf=new Dompdf($pdfOptions);
+
+    //retreive the events data from the database
+    $coach = $coachRepository->findAll();
+
+    //render the eventst from the database
+    $html=$this->renderView('coach/pdf.html.twig',[
+        'coach' => $coach,
+    ]);
+    //load html
+    $dompdf->loadHtml($html);
+
+    //setup the paper format
+    $dompdf->setPaper('A4','Portrait');
+
+    //render pdf as html content
+    $dompdf->render();
+
+
+    //save pdf as listedeparticipant pdf
+    $pdfContent = $dompdf->output();
+    
+    // Create a response object
+    $response = new Response();
+    
+    // Set the content type
+    $response->headers->set('Content-Type', 'application/pdf');
+    
+    // Set the content of the response to the generated pdf content
+    $response->setContent($pdfContent);
+    
+    // Set the content disposition header for file download
+    $response->headers->set('Content-Disposition', 'attachment;filename="listecoach.pdf"');
+    
+    // Return the response object
+    return $response;
+
+}
     #[Route('/read', name: 'readAll')]
-    public function afficheall(CoachRepository $coachRepository): Response
+    public function readAll(Request $request, CoachRepository $coachRepository): Response
     {
-        $coach=$coachRepository->findAll();
+        
+       
+        $coachName = $request->query->get('coach');
+    
+        $coachs = $coachRepository->findAll();
+        
+        if ($coachName) {
+            $coachs = $coachRepository->findByNom($coachName);
+        }
+        
+      
+    
         return $this->render('coach/read.html.twig', [
-            'coachs' => $coach,
+            'coachs' => $coachs,
         ]);
     }
+    
+
     #[Route('/ajouterS', name: 'ajouterS')]
 
     public function ajouter(Request $request , ManagerRegistry $doctrine): Response

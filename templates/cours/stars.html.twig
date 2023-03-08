@@ -1,0 +1,11 @@
+<div class="star-rating">
+  {% for choice in form.stars %}
+    <input type="radio"
+    class="star-1"
+           id="{{ form.stars.vars.id ~ '_' ~ loop.index }}"
+           name="{{ form.stars.vars.full_name }}"
+           value="{{ choice.vars.data }}"
+           {% if choice.vars.data == form.vars.data %}checked{% endif %}>
+    <label for="{{ form.stars.vars.id ~ '_' ~ loop.index }}"></label>
+  {% endfor %}
+</div>

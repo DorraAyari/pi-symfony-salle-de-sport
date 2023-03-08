@@ -1,0 +1,9 @@
+
+
+{% block body %}
+    <h1>Confirmation de réservation</h1>
+    <p>Bonjour {{ user.nom }},</p>
+    <p>Nous vous confirmons votre réservation pour le cours {{ cours.nom }} .</p>
+    <p>Nombre de places réservées : {{ cours.nbPlacesTotal }}</p>
+    <p>Merci de votre confiance et à bientôt !</p>
+{% endblock %}
