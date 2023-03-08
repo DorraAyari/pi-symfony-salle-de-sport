@@ -87,8 +87,6 @@ public function coursDetail(Request $request, CoursRepository $coursRepository,R
 
     ]);
 }
-
-
     
     #[Route('/showc/{id}', name: 'showc')]
     public function show(CoursRepository $coursRepository,$id): Response
