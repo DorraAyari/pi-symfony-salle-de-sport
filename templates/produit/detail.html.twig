@@ -1,0 +1,60 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block body %}
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<!-- Breadcrumb Section Begin -->
+    <section class="blog-section spad" data-setbg="/front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+			
+     <div class="product-details">
+  <div class="text-center">
+    <img class="text-center" src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.image }}" >
+  </div>
+  <div class="product-info">
+    <h2 class="text-center">{{ produit.nom }}</h2>
+    <p class="text-center">{{ produit.prix }} DT</p>
+    <p class="text-center">{{ produit.description }}</p>
+    <div class="text-center"><a class="btn btn-warning" href="{{ path('app_add',{'id':produit.id}) }}">Ajouter au panier</a></div>
+     
+  </div>
+</div>
+
+        
+    <!-- Breadcrumb Section End -->
+
+    <!-- Produit Section Begin -->
+    <!-- Section-->
+       
+        
+
+    <!-- Produit Section End -->
+
+
+
+ </body>
+
+</html>
+
+
+{% endblock %}
+

@@ -216,6 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->commentaires->add($commentaire);
             $commentaire->setUser($this);
         }
+    }
 
     public function getUser(): ?Cours
     {

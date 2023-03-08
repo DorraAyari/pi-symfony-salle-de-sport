@@ -1,0 +1,68 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block body %}
+
+<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Produit Section Begin -->
+    <!-- Section-->
+        <section class="blog-section spad">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5">
+                     {% for produit in produit %}
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" style="width:300x;height:241px;" src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.image }}" />
+                            
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ produit.nom }}</h5>
+                                    <!-- Product price-->
+                                    {{ produit.prix }}TND
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-warning" href="{{ path('app_add',{'id':produit.id}) }}">Ajouter au panier</a></div>
+                                <div class="text-center"><a class="btn btn-warning" href="{{ path('shows1',{'id':produit.id}) }}">details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                          {% endfor %}
+                    
+                    
+                    
+                    
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+    <!-- Produit Section End -->
+
+
+
+ </body>
+
+</html>
+
+
+{% endblock %}
