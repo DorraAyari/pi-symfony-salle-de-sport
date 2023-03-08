@@ -51,6 +51,36 @@ h6 {
 	font-weight: 400;
 	font-family: "Oswald", sans-serif;
 }
+.box {
+
+    width: 320px;
+	margin: 10rem auto;
+	padding-top: 10rem;
+	background: rgba(255, 255, 255, 0.3);
+	padding: 2.5rem;
+	border: 2px solid;
+	border-radius: 20px/50px;
+
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.liked {
+    color: white;
+}
+
+.disliked {
+    color: white;
+}
+
+.like-button, .dislike-button {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
 
 h1 {
 	font-size: 70px;

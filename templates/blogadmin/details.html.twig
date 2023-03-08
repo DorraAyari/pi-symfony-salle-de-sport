@@ -1,0 +1,90 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}BLOG{% endblock %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    <link href="{{ asset('css/coach-detail.css') }}" rel="stylesheet">
+   
+{% endblock %}
+
+
+{% block body %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+    
+        <!-- Page Heading -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">DETAILS DU BLOG</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('uploads/' ~ blog.image) }}" class="img-fluid" alt="{{ blog.image }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row" >
+                            <div class="col-sm-12" >
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">ID</div>
+                                    <div class="info-value">{{ blog.id }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">Date </div>
+                                    <div class="info-value">{{ blog.createdAt |date('Y-m-d')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">Sujet</div>
+                                    <div class="info-value">{{ blog.nom }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">Description</div>
+                                    <div class="info-value">{{ blog.description }}</div>
+                                </div>
+                            </div>
+                           <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">More Description</div>
+                                    <div class="info-value">{{ blog.moredescreption }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">Slogan</div>
+                                    <div class="info-value">{{ blog.slogan }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="coach-info">
+                                    <div class="info-label" style="color:Blue;">Liste des commentaires</div>
+                                     {% for commentaire in blog.commentaire %}
+       <div class="info-value" >{{ commentaire.comment }}  </div> <p style="color:Olive;">Commenté par : {{ commentaire.user.nom }} {{ commentaire.user.prenom }}</p> 
+{% endfor %}
+
+
+
+
+
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <a href="{{ path('afficheblogadmin') }}" class="btn btn-secondary">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}

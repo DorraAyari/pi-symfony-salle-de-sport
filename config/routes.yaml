@@ -1,6 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
 coach_pdf:
     path: /coach/pdf
     controller: App\Controller\CoachController::pdf
+
+blog_pdf:
+    path: /blog/pdf
+    controller: App\Controller\BlogController::pdf
+
+

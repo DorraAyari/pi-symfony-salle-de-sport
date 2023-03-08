@@ -1,4 +1,3 @@
-
 {% extends "front/base.html.twig" %}
 
 
@@ -7,13 +6,14 @@
     <!-- Header End -->
 
     <!-- Blog Details Hero Section Begin -->
-    <section class="blog-details-hero set-bg" data-setbg="/front/img/blog/details/details-hero.jpg">
+    <section class="blog-details-hero set-bg" data-setbg="{{ asset('uploads/' ~ blog.image) }}">
         <div class="container">
             <div class="row">
             
                 <div class="col-lg-8 p-0 m-auto">
                     <div class="bh-text">
                         <h3>{{ blog.nom }}</h3>
+                        
                         <ul>
                             <li>by Admin</li>
                             <li>{{ blog.createdAt |date('Y-m-d')}}</li>
@@ -34,70 +34,31 @@
                 <div class="col-lg-8 p-0 m-auto">
                     <div class="blog-details-text">
                         <div class="blog-details-title">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua accusantium doloremque laudantium. Excepteur
-                                sint occaecat cupidatat non proident sculpa .</p>
-                            <p>laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                                amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat anim id est laborum.</p>
-                            <h5>You Can Buy For Less Than A College Degree</h5>
-                            <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                                in voluptate velit esse cillum dolore eu fugiat nulla pariatur officia deserunt mollit.
-                            </p>
+                            <p>{{ blog.moredescreption }}</p>
                         </div>
-                        <div class="blog-details-pic">
-                            <div class="blog-details-pic-item">
-                                <img src="/front/img/blog/details/details-1.jpg" alt="">
-                            </div>
-                            <div class="blog-details-pic-item">
-                                <img src="/front/img/blog/details/details-2.jpg" alt="">
-                            </div>
+                        <div class="blog-details-title">
+                             <p> {{ blog.description }} </p>
                         </div>
-                        <div class="blog-details-desc">
-                            <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
+                       
                         <div class="blog-details-quote">
                             <div class="quote-icon">
                                 <img src="/front/img/blog/details/quote-left.png" alt="">
                             </div>
-                            <h5>The whole family of tiny legumes, whether red, green, yellow, or black, offers so many
-                                possibilities to create an exciting lunch.</h5>
-                            <span>MEIKE PETERS</span>
+                            <h5>{{ blog.slogan }}</h5>
+                            
                         </div>
-                        <div class="blog-details-more-desc">
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                                in. . Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-                            <p>laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                                amet, consectetur adipisicing elit, sed eiusmod tempor incididunt laboris nisi ut
-                                aliquip commodo consequat. Class aptent taciti sociosqu ad litora torquent per conubia
-                                nostra, per inceptos himenaeos. Mauris vel magna ex. Integer gravida tincidunt accumsan.
-                                Vestibulum nulla mauris, condimentum id felis ac, volutpat volutpat mi qui dolorem.</p>
+                        <div class="blog-details-title">
+                            <p>{{ blog.moredescreption }}</p>
+                        </div>
+                        <div class="blog-details-title">
+                             <p> {{ blog.description }} </p>
                         </div>
                         
                         <div class="blog-details-author">
                            
                             <div class="ba-text">
                                 <h2 style="color: white;">LEAVE A COMMENT</h2>
-                                {# <div class="bp-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                </div> #}
+                               
                                 <br>
                             </div>
                         </div>
@@ -106,26 +67,39 @@
                                 <div class="comment-option">
                                     <h5 class="co-title">Comment</h5>
                                     <div class="co-item">
-                                   
+                                      {% for commentaire in blog.commentaire %}
+                                      
                                     
-                                        <div class="co-widget">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#"><i class="fa fa-share-square-o"></i></a>
-                                        </div>
-                                       {% for commentaire in blog.commentaire %}
-
                                         <div class="co-pic">
-                                            {# <img src="/front/img/blog/details/comment-1.jpg" alt=""> #}
-                                            <h5>Brandon Kelley</h5>
-                                            
-                                         <p>{{commentaire.comment}}</p>
+                                      
+                                          {% if commentaire.user %}
+                                          <img src="{{ asset('uploads/' ~ commentaire.user.photo) }}" alt="{{ commentaire.user.prenom }}">
+                                          <h5>{{ commentaire.user.prenom }}</h5>
+                                           {% endif %}
+                                         </div>
+                                      
+                                        <div class="co-text" style="color:white;">
+                                            {{commentaire.comment}}
                                         </div>
-                                                                                {% endfor %}
+                                        
+                                        
+                                       
+                  <div class="like-dislike-container" id="comment-{{ commentaire.id }}">
 
-                                        <div class="co-text">
-                                            
-                                        </div>
+    <a href="{{ path('comment_like', {'id': commentaire.id}) }}" class="{% if commentLike is defined and commentLike.isLiked %}like-button liked{% else %}like-button not-liked{% endif %}" id="like-{{ commentaire.id }}"><i class="fa fa-thumbs-up"></i></a>
+    <a href="{{ path('comment_dislike', {'id': commentaire.id}) }}" class="dislike-button{% if commentLike is defined and not commentLike.isLiked %} disliked{% else %} not-disliked{% endif %}" id="dislike-{{ commentaire.id }}"><i class="fa fa-thumbs-down"></i></a>
+   <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="color:Bleu; margin-left: 10px;">Delete</a>
+
+</div>
+
+                    <br>
+                                     
+                                           
+                                        {% endfor %}
+                                        
                                     </div>
+                                     
+                                   
                                     
                                 </div>
                             </div>
@@ -133,14 +107,59 @@
                             <div class="col-lg-6">
                                 <div class="leave-comment">
                                       <div class="col-xs2 col-sm3" id="ajout-commentaire">
-				<h2>Ajouter un commentaire</h2>
-				{{ form_start(commentForm) }}
-				    {{ form_row(commentForm.comment) }}
-                    <p>Message</p>
-                    <div id="editor"></div>
-				{{ form_end(commentForm) }}
-			</div>
-		</div>
+				
+				                          {{ form_start(commentForm) }}
+				                          {{ form_row(commentForm.comment) }}
+                                           <p>Message</p>
+                                                <div id="editor"></div>
+				                                      {{ form_end(commentForm) }}
+			                            </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                         <a style="color:OrangeRed;" href="https://www.facebook.com/sharer/sharer.php?u=www.infantrygym.com/blog/{{blog.id}}" target="_blank">
+                                         Partager sur Facebook
+                                           </a>
+                                           </div>
+                                           <br>
+                                           {# les archives des comentaires #}
+                                           <center>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                             <a href="#popup" style="color:OrangeRed;"> Historique des commentaires sur ce blog </a>
+                                            </div>
+                                           <div id="popup" class="overlay">
+                                             <div class="popup">
+                                              <h2> Historique des mes commentaires  </h2>
+                                              <a href="#" class="cross">&times;</a>
+                                              {# houni chnkteb #}
+                                                     <div class="col-lg-6">
+                                <div class="comment-option">
+                                    <h5 class="co-title">Comment</h5>
+                                    <div class="co-item">
+                                    
+                                      {% for commentaire in blog.commentaire %}
+                                      
+                                        <p style="color:black;">
+                                            {{commentaire.comment}}
+                                        </p>
+                                       
+                                        {% endfor %}
+                                        
+                                    </div>
+                                     
+                                   
+                                    
+                                </div>
+                            </div>
+                                              </div>
+
+                                           </div>
+                                           </center>
+                                        
+		                             </div>
                                 </div>
                             </div>
                         </div>
@@ -148,42 +167,137 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Blog Details Section End -->
+      
 
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>125-711-811</li>
-                            <li>125-668-886</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Get In Touch Section End -->
+    </section>
+    
 
 
 
 
 </body>
 
+
+{% endblock %}
+
+{% block javascript %}
+   <script>
+   //mtaa button delete
+   
+   //hhhhhhhhhhhhhhhhhhhhhhhhh
+   $(document).ready(function() {
+    $(".like-button").click(function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            success: function(response) {
+                if (response.success) {
+                    var commentId = response.commentId;
+                    $("#like-" + commentId).toggleClass("liked");
+                    $("#dislike-" + commentId).removeClass("disliked");
+                }
+            }
+        });
+    });
+    $(".dislike-button").click(function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            success: function(response) {
+                if (response.success) {
+                    var commentId = response.commentId;
+                    $("#dislike-" + commentId).toggleClass("disliked");
+                    $("#like-" + commentId).removeClass("liked");
+                }
+            }
+        });
+    });
+});
+    function confirmDelete() {
+    if(confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {
+      // Si l'utilisateur clique sur OK, le commentaire est supprimé
+      window.location.href = "{{ path('delete_comment', {'id': commentaire.id}) }}";
+    }
+  }
+
+
+  </script>
+  
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  
+  <style>
+.like-button{
+color: gray;
+}
+
+.dislike-button{
+color: gray;
+}
+
+.liked {
+  color: green;
+}
+
+.disliked {
+  color: red;
+}
+   
+.button:hover {
+
+	background: #FF8519;
+	color :#333;
+}
+.overlay{
+
+    position: fixed;
+    top: 0;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    transition: opacity .4s;
+    visibility:hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+.popup {
+    margin: 6rem auto;
+    padding: 2rem;
+    background:#fff;
+    border-radius: 5px;
+    width: 40%;
+    position: relative ;
+    transition: all 0.45 ease-in-out;
+}
+.popup .cross {
+    margin: 6rem auto;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background:#fff;
+    text-decoration: none;
+    color: #333;
+    
+}
+.popup .cross:hover {
+    color: Orange;
+
+}
+.clicked-comment {
+    background-color: #f5f5f5;
+}
+  
+  </style>
 {% endblock %}

@@ -22,6 +22,25 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
+    #[Route('/shows/{id}', name: 'shows')]
+    public function show(ProduitRepository $produitR,$id): Response
+    {
+        $produit=$produitR->find($id);
+        return $this->render('produit_admin/show.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+    #[Route('/listprod', name: 'lisproduit')]
+    public function index(ProduitRepository $produitRepository): Response
+    {
+        $produit=$produitRepository->findAll();
+        return $this->render('produit/produit.html.twig', [
+            'produit' => $produit,
+            
+        ]);
+    }
+
+
     #[Route('/addproduit', name: 'addproduit')]
  public function addprod(Request $request , ManagerRegistry $doctrine): Response
  {
@@ -120,6 +139,12 @@ class ProduitController extends AbstractController
     return $this->redirectToRoute('app_produit');
     
     }
+
+
+    
+
+
+
 
 
 }

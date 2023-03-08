@@ -32,11 +32,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
+    
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom ne doit pas être vide")]
     private ?string $nom = null;
 
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Prenom ne doit pas être vide")]
     private ?string $prenom = null;
@@ -51,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
+
 
     #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
     private Collection $Cours;
@@ -69,6 +72,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
    
+
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+        $this->commentLikes = new ArrayCollection();
+       
+    }
+
+    #[ORM\ManyToOne(inversedBy: 'User')]
+    private ?Cours $Cours = null;
+
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CommentLike::class)]
+    private Collection $commentLikes;
+
+   
+
 
     public function getId(): ?int
     {
@@ -195,7 +220,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto () : ?string
     {
         return $this->photo;
     }
@@ -207,10 +232,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Cours>
      */
     public function getCours(): Collection
+
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setUser($this);
+        }
+    }
+
+    public function getUser(): ?Cours
+
     {
         return $this->Cours;
     }
@@ -219,6 +265,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->Cours->contains($cour)) {
             $this->Cours->add($cour);
+        }
+
+
+        return $this;
+    }
+
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
         }
 
         return $this;
@@ -261,7 +321,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-  
+    /**
+     * @return Collection<int, CommentLike>
+     */
+    public function getCommentLikes(): Collection
+    {
+        return $this->commentLikes;
+    }
+
+    public function addCommentLike(CommentLike $commentLike): self
+    {
+        if (!$this->commentLikes->contains($commentLike)) {
+            $this->commentLikes->add($commentLike);
+            $commentLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLike(CommentLike $commentLike): self
+    {
+        if ($this->commentLikes->removeElement($commentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($commentLike->getUser() === $this) {
+                $commentLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
     
+
     
+
 }
