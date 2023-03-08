@@ -1,0 +1,120 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block body %}
+
+<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Produit Section Begin -->
+    <!-- Section-->
+        
+        
+
+    <!-- Produit Section End -->
+
+
+<section class="class-timetable-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h2>Votre Panier</h2>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="class-timetable">
+                    
+                    {% if items | length > 0 %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    
+                                    <th>Produit</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Totale</th>
+                                    <th colspan="3" >Action</th>
+                                    
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                 {% for item in items  %}
+                                <tr>
+
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>{{ item.produit.nom }}</h5>
+                                        
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
+                                        
+                                        <span>{{ item.produit.prix }}DT</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        
+                                        <span>{{ item.qantity }}</span>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <h5>{{ item.produit.prix * item.qantity }}</h5>
+                                        
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <button type="button" class="btn btn-link">
+                                        <a  href="{{ path('app_add' , {'id': item.produit.id}) }}">
+                                                                                        Augmente</a></button>
+                                        
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <button type="button" class="btn btn-link">
+                                    <a  href="{{ path('app_diminuier' , {'id': item.produit.id}) }}">
+                                                                                        Diminuer</a></button>
+                                        
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <button type="button"  class="btn btn-link">
+                                     <a  href="{{ path('app_remove' , {'id': item.produit.id}) }}">
+                                                                                        Suprimer</a></button>
+                                        
+                                    </td>
+                                </tr>
+                                {% endfor%}  
+                            </tbody>
+                            <tfoot>
+                                        <tr> 
+                                        <td colspan="3" class="text-right ; table-dark""><h5>Total: </h5></td>
+                                         <td class="table-dark" style="color:white;" ><h5>{{ total }}DT</h5></td>
+                                        <td><button type="button" class="btn btn-outline-secondary"><a  href="{{ path('command_list') }}">Commander</button></td>
+                                        </tr>
+                                                                                                  
+                                                                                                  
+                                                                                    
+                                                                                                  </tfoot>
+                        </table>
+                        {% endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </body>
+
+</html>
+
+
+{% endblock %}
