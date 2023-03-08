@@ -118,17 +118,18 @@ class Produit
         return $this;
     }
 
-  //  public function getImage(): ?string
-   // {
-  //      return $this->image;
-  //  }
 
- //   public function setImage(string $image): self
-  //  {
-   //     $this->image = $image;
+  public function getImage(): ?string
+   {
+    return $this->image; }
 
-     //   return $this;
-   // }
+
+   public function setImage(string $image): self
+   {
+       $this->image = $image;
+
+      return $this;
+   }
 
     /**
      * @return Collection<int, Command>

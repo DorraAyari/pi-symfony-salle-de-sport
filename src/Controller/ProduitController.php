@@ -30,6 +30,14 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
+    #[Route('/shows1/{id}', name: 'shows1')]
+    public function show1(ProduitRepository $produitR,$id): Response
+    {
+        $produit=$produitR->find($id);
+        return $this->render('produit/detail.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
     #[Route('/listprod', name: 'lisproduit')]
     public function index(ProduitRepository $produitRepository): Response
     {

@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Controller;
@@ -57,29 +58,29 @@ public function ajouterProduit(Request $request){
     return new JsonResponse($formatted);
 
 }
-#[Route('/api/deleteProduit', name: 'supprimer_produittt', methods: ['GET'])]
-public function supprimerrrr(Request $request) {
+#[Route('/api/Supprimer', name: 'supprimer_produit', methods: ['GET'])]
 
-    $id = $request->get("id");
+     public function ProduitSupprimerAction(Request $request) {
 
-    $em = $this->getDoctrine()->getManager();
-    $produit = $em->getRepository(Produit::class)->find($id);
-    if($produit!=null ) {
-        $em->remove($produit);
-        $em->flush();
+        $id = $request->get("id");
 
-        $serialize = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serialize->normalize("Produit a ete supprimee avec success.");
-        return new JsonResponse($formatted);
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository(Produit::class)->find($id);
+        if($produit!=null ) {
+            $em->remove($produit);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Produit a ete supprimee avec success.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("id reclamation invalide.");
+
 
     }
-    return new JsonResponse("Produit non trouvé", Response::HTTP_NOT_FOUND);
-
-
-}
-
-
-    #[Route('/api/updateproduit', name: 'update_produita', methods: ['GET'])]
+    
+    #[Route('/api/updateproduit', name: 'update_produit', methods: ['GET'])]
     public function modifierproduit(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $produit = $this->getDoctrine()->getManager()

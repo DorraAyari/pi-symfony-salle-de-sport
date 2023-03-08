@@ -111,7 +111,7 @@ class CommandController extends AbstractController
         foreach ($commandwithdata as $item) {
             $totalItem =$item['produit']->getPrix()*$item['qantity'];
             $total += $totalItem;
-        
+        }
         return $this->render('command/index.html.twig', [
          'items' => $commandwithdata,
          'total' => $total
@@ -119,23 +119,23 @@ class CommandController extends AbstractController
 
          
      }
-     ///#[Route('/command/add', name: 'app_add2')]
-     //public function valider(Request $request, ValidatorInterface $validator): Response
-    //{
+     #[Route('/command/add', name: 'app_add2')]
+     public function valider(Request $request, ValidatorInterface $validator): Response
+    {
         // Récupérez votre panier depuis la base de données ou créez-en un nouveau
-       // $command = new Command();
+        $command = new Command();
 
         // Validez le panier avec le service Validator de Symfony
-       // $errors = $validator->validate($command);
+        $errors = $validator->validate($command);
 
-        //if (count($errors) > 0) {
+        if (count($errors) > 0) {
             // Si des erreurs de validation sont trouvées, traitez-les ici
-        //}
+        }
 
         // Affichez le panier dans le template
-       // return $this->render('command/index.html.twig', [
-            //'command' => $command,
-        //]);
+        return $this->render('command/index.html.twig', [
+            'command' => $command,
+        ]);
     }
 
 
