@@ -16,6 +16,7 @@ class Cours
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    private $rating;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Nom champs obligatoire")]
@@ -59,9 +60,11 @@ class Cours
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours', cascade: ["persist", "remove"])]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
-    private Collection $users;
+    private Collection $User;
 
-    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class)]
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     private Collection $ratings;
 
  
@@ -71,7 +74,7 @@ class Cours
         $this->calendars = new ArrayCollection();
         $this->reservation = 0;
     //  $this->User = new ArrayCollection();
-    $this->users = new ArrayCollection();
+    $this->User = new ArrayCollection();
     $this->ratings = new ArrayCollection();
 
     }
@@ -108,6 +111,7 @@ class Cours
 
         return $this;
     }
+  
   
     public function getImage(): ?string
     {
@@ -188,7 +192,7 @@ class Cours
         return $this->nbPlacesTotal - $this->reservation;
     }
     
-    public function getReservation(): ?int
+    public function getReservation(): ?Collection
     {
         return $this->reservation;
     }
@@ -228,13 +232,13 @@ public function getPlacesDisponibles(): int
  */
 public function getUsers(): Collection
 {
-    return $this->users;
+    return $this->User;
 }
 
 public function addUser(User $user): self
 {
-    if (!$this->users->contains($user)) {
-        $this->users->add($user);
+    if (!$this->User->contains($user)) {
+        $this->User->add($user);
         $user->addCour($this);
     }
 
@@ -243,7 +247,7 @@ public function addUser(User $user): self
 
 public function removeUser(User $user): self
 {
-    if ($this->users->removeElement($user)) {
+    if ($this->User->removeElement($user)) {
         $user->removeCour($this);
     }
 

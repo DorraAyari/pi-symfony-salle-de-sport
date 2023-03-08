@@ -19,15 +19,19 @@ class Rating
     }
     
 
-    #[ORM\ManyToOne(inversedBy: 'ratings')]
-    private ?user $user = null;
+    #[ORM\ManyToOne(inversedBy: 'ratings',  cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
 
-    #[ORM\ManyToOne(inversedBy: 'ratings')]
+    private ?User $User = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ratings',  cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     private ?cours $cours = null;
 
     #[ORM\Column]
     private ?int $stars = null;
-
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -47,12 +51,12 @@ class Rating
     }
     public function getUser(): ?user
     {
-        return $this->user;
+        return $this->User;
     }
 
     public function setUser(?user $user): self
     {
-        $this->user = $user;
+        $this->User = $user;
 
         return $this;
     }

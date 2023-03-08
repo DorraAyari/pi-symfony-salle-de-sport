@@ -57,6 +57,7 @@ public function findByNom(string $nom): array
         ->getResult();
 }
 
+
 public function findByCoachOrderedByNom($coachName, $orderBy = 'desc')
 {
     $queryBuilder = $this->createQueryBuilder('c')

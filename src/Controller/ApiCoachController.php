@@ -43,7 +43,7 @@ public function ajouterCoach(Request $request){
     $weight = $request->query->get('weight');
     $height = $request->query->get('height');
     $occupation = $request->query->get('occupation');
-  //  $image = $request->query->get('image');
+//   $image = $request->query->get('image');
 
     $coach->setNom($nom);
     $coach->setDescription($description);
@@ -51,7 +51,7 @@ public function ajouterCoach(Request $request){
     $coach->setWeight($weight);
     $coach->setHeight($height);
     $coach->setOccupation($occupation);
-   // $coach->setImage($image);
+  // $coach->setImage($image);
     $em = $this->getDoctrine()->getManager();
     $em->persist($coach);
     $em->flush();
@@ -61,7 +61,7 @@ public function ajouterCoach(Request $request){
 
 }
 
-    #[Route('/api/DeleteCoach', name: 'delete_coach', methods: ['GET,POST'])]
+    #[Route('/api/DeleteCoach', name: 'delete_coach', methods: ['GET'])]
 
      public function deleteCoachAction(Request $request) {
 

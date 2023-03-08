@@ -1,0 +1,26 @@
+/* styles.css */
+
+.point {
+    font-weight: bold;
+  }
+  .btn-orange {
+    background-color: #FF7733;
+    color: white;
+    border-color: #FF7733;
+  }
+  .rating input {
+    display: none;
+  }
+  .rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: red;
+  }
+  .rating input:checked ~ label {
+    color: red;
+  }
+  

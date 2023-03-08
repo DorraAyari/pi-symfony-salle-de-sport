@@ -1,10 +1,10 @@
 
 
 {% extends "front/base.html.twig" %}
-{% block body %}
 
-    <!-- Class Details Section Begin -->
-    <!-- Breadcrumb Section Begin -->
+
+
+{% block body %}
     <section class="breadcrumb-section set-bg" data-setbg="front/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
@@ -21,7 +21,6 @@
             </div>
         </div>
     </section>
-   <!-- Services Section Begin -->
     <section class="services-section spad">
         <div class="container">
             <div class="row">
@@ -39,38 +38,36 @@
                 </div>
             </div>
             <div class="row">
-                                         {% for cours in cours %}
-
+               {% for cours in cours %}
                 <div class="col-lg-3 order-lg-1 col-md-6 p-0">
-
                     <div class="ss-pic">
                         <img style="width:300x;height:290px;" src="{{ asset('uploads/' ~ cours.image) }}" alt="{{ cours.image }}">
                     </div>
-   <div class="ss-text">
+    <div class="ss-text">
                         <h4>{{cours.nom}}</h4>
                         <p>{{cours.description}}</p>
+                                   <a href="{{path('showcr',{ id:cours.id })}}"  >Explore</a>
 
-                            <a href="{{path('showcr',{ id:cours.id })}}">Explore</a>
-                 
-                {% if app.user %}
-    <form action="{{ path('reserve_cours', {id: cours.id}) }}" method="post">
-  
-        <span style=color:white;>Nombre de places :{{cours.nbPlacesTotal}}</span> 
-          <br>
-    <br>
       
-        <input type="number" name="nbPlaces" id="nbPlaces" value="1" min="1" max="1">
-        <button class="primary-btn btn-normal appoinment-btn" type="submit">Réserver</button>
+       {% if app.user %}
+    <form action="{{ path('reserve_cours', {id: cours.id}) }}" method="post">
+    <p>Number of places :{{cours.nbPlacesTotal}}</p>  
+
+
+    <button style="color:white;" class="primary-btn btn-normal appoinment-btn m-2" type="submit">Reserve</button>
+        <input type="hidden" name="nbPlaces" id="nbPlaces" value="1" min="1" max="1">
+
     </form>
+
+
 {% endif %}     
-       
 
                     </div>
+ 
+
                 </div>
                
-                <div class="col-lg-3 order-lg-2 col-md-6 p-0">
-                 
-                </div>
+            
                                                 {% endfor %}
 
               

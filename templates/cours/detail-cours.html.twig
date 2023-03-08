@@ -1,40 +1,48 @@
 
 {% block stylesheets %}
    <!-- Google Font -->
-        
-     <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-              rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
-        <!-- Css Styles -->
-        <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}" type="text/css">
-   
-        <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
-
- <style>
-.rating input {
-  display: none;
+   <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+   <!-- Css Styles -->
+   <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('path/to/styles.css') }}" type="text/css">
+   <link rel="stylesheet" href="{{ asset('css/etoile.css') }}" type="text/css">
+<style>
+/* styles.css */
+.section-title span {
+    font-weight: bold;
 }
 
-.rating label {
-  font-size: 30px;
-  color: #ccc;
-  cursor: pointer;
-}
-
-.rating label:hover,
-.rating label:hover ~ label {
-  color: red;
-}
-
-.rating input:checked ~ label {
-  color: red;
-}
+.point {
+    font-weight: bold;
+  }
+  .btn-orange {
+    background-color: #FF7733;
+    color: white;
+    border-color: #FF7733;
+  }
+  .rating input {
+    display: none;
+  }
+  .rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: #f36100;
+  }
+  .rating input:checked ~ label {
+    color: #f36100;
+  }
+  
 </style>
+
 {% endblock %}
 
 {% block body %}
@@ -52,8 +60,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="bs-text">
-                        <h2>Details courses</h2>
-                        <a href="{{ path('app_main_controller') }}" class="primary-btn  btn-normal">Appointment</a>
+                        <h2>Details course</h2>
+                        <a href="{{ path('app_main_controller') }}" class="primary-btn  btn-normal">Calendar</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +88,7 @@
 
                             </div>
                             <div class="ti_text">
-                                <p>{{cours.description}}</h5>
+                                <p>{{cours.description}}</p>
                   
 
                                  <div class="col-lg-12">
@@ -100,53 +108,77 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Caractéristique</th>
+                                    
+                                    <th> <p><span style="font-weight: bold;">Feature Of
+                        <span>{{cours.coach.nom}}</span>  
+                    </div></p></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="point">Age</td>
+                              <div class="section-title">
+    <td>
+        <p><span style="font-weight: bold;">Age</span></p>
+    </td>
+</div>
+
                                     <td>{{cours.coach.age}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="point">Weight</td>
+                                      <div class="section-title">
+    <td>
+        <p><span style="font-weight: bold;">Weight</span></p>
+    </td>
+</div>
                                     <td>{{cours.coach.weight}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="point">Height</td>
+                                    <div class="section-title">
+    <td>
+        <p><span style="font-weight: bold;">Height</span></p>
+    </td>
+</div>
                                     <td>{{cours.coach.height}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="point">Occupation</td>
+                                                              <div class="section-title">
+    <td>
+        <p><span style="font-weight: bold;">Occupation</span></p>
+    </td>
+</div>
+                                  
                                     <td>{{cours.coach.occupation}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
 <form id="rating-form" action="{{ path('showcr', {'id': cours.id}) }}" method="POST">
-  <input type="hidden" name="_method" value="POST">
-  {{ form_widget(form._token) }}
-  {{ form_widget(form.stars) }}
- 
-  <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_widget(form._token) }}
+    
+
+    <div class="rating">
+ <input type="radio" name="{{ form.stars.vars.full_name }}" class="star-5" id="{{ form.stars.vars.id }}-5" value="5" {% if form.stars.vars.value == 5 %}checked{% endif %} />
+        <label class="star-5{% if form.stars.vars.value >= 5 %} selected{% endif %}" for="{{ form.stars.vars.id }}-5">&#x2605;</label>
+        <input type="radio" name="{{ form.stars.vars.full_name }}" class="star-4" id="{{ form.stars.vars.id }}-4" value="4" {% if form.stars.vars.value == 4 %}checked{% endif %} />
+        <label class="star-4{% if form.stars.vars.value >= 4 %} selected{% endif %}" for="{{ form.stars.vars.id }}-4">&#x2605;</label>
+      
+                <input type="radio" name="{{ form.stars.vars.full_name }}" class="star-3" id="{{ form.stars.vars.id }}-3" value="3" {% if form.stars.vars.value == 3 %}checked{% endif %} />
+
+         <label class="star-3{% if form.stars.vars.value >= 3 %} selected{% endif %}" for="{{ form.stars.vars.id }}-3">&#x2605;</label>
+  <input type="radio" name="{{ form.stars.vars.full_name }}" class="star-2" id="{{ form.stars.vars.id }}-2" value="2" {% if form.stars.vars.value == 2 %}checked{% endif %} />
+        <label class="star-2{% if form.stars.vars.value >= 2 %} selected{% endif %}" for="{{ form.stars.vars.id }}-2">&#x2605;</label>
+               <input type="radio" name="{{ form.stars.vars.full_name }}" class="star-1" id="{{ form.stars.vars.id }}-1" value="1" {% if form.stars.vars.value == 1 %}checked{% endif %} />
+        <label class="star-1{% if form.stars.vars.value >= 1 %} selected{% endif %}" for="{{ form.stars.vars.id }}-1">&#x2605;</label>
+        <input type="hidden" name="user_id" value="{{ app.user.id }}" />
+
+        {{ form_label(form.stars) }}
+        {{ form_errors(form.stars) }}    
+      
+
+            <input type="hidden" name="stars" id="stars" value="{{ form.stars.vars.value }}" />
+
+        </div>
+    <button type="submit" class="primary-btn btn btn-orange btn-normal ">Submit</button>
 </form>
-
-<div class="rating">
-  <input type="radio" name="stars" class="star-1" id="star-1" value="1" {% if selectedRating == 1 %}checked{% endif %} />
-  <label class="star-1{% if selectedRating >= 1 %} selected{% endif %}" for="star-1">&#x2605;</label>
-
-  <input type="radio" name="stars" class="star-2" id="star-2" value="2" {% if selectedRating == 2 %}checked{% endif %} />
-  <label class="star-2{% if selectedRating >= 2 %} selected{% endif %}" for="star-2">&#x2605;</label>
-
-  <input type="radio" name="stars" class="star-3" id="star-3" value="3" {% if selectedRating == 3 %}checked{% endif %} />
-  <label class="star-3{% if selectedRating >= 3 %} selected{% endif %}" for="star-3">&#x2605;</label>
-
-  <input type="radio" name="stars" class="star-4" id="star-4" value="4" {% if selectedRating == 4 %}checked{% endif %} />
-  <label class="star-4{% if selectedRating >= 4 %} selected{% endif %}" for="star-4">&#x2605;</label>
-
-  <input type="radio" name="stars" class="star-5" id="star-5" value="5" {% if selectedRating == 5 %}checked{% endif %} />
-  <label class="star-5{% if selectedRating >= 5 %} selected{% endif %}" for="star-5">&#x2605;</label>
-</div>
 
 {% endblock %}
 
@@ -161,29 +193,38 @@
     <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
 
+
 <script>
-// Récupérer l'élément de note et les étoiles
-const ratingInput = document.getElementById('rating');
-const stars = document.querySelectorAll('.rating input');
+const stars = document.querySelectorAll('#rating-form .rating input[type="radio"]');
+const starsValue = document.querySelector('#rating-form #stars');
 
-// Ajouter un gestionnaire d'événements pour chaque étoile
-stars.forEach(star => {
-  star.addEventListener('click', event => {
-    const rating = event.target.value;
-    ratingInput.value = rating;
+// Récupère la valeur stockée dans le stockage local
+const savedValue = localStorage.getItem('selectedStar');
 
-    // Stocker la note de l'utilisateur dans localStorage
-    localStorage.setItem('userRating', rating);
+// Si une valeur est stockée, définissez-la comme valeur par défaut
+if (savedValue) {
+  stars.forEach((star) => {
+    if (star.value === savedValue) {
+      star.checked = true;
+      starsValue.value = savedValue;
+    }
+  });
+}
+
+stars.forEach((star) => {
+  star.addEventListener('click', () => {
+    starsValue.value = star.value;
   });
 });
 
-// Récupérer la note de l'utilisateur depuis localStorage lors du chargement de la page
-const userRating = localStorage.getItem('userRating');
-if (userRating) {
-  ratingInput.value = userRating;
-}
+// Événement beforeunload pour sauvegarder la valeur sélectionnée
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('selectedStar', starsValue.value);
+});
 
 
 </script>
 
 {% endblock %}
+</body>
+</html>

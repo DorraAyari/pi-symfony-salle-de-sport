@@ -55,7 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
     private Collection $Cours;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Rating::class)]
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+
     private Collection $ratings;
 
     public function __construct()
@@ -228,8 +230,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
+   
+        /**
      * @return Collection<int, Rating>
      */
     public function getRatings(): Collection

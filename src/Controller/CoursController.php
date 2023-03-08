@@ -11,6 +11,7 @@ use App\Form\RatingType;
 use Symfony\Component\Mime\Email;
 use App\Repository\CoachRepository;
 use App\Repository\CoursRepository;
+use App\Repository\RatingRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,65 +40,25 @@ class CoursController extends AbstractController
             'cours' => $cours,
         ]);
     }
-    #[Route('/detail/{id}', name: 'app_detail')]
-    public function detail(Request $request, CoursRepository $coursRepository, $id,UserRepository $userRepository): Response
-    {
-        $cours = $coursRepository->find($id);
-        $user = $userRepository->find($id);
 
-        $rating = new Rating();
-        $form = $this->createForm(RatingType::class, $rating);
-        $form->handleRequest($request);
-    
-        $selectedRating = 0; // Set default value to 0
-        if ($form->isSubmitted() && $form->isValid()) {
-            $rating = $form->getData();
-            $rating->setCours($cours);
-            $rating->setUser($user);
-            $rating->setUserId($user); // set user id here
-
-            $entityManager = $this->getDoctrine()->getManager();
-            try {
-                $entityManager->persist($rating);
-                $entityManager->flush();
-            } catch (\Exception $e) {
-                // handle the error here, e.g. print the error message
-                echo $e->getMessage();
-            }
-            $selectedRating = $rating->getStars();
-        } else {
-            // Check if the user has previously rated this course
-          // Check if the user has previously rated this course
-    $existingRating = $this->getDoctrine()->getRepository(Rating::class)
-    ->findOneBy(['cours' => $cours, 'user' => $this->getUser()]);
-    if ($existingRating) {
-    $selectedRating = $existingRating->getStars();
-    }
-    
-            
-        }
-        
-        return $this->render('cours/detail.html.twig', [
-            'cours' => $cours,
-            'usser' => $user,
-            'form' => $form->createView(),
-            'selectedRating' => $selectedRating,
-        ]);
-    
-    }
     
 #[Route('/showcrc/{id}', name: 'showcr')]
-public function coursDetail(Request $request, CoursRepository $coursRepository, $id): Response
+public function coursDetail(Request $request, CoursRepository $coursRepository,RatingRepository $ratingRepository, $id): Response
 {
     $cours = $coursRepository->find($id);
+
     $rating = new Rating();
     $form = $this->createForm(RatingType::class, $rating);
     $form->handleRequest($request);
 
     $selectedRating = 0; // Set default value to 0
+
     if ($form->isSubmitted() && $form->isValid()) {
         $rating = $form->getData();
         $rating->setCours($cours);
+        $rating->setUser($this->getUser());
+
+
         $entityManager = $this->getDoctrine()->getManager();
         try {
             $entityManager->persist($rating);
@@ -107,22 +68,23 @@ public function coursDetail(Request $request, CoursRepository $coursRepository, 
             echo $e->getMessage();
         }
         $selectedRating = $rating->getStars();
-    } else {
-        // Check if the user has previously rated this course
-      // Check if the user has previously rated this course
-$existingRating = $this->getDoctrine()->getRepository(Rating::class)
-->findOneBy(['cours' => $cours, 'user' => $this->getUser()]);
-if ($existingRating) {
-$selectedRating = $existingRating->getStars();
-}
-
         
+    } else {
+        $user = $this->getUser();
+
+        // Check if the user has previously rated this course
+        $existingRating = $this->getDoctrine()->getRepository(Rating::class)
+            ->findOneBy(['cours' => $cours, 'User' => $user]);
+        if ($existingRating) {
+            $selectedRating = $existingRating->getStars();
+        }
     }
-    
+
     return $this->render('cours/detail-cours.html.twig', [
         'cours' => $cours,
         'form' => $form->createView(),
         'selectedRating' => $selectedRating,
+
     ]);
 }
 
@@ -273,7 +235,8 @@ public function reserverCours(Cours $cours, Request $request, EntityManagerInter
         $this->addFlash('echec', 'Le nombre de places doit être au moins de 1');
         return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
     }
-
+ 
+    
     if (!$cours->reserve($nbPlaces)) {
         $this->addFlash('error', 'Il n\'y a pas assez de places disponibles.');
         return $this->redirectToRoute('app_cours', ['id' => $cours->getId()]);
