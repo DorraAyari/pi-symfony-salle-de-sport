@@ -79,12 +79,14 @@ class BlogController extends AbstractController
             $user = $security->getUser();
           $commentaire->setUser($user);
             $commentaire->setBlogid($blog);
+            
            
                  $em1=$doctrine->getManager();
                 //persist=ajouter
                 $em1->persist($commentaire);
                 //flush=push
                 $em1->flush();
+                
               
               
                 return $this->render('blog/blogdetails.html.twig', [

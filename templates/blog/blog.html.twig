@@ -29,14 +29,14 @@
        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         
          <form method="get" action="{{ path('listblog') }}" class="form-inline">
-  <div class="form-check mr-3">
-    <input class="form-check-input" type="radio" name="sort" id="sortDesc" value="desc" {% if sort == 'desc' %}checked{% endif %}>
-    <label class="form-check-label" for="sortDesc" style="color:OrangeRed;">Newest first</label>
-  </div>
-  <div class="form-check mr-3">
-    <input class="form-check-input" type="radio" name="sort" id="sortAsc" value="asc" {% if sort == 'asc' %}checked{% endif %}>
-    <label class="form-check-label" for="sortAsc" style="color:OrangeRed;">Oldest first</label>
-  </div>
+  <div class="form-check-inline mr-3">
+  <input class="form-check-input" type="radio" name="sort" id="sortDesc" value="desc" {% if sort == 'desc' %}checked{% endif %}>
+  <label class="form-check-label ml-1" for="sortDesc" style="color: #FF8519;"><i class="fa fa-arrow-down"></i> Newest first</label>
+</div>
+<div class="form-check-inline mr-3">
+  <input class="form-check-input" type="radio" name="sort" id="sortAsc" value="asc" {% if sort == 'asc' %}checked{% endif %}>
+  <label class="form-check-label ml-1" for="sortAsc" style="color: #FF8519;"><i class="fa fa-arrow-up"></i> Oldest first</label>
+</div>
   
   <button type="submit" class="btn btn-light" style="color:OrangeRed;">Sort</button>
 </form>
@@ -58,6 +58,7 @@
                                 <p>{{ blog.description }}</p>
                             </div>
                         </div>
+                        
                     {% endfor %}
                 </div>
             </div>
@@ -70,5 +71,8 @@
     </section>
     
     <!-- Blog Section End -->
+  
+            
 {% endblock %}
 
+       

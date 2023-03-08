@@ -85,6 +85,7 @@
                                         
                                        
                   <div class="like-dislike-container" id="comment-{{ commentaire.id }}">
+ 
 
     <a href="{{ path('comment_like', {'id': commentaire.id}) }}" class="{% if commentLike is defined and commentLike.isLiked %}like-button liked{% else %}like-button not-liked{% endif %}" id="like-{{ commentaire.id }}"><i class="fa fa-thumbs-up"></i></a>
     <a href="{{ path('comment_dislike', {'id': commentaire.id}) }}" class="dislike-button{% if commentLike is defined and not commentLike.isLiked %} disliked{% else %} not-disliked{% endif %}" id="dislike-{{ commentaire.id }}"><i class="fa fa-thumbs-down"></i></a>
@@ -182,6 +183,7 @@
 
 {% block javascript %}
    <script>
+  
    //mtaa button delete
    
    //hhhhhhhhhhhhhhhhhhhhhhhhh
@@ -225,6 +227,8 @@
       window.location.href = "{{ path('delete_comment', {'id': commentaire.id}) }}";
     }
   }
+
+
 
 
   </script>
@@ -298,6 +302,5 @@ color: gray;
 .clicked-comment {
     background-color: #f5f5f5;
 }
-  
   </style>
 {% endblock %}
