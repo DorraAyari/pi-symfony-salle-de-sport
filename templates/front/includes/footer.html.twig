@@ -6,8 +6,7 @@
                         <div class="fa-logo">
                             <a href="#"><img style="width:60px;height:60px;" src="{{ asset('front/img/logo.png') }}" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                        <p>Welcome to our gym center! We are a state-of-the-art fitness facility that provides a variety of equipment and training programs to help you achieve your health and fitness goals.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -21,9 +20,9 @@
                     <div class="fs-widget">
                         <h4>Useful links</h4>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Classes</a></li>
+                              <li><a href="{{ path('app_home') }}">Home</a></li>
+                        <li><a href="{{ path('app_about') }}">About Us</a></li>
+                        <li><a href="{{ path('app_cours') }}">Classes</a></li>
                             <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
