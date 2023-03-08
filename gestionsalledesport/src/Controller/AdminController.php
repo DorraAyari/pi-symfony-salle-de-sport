@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -10,6 +14,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
+
+    #[Route('/admin/profile', name: 'app_profile_admin', methods: ['GET'])]
+    public function show(Security $security): Response
+    {
+        return $this->render('admin/profile.html.twig', [
+            'user' => $security->getUser(),
+        ]);
+    }
+
     #[Route('/admin', name: 'app_admin')]
     public function index(Security $security): Response
     {
@@ -24,6 +37,36 @@ class AdminController extends AbstractController
             return $this->redirectToRoute("app_admin_login");
         }
     }
+
+    #[Route('/admin/{id}/edit', name: 'app_profile_edit_admin', methods: ['GET', 'POST'])]
+    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // fonction upload image
+            try {
+                $image = $form->get('image')->getData();
+                $uploads_directory = $this->getParameter('images_directory');
+                $filename = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move($uploads_directory, $filename);
+                $user->setPhoto($filename);
+            } catch (Error $e) {
+
+            }
+
+            $userRepository->save($user, true);
+            return $this->redirectToRoute('app_profile_admin', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+
 
     #[Route('/login_admin', name: 'app_admin_login')]
     public function adminLogin(AuthenticationUtils $authenticationUtils): Response
