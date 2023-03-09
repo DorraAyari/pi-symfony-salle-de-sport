@@ -56,6 +56,13 @@ public function findByNom(string $nom): array
         ->getQuery()
         ->getResult();
 }
+public function orderByNom()
+{
+    return $this->createQueryBuilder('u')
+        ->orderBy('u.nom', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 
 
 public function findByCoachOrderedByNom($coachName, $orderBy = 'desc')

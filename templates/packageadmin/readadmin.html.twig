@@ -2,13 +2,14 @@
 {% extends "admin/base.html.twig" %}
 {% block body %}
 <div class="example-wrapper">
-    <h1>Ajouter un Package</h1>
+    <h1>Package</h1>
 
     <table class="table table-striped-columns"  align="center">
     <thead>
         <tr>
             
             <th>Id</th>
+            <th>Member</th>
             <th>choices</th>
 
             <th>actions</th>
@@ -19,9 +20,10 @@
             {% for Package in package %}
              <tr>
                 <td>  {{ Package.id }} </td>   
+                <td>  {{ Package.User.nom }} </td>  
 
                    
-           <td>  {{ Package.choices }} </td>   
+             <td>  {{ Package.choices }} </td>   
          
          <td><a class="btn btn-success" href="{{path('modifierpck',{ id:Package.id}      ) }}" > modifier </a>
         <a class="btn btn-danger" href="{{path('supprimerpck',{ id:Package.id}      ) }} " >supprimer</a>  <td>

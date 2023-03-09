@@ -64,19 +64,19 @@ class Calendar
     #[ORM\Column(length: 7)]
     private ?string $text_color = null;
 
-    #[ORM\ManyToOne(inversedBy: 'calendars', cascade: ["persist", "remove"])]
+    #[ORM\ManyToOne(inversedBy: 'calendars')]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     #[Assert\NotBlank(message: "Le champ salle est obligatoire")]
     private ?Salle $Salle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'calendars',cascade: ["persist", "remove"])]
+    #[ORM\ManyToOne(inversedBy: 'calendars')]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
     #[Assert\NotBlank(message: "Le champ cours est obligatoire")]
 
     private ?Cours $Cours = null;
 
-    #[ORM\ManyToOne(inversedBy: 'calendars',cascade: ["persist", "remove"])]
+    #[ORM\ManyToOne(inversedBy: 'calendars')]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Coach $Coach = null;
 

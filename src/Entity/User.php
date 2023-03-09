@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Cours::class, inversedBy: 'users')]
     private Collection $Cours;
 
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Package::class)]
+    
+    private Collection $packages;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Rating::class, cascade: ["persist", "remove"])]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
@@ -355,7 +358,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         );
     }
     
+ /**
+     * @return Collection<int, Package>
+     */
+    public function getPackages(): Collection
+    {
+        return $this->packages;
+    }
 
-    
+    public function addPackage(Package $package): self
+    {
+        if (!$this->packages->contains($package)) {
+            $this->packages->add($package);
+            $package->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePackage(Package $package): self
+    {
+        if ($this->packages->removeElement($package)) {
+            // set the owning side to null (unless already changed)
+            if ($package->getUser() === $this) {
+                $package->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

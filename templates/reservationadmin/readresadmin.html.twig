@@ -1,0 +1,37 @@
+{% extends "admin/base.html.twig" %}
+{% block body %}
+<div class="example-wrapper">
+    <h1>Reservation</h1>
+
+    <table class="table table-striped-columns"  align="center">
+    <thead>
+        <tr>
+            
+            <th>Id</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Member</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+           {% for res  in reservation %}
+            <tr>
+               <td>{{ res.id }}</td>
+                                 <td>{{ res.Day |date('Y-m-d')}}</td>
+                <td>{{ res.Start |date('H:i')}}</td>
+                 <td>{{ res.Finish |date('H:i')}}</td>
+           <td>  {{ res.User.nom }} </td>  
+
+                <td>
+                  <td><a class="btn btn-success" href="{{path('modifierresa',{ id:res.id}      ) }}" > modifier </a></td>
+         <td> <a class="btn btn-danger" href="{{path('supprimerresa',{ id:res.id}      ) }} " >supprimer</a>  <td>
+ 
+                </td> 
+      {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

@@ -42,67 +42,58 @@ class CoursController extends AbstractController
     }
 
     
-#[Route('/showcrc/{id}', name: 'showcr')]
-public function coursDetail(Request $request, CoursRepository $coursRepository,RatingRepository $ratingRepository, $id): Response
-{
-    $cours = $coursRepository->find($id);
+    #[Route('/showcrc/{id}', name: 'showcr')]
+    public function coursDetail(Request $request, CoursRepository $coursRepository, RatingRepository $ratingRepository, $id): Response
+    {
+        $cours = $coursRepository->find($id);
+    
+        $rating = new Rating();
+        $form = $this->createForm(RatingType::class, $rating);
+        $form->handleRequest($request);
+    
+        $selectedRating = 0; // Set default value to 0
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rating = $form->getData();
+            $rating->setCours($cours);
+            $rating->setUser($this->getUser());
+    
+    
+            $entityManager = $this->getDoctrine()->getManager();
+            try {
+                $entityManager->persist($rating);
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                // handle the error here, e.g. print the error message
+                echo $e->getMessage();
+            }
+            $selectedRating = $form->get('stars')->getData();
+        } else {
+            $user = $this->getUser();
+    
+            // Check if the user has previously rated this course
+            
 
-    $rating = new Rating();
-     // Calculer la moyenne des ratings
-     
-    $form = $this->createForm(RatingType::class, $rating);
-    $form->handleRequest($request);
-
-    $selectedRating = 0; // Set default value to 0
-
-    if ($form->isSubmitted() && $form->isValid()) {
-
-        $rating = $form->getData();
-        $rating = $cours->getRatings();
-
-        $averageRating = 0;
-     $numRatings = count($rating);
-     if ($numRatings > 0) {
-         foreach ($rating as $rating) {
-             $averageRating += $rating->getStars();
-         }
-         $averageRating /= $numRatings;
-     }
-        $rating->setCours($cours);
-        $rating->setUser($this->getUser());
-
-
-        $entityManager = $this->getDoctrine()->getManager();
-        try {
-            $entityManager->persist($rating);
-            $entityManager->flush();
-        } catch (\Exception $e) {
-            // handle the error here, e.g. print the error message
-            echo $e->getMessage();
+            // Check if the user has previously rated this course
+            $existingRating = $this->getDoctrine()->getRepository(Rating::class)
+                ->findOneBy(['cours' => $cours, 'User' => $user]);
+            if ($existingRating) {
+                $selectedRating = $existingRating->getStars();
+            } else {
+                $selectedRating = 0;
+            }
+            
         }
-        $selectedRating = $rating->getStars();
-        
-    } else {
-        $user = $this->getUser();
-
-        // Check if the user has previously rated this course
-        $existingRating = $this->getDoctrine()->getRepository(Rating::class)
-            ->findOneBy(['cours' => $cours, 'User' => $user]);
-        if ($existingRating) {
-            $selectedRating = $existingRating->getStars();
-        }
+    
+        return $this->render('cours/detail-cours.html.twig', [
+            'cours' => $cours,
+            'form' => $form->createView(),
+            'selectedRating' => $selectedRating,
+    
+        ]);
     }
-
-    return $this->render('cours/detail-cours.html.twig', [
-        'cours' => $cours,
-        'form' => $form->createView(),
-        'selectedRating' => $selectedRating,
-        
-
-    ]);
-}
-
-
+    
+    
     
     #[Route('/showc/{id}', name: 'showc')]
     public function show(CoursRepository $coursRepository,$id): Response

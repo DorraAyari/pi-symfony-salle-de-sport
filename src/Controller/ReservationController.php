@@ -11,11 +11,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 class ReservationController extends AbstractController
 {
+    public function myAction(EntityManagerInterface $entityManager)
+    {
+        // Get the ObjectManager instance
+        $objectManager = $this->getDoctrine()->getManager();
+
+        // Use the ObjectManager to persist, update or delete objects in the database
+        $myEntity = new Reservation();
+        $objectManager->persist($myEntity);
+        $objectManager->flush();
+    }
     #[Route('/readres', name: 'readres')]
-    public function afficheall(reservationRepository $reservationRepository): Response
+    public function afficheall(ReservationRepository $reservationRepository): Response
     {
         $reservation=$reservationRepository->findAll();
         return $this->render('reservation/readres.html.twig', [
@@ -25,10 +38,13 @@ class ReservationController extends AbstractController
 
     #[Route('/ajouterres', name: 'ajouterres')]
 
-    public function ajouter(Request $request , ManagerRegistry $doctrine): Response
+    public function ajouter(Request $request , ManagerRegistry $doctrine,Security $security): Response
     {
-      
         $reservation = new reservation();
+        $user = $security->getUser();
+        
+        $reservation->setUser($user);
+       
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
        if ($form ->IsSubmitted() && $form->isValid()){

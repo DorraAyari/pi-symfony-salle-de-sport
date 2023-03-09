@@ -6,6 +6,7 @@ use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -23,8 +24,14 @@ class Reservation
 
     #[ORM\Column(nullable: true)]
      
-    #[Assert\Range(min:1, max:40, maxMessage:"The maximum capacity is 40.")]
+    #[Assert\Range(min:1, max:2, maxMessage:"The maximum capacity  is 40.")]
     private ?int $capacity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?User $User = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $Day = null;
 
     
     
@@ -70,6 +77,29 @@ class Reservation
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+    public function getDay(): ?\DateTimeInterface
+    {
+        return $this->Day;
+    }
+
+    public function setDay(\DateTimeInterface $Day): self
+    {
+        $this->Day = $Day;
+
+        return $this;
+    }
+
    
 }
-

@@ -33,7 +33,7 @@ class Coach
     
 
 
-    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Cours::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'Coach', targetEntity: Cours::class)]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     private Collection $cours;

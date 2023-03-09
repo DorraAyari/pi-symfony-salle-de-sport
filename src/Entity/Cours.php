@@ -39,11 +39,11 @@ class Cours
     )]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'Cours', targetEntity: Calendar::class)]
     
     private Collection $calendars;
 
-    #[ORM\ManyToOne(inversedBy: 'Cours', cascade: ["persist", "remove"])]
+    #[ORM\ManyToOne(inversedBy: 'Cours')]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     #[Assert\NotBlank(message:"Salle champs obligatoire")]
@@ -58,11 +58,11 @@ class Cours
     #[ORM\Column]
     private ?int $reservation = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours', cascade: ["persist", "remove"])]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Cours')]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
     private Collection $User;
 
-    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Rating::class)]
     #[ORM\JoinColumn(onDelete:"CASCADE")]
 
     private Collection $ratings;

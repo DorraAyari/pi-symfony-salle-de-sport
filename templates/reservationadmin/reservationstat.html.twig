@@ -1,0 +1,33 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block content %}
+    <canvas id="stats-chart"></canvas>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('stats-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ labels|raw }},
+                datasets: [{
+                    label: 'Reservations',
+                    data: {{ data|raw }},
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

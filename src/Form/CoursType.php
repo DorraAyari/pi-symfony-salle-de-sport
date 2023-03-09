@@ -71,7 +71,7 @@ class CoursType extends AbstractType
 
             ])
            
-            ->add('user_id', HiddenType::class)
+    ////   ->add('user_id', HiddenType::class)
 
 
     ;
