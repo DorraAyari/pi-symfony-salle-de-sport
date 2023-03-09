@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ReponseReclamationRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: ReponseReclamationRepository::class)]
 class ReponseReclamation
@@ -19,6 +21,7 @@ class ReponseReclamation
 
     #[ORM\OneToOne(mappedBy: 'Reponses', cascade: ['persist', 'remove'])]
     private ?Reclamation $reclamation = null;
+
 
     public function getId(): ?int
     {
@@ -58,4 +61,6 @@ class ReponseReclamation
 
         return $this;
     }
+
+   
 }

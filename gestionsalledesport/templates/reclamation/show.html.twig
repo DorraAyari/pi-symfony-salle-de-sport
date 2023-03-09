@@ -1,8 +1,40 @@
-{% extends 'base.html.twig' %} 
+ {% extends 'front/base.html.twig' %} 
 
 {% block title %}Reclamation{% endblock %}
 
 {% block body %}
+<!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hs-slider owl-carousel">
+            <div class="hs-item set-bg" data-setbg="{{asset('front/img/hero/hero-1.jpg')}}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                <a href="#" class="primary-btn">Get info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-item set-bg" data-setbg="{{asset('front/img/hero/hero-2.jpg')}}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                <a href="#" class="primary-btn">Get info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
     <h1>Reclamation</h1>
 
     <table class="table">
@@ -26,13 +58,12 @@
             <tr>
                 <th>Message</th>
                 <td>{{ reclamation.Message }}</td>
-            </tr>
+           
         </tbody>
     </table>
 
-    <a href="{{ path('app_reclamation_index') }}">back to list</a>
-
-    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+  <a href="{{ path('app_reclamation_index') }}" class="primary-btn btn-lg">Back to List</a>
+<a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}" class="btn btn-primary btn-lg">Edit</a>
 
     {{ include('reclamation/_delete_form.html.twig') }}
 {% endblock %}

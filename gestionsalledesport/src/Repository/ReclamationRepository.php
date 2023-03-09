@@ -39,6 +39,24 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
+    
+        ////////////////////////////////////////////////////////////////////////////////
+        public function findReclamation($Value, $order)
+        {
+            $em = $this->getEntityManager();
+            if ($order == 'DESC') {
+                $query = $em->createQuery(
+                    'SELECT r FROM App\Entity\Reclamation r where  r.Nom like :suj or  r.Email  like :suj order by r.id DESC '
+                );
+                $query->setParameter('suj', $Value . '%');
+            } else {
+                $query = $em->createQuery(
+                    'SELECT r FROM App\Entity\Reclamation r where  r.Nom like :suj or  r.Email like :suj order by r.id ASC '
+                );
+                $query->setParameter('suj', $Value . '%');
+            }
+            return $query->getResult();
+        }
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */
@@ -63,4 +81,24 @@ class ReclamationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByNom(string $Nom): array 
+    {
+        $qb = $this->createQueryBuilder('r');
+    
+        return $qb->where($qb->expr()->like('r.Nom', ':Nom'))
+            ->setParameter('Nom', '%'.$Nom.'%')
+            ->getQuery()
+            ->getResult();
+    }
+   
+ 
+    public function findByEmail()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.Email', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
+

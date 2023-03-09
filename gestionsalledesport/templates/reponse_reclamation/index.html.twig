@@ -1,35 +1,37 @@
- {% extends 'base.html.twig' %} 
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}ReponseReclamation index{% endblock %}
 
 {% block body %}
-    <h1>ReponseReclamation index</h1>
+    <div class="container">
+        <h1>ReponseReclamation index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Reponse</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reponse_reclamation in reponse_reclamations %}
-            <tr>
-                <td>{{ reponse_reclamation.id }}</td>
-                <td>{{ reponse_reclamation.Reponse }}</td>
-                <td>
-                    <a href="{{ path('app_reponse_reclamation_show', {'id': reponse_reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reponse_reclamation_edit', {'id': reponse_reclamation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <<table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Reponse</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reponse_reclamation in reponse_reclamations %}
+                    <tr>
+                        <td>{{ reponse_reclamation.id }}</td>
+                        <td>{{ reponse_reclamation.Reponse }}</td>
+                        <td>
+                            <a href="{{ path('app_reponse_reclamation_show', {'id': reponse_reclamation.id}) }}" class="fa fa-eye btn btn-sm btn-info">Show</a>
+                            <a href="{{ path('app_reponse_reclamation_edit', {'id': reponse_reclamation.id}) }}" class="fa fa-edit btn btn-sm btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">No records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_reponse_reclamation_new') }}">Create new</a>
+        <a href="{{ path('app_reponse_reclamation_new') }}" class="btn btn-success">Create new</a>
+    </div>
 {% endblock %}

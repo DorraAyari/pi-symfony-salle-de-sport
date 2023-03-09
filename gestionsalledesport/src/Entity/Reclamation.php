@@ -5,6 +5,9 @@ namespace App\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 class Reclamation
@@ -12,26 +15,35 @@ class Reclamation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['Reclamation', 'posts:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message : "nom obligatoire")]
+    #[Groups(['Reclamation', 'posts:read'])]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message : "prenom obligatoire")]
+    #[Groups(['Reclamation', 'posts:read'])]
+
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min:7)]
-    #[Assert\NotBlank,\Email]
+    #[Assert\NotBlank,Email]
+    #[Groups(['Reclamation', 'posts:read'])]
+
     private ?string $Email = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message : "message obligatoire")]
+    #[Groups(['Reclamation', 'posts:read'])]
+
     private ?string $Message = null;
 
-    #[ORM\OneToOne(inversedBy: 'reclamation', cascade: ['persist', 'remove'])]
-    private ?ReponseReclamation $Reponses = null;
+     #[ORM\OneToOne(inversedBy: 'reclamation', cascade: ['persist', 'remove'])]
+     private ?ReponseReclamation $Reponses = null;
 
     public function getId(): ?int
     {
@@ -86,20 +98,20 @@ class Reclamation
         return $this;
     }
 
-    public function getReponses(): ?ReponseReclamation
-    {
-        return $this->Reponses;
-    }
+     public function getReponses(): ?ReponseReclamation
+     {
+         return $this->Reponses;
+     }
 
-    public function setReponses(?ReponseReclamation $Reponses): self
-    {
-        $this->Reponses = $Reponses;
+     public function setReponses(?ReponseReclamation $Reponses): self
+     {
+         $this->Reponses = $Reponses;
 
-        return $this;
-    }
+         return $this;
+     }
 
-    public function __toString()
-    {
-        return $this->Nom;
-    }
+     public function __toString()
+     {
+     return $this->Nom;
+     }
 }

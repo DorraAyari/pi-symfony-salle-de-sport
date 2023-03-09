@@ -3,9 +3,14 @@
 {% block title %}New ReponseReclamation{% endblock %}
 
 {% block body %}
+
     <h1>Create new ReponseReclamation</h1>
 
-    {{ include('reponse_reclamation/_form.html.twig') }}
+{{ include('reponse_reclamation/_form.html.twig') }}
 
-    <a href="{{ path('app_reponse_reclamation_index') }}">back to list</a>
+<a href="{{ path('app_reponse_reclamation_index') }}" class="btn btn-secondary me-2">
+    <i class="fa fa bi bi-arrow-left"></i> Back to List
+
 {% endblock %}
+
+
