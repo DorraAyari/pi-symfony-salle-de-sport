@@ -48,13 +48,26 @@ public function coursDetail(Request $request, CoursRepository $coursRepository,R
     $cours = $coursRepository->find($id);
 
     $rating = new Rating();
+     // Calculer la moyenne des ratings
+     
     $form = $this->createForm(RatingType::class, $rating);
     $form->handleRequest($request);
 
     $selectedRating = 0; // Set default value to 0
 
     if ($form->isSubmitted() && $form->isValid()) {
+
         $rating = $form->getData();
+        $rating = $cours->getRatings();
+
+        $averageRating = 0;
+     $numRatings = count($rating);
+     if ($numRatings > 0) {
+         foreach ($rating as $rating) {
+             $averageRating += $rating->getStars();
+         }
+         $averageRating /= $numRatings;
+     }
         $rating->setCours($cours);
         $rating->setUser($this->getUser());
 
@@ -84,6 +97,7 @@ public function coursDetail(Request $request, CoursRepository $coursRepository,R
         'cours' => $cours,
         'form' => $form->createView(),
         'selectedRating' => $selectedRating,
+        
 
     ]);
 }
