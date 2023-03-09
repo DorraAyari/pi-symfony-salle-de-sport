@@ -1,0 +1,67 @@
+
+{% extends "admin/base.html.twig" %}
+{% block body %}
+   <div class="container-fluid">
+        
+          <!-- Page Heading -->
+          {# <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> #}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Course</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+
+    <h1>Course</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Desription</th>
+                 <th>Nom coach</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cour in cours %}
+            <tr>
+                <td>{{ cour.id }}</td>
+                <td>{{ cour.nom }}</td>
+                <td>{{ cour.description }}</td>
+                 <td>  {{ cour.coach.nom }} </td>
+                  <td> <img style="width:60px;height:60px;" src="{{ asset('uploads/' ~ cour.image) }}" alt="{{ cour.image }}"/> </td>
+
+                <td>
+                            <a class="btn btn-danger" href="{{ path('show', {'id': cour.id}) }}" >show</a> 
+                                       
+
+        <a class="btn btn-success" href="{{ path('ajouterc', {'id': cour.id}) }}" > modifier </a>
+         <a class="btn btn-success" href="{{ path('modifierc', {'id': cour.id}) }}" >supprimer</a> 
+ 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ajouterc') }}">Create new</a>
+</div>
+  </div>
+  </div>
+   </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

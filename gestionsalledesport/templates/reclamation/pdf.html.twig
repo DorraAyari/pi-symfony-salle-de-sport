@@ -1,0 +1,64 @@
+
+{% block body %}
+
+
+<h1 style="text-align: center"> Reclamation PDF </h1>
+<br>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 2px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #4c7aaf;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<table id="customers" width="60%" height="120" >
+    <tr>
+        <th scope="row">Nom</th>
+        <th scope="row">Prenom</th>
+        <th scope="row">Email</th>
+        <th scope="row">Message</th>
+
+
+    </tr>
+    <tbody >
+        <tr>
+
+            <td>{{ reclamation.Nom }}</td>
+            <td>{{ reclamation.Prenom }}</td>
+            <td>{{ reclamation.Email }}</td>
+            <td>{{ reclamation.Message }}</td>
+
+
+        </tr>
+
+
+    </tbody>
+</table>
+
+{% endblock %}
+
