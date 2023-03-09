@@ -30,7 +30,8 @@ class RatingRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+   
+    
     public function remove(Rating $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -42,7 +43,7 @@ class RatingRepository extends ServiceEntityRepository
     public function getAverageRatingForCours(Cours $cours): float
 {
    $qb = $this->createQueryBuilder('r');
-   $qb->select('AVG(r.starss)')
+   $qb->select('AVG(r.stars)')
       ->andWhere('r.cours = :cours')
       ->setParameter('cours', $cours);
    return (float) $qb->getQuery()->getSingleScalarResult();

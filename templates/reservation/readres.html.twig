@@ -37,7 +37,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Choices</th>
+                <th>Day</th>
+                <th>Start</th>
+                <th>Finish</th>
+              
              
             </tr>
         </thead>
@@ -45,8 +48,9 @@
         {% for res  in reservation %}
             <tr>
                <td>{{ res.id }}</td>
-                <td>{{ res.Start |date('Y-m-d')}}</td>
-                 <td>{{ res.Finish |date('Y-m-d')}}</td>
+                <td>{{ res.day |date('Y-m-d')}}</td>
+                <td>{{ res.Start |date('H:i')}}</td>
+                 <td>{{ res.Finish |date('H:i')}}</td>
                   <td>{{ res.Capacity }}</td>
                 <td>
             <!--      <td><a class="btn btn-success" href="{{path('modifierres',{ id:res.id}      ) }}" > modifier </a></td>

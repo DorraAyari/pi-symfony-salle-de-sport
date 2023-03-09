@@ -1,0 +1,47 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <h1>Statistiques</h1>
+    <canvas id="choices" ></canvas>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('choices').getContext('2d');
+            var choicesGraph = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Standard', 'Pro', 'Premium'],
+                    datasets: [{
+                        label: 'Répartition des catégories',
+                        data: [
+                            {% set standardCount = 0 %}
+                            {% set proCount = 0 %}
+                            {% set premiumCount = 0 %}
+                            {% for package in packages %}
+                                {% if package.getChoices() == 'Standard' %}
+                                    {% set standardCount = standardCount + 1 %}
+                                {% elseif package.getChoices() == 'Pro' %}
+                                    {% set proCount = proCount + 1 %}
+                                {% elseif package.getChoices() == 'Premium' %}
+                                    {% set premiumCount = premiumCount + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {{ standardCount }}, {{ proCount }}, {{ premiumCount }}
+                        ],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+    </script>
+{% endblock %}

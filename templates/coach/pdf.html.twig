@@ -11,101 +11,105 @@
             margin: 0;
             padding: 0;
         }
+css
+Copy code
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
+    /* Header */
+    .header {
+        text-align: center;
+    }
 
+    /* Coach Card */
+    .coach-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .coach-card-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
 
-        h1 {
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .coach-card-details {
+        flex: 1 1 auto;
+        padding: 1.25rem;
+        text-align: center;
+    }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
+    .coach-card-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
 
-        .col-md-4 {
-            width: 33.33333%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-bottom: 30px;
-        }
+    .coach-card-properties {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            border-radius: 0.25rem;
-        }
+    .coach-card-property {
+        font-size: 16px;
+        margin: 5px;
+    }
 
-        .card-body {
-            flex: 1 1 auto;
-            padding: 1.25rem;
-        }
+    .coach-card-property-label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .card-text {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .text-muted {
-            color: #6c757d !important;
-        }
-
-        .date {
-            font-size: 14px;
-        }
-
-        .location {
-            font-size: 14px;
-            margin-left: 10px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    .coach-card-property-value {
+        color: #6c757d;
+    }
+</style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-
-        <h1 class="text-center">Coach List</h1>
+        <h1>Coach List</h1>
     </div>
-    <div class="row">
+    <div class="coach-list">
         {% for coach in coach %}
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
+            <div class="coach-card">
+                <div class="coach-card-details">
+                    <h2 class="coach-card-name">{{ coach.nom }}</h2>
+                    <ul class="coach-card-properties">
+                        <li class="coach-card-property">
+                            <span class="coach-card-property-label">Age:</span>
+                            <span class="coach-card-property-value">{{ coach.age }}</span>
+                        </li>
+                        <li class="coach-card-property">
+                            <span class="coach-card-property-label">Description:</span>
+                            <span class="coach-card-property-value">{{ coach.description}}</span> </li>
 
-                        <h5 class="card-title">Nom : {{ coach.nom }}</h5>
-                        <p class="card-text">Age : {{ coach.age }}</p>
-                  <p class="card-text">Description : {{ coach.description }}</p>
-              <p class="card-text">Height : {{ coach.height }}</p>
-                <p class="card-text">Weight : {{ coach.weight }}</p>
-                                <p class="card-text">Occupation :{{ coach.occupation }}</p>
+  <li class="coach-card-property">
+                            <span class="coach-card-property-label">Height:</span>
+                            <span class="coach-card-property-value">{{ coach.height}}</span> </li>
+<li class="coach-card-property">
+                            <span class="coach-card-property-label">Weight:</span>
+                            <span class="coach-card-property-value">{{ coach.weight}}</span> </li>
+
+<li class="coach-card-property">
+                            <span class="coach-card-property-label">Occupation:</span>
+                            <span class="coach-card-property-value">{{ coach.occupation}}</span> </li>
+
+
+
 
 
                     </div>

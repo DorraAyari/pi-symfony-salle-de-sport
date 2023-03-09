@@ -105,12 +105,7 @@
 <form id="rating-form" action="{{ path('showcr', {'id': cours.id}) }}" method="POST">
   <input type="hidden" name="_method" value="POST">
   {{ form_widget(form._token) }}
-  {{ form_widget(form.stars) }}
- 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<div class="rating">
+  <div class="rating">
   <input type="radio" name="stars" class="star-1" id="star-1" value="1" {% if selectedRating == 1 %}checked{% endif %} />
   <label class="star-1{% if selectedRating >= 1 %} selected{% endif %}" for="star-1">&#x2605;</label>
 
@@ -126,6 +121,11 @@
   <input type="radio" name="stars" class="star-5" id="star-5" value="5" {% if selectedRating == 5 %}checked{% endif %} />
   <label class="star-5{% if selectedRating >= 5 %} selected{% endif %}" for="star-5">&#x2605;</label>
 </div>
+ 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
 
 {% endblock %}
 

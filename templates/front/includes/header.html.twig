@@ -15,7 +15,13 @@
                         <li><a href="{{ path('app_home') }}">Home</a></li>
                         <li><a href="{{ path('app_about') }}">About Us</a></li>
                         <li><a href="{{ path('app_cours') }}">Classes</a></li>
-                        <li><a href="./services.html">Services</a></li>
+                       <li><a href="#">Services</a>
+                             <ul class="dropdown">
+                        <li><a href="{{path('app_pack')}}">Packs</a></li>
+                        <li><a href="{{path('ajouterres')}}">Resrvation</a></li>
+                
+                       
+                    </ul></li>
                         <li><a href="{{ path('app_coach') }}">Our Team</a></li>
                         <li><a href="{{ path('listblog') }}">Our blog</a></li>
                         <li><a href="{{ path('lisproduit') }}">Our Product</a></li>

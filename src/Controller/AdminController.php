@@ -88,4 +88,44 @@ class AdminController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    #[Route('/stats', name: 'app_stats')]
+    public function stat(): Response
+    {
+        $packages = $this->getDoctrine()->getRepository(Package::class)->findAll();
+
+        return $this->render('packageadmin/packagestat.html.twig', [
+            'controller_name' => 'AdminController',
+            'packages' => $packages,
+        ]);
+    }
+    #[Route('/statsres', name: 'app_statsres')]
+
+public function stats(): Response
+{
+    $reservations = $this->getDoctrine()
+        ->getRepository(Reservation::class)
+        ->findAll();
+
+    // Count the number of reservations per day
+    $stats = [];
+    foreach ($reservations as $reservation) {
+        $day = $reservation->getDay()->format('Y-m-d');
+        if (!isset($stats[$day])) {
+            $stats[$day] = 0;
+        }
+        $stats[$day]++;
+    }
+
+    // Format the data for use by Chart.js
+    $labels = array_keys($stats);
+    $data = array_values($stats);
+
+    // Render the chart using Twig
+    return $this->render('reservationadmin/reservationstat.html.twig', [
+        'labels' => json_encode($labels),
+        'data' => json_encode($data),
+    ]);
+}
+
 }
