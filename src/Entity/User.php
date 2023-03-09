@@ -343,7 +343,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
   
-    
+    public function jsonSerialize(): array
+    {
+        return array(
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'numero' => $this->numero
+        );
+    }
     
 
     
