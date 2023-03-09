@@ -20,6 +20,8 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use ApiPlatform\State\Pagination\PaginatorInterface;
+
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,6 +48,12 @@ class BlogController extends AbstractController
         
         $sort = $request->query->get('sort', 'desc');
         $blog = $blogRepository->findBy([], ['createdAt' => $sort]);
+        if ($request->query->has('blog')) {
+            $query = $request->query->get('blog');
+            $blog = $blogRepository->searchByBlogName($query);
+        } else {
+            $blog = $blogRepository->findBy([], ['createdAt' => $sort]);
+        }
         
         return $this->render('blog/blog.html.twig', [
             'blog' => $blog,
