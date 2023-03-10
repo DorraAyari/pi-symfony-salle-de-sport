@@ -22,7 +22,20 @@
 
     <!-- Blog Section Begin -->
     <section class="blog-section spad">
+   
         <div class="container">
+<form method="GET" action="{{ path('listblog') }}" class="mb-4">
+  <div class="input-group">
+    <input type="text" name="blog" class="form-control" placeholder="Search with blog name ... " value="{{ app.request.get('blog') }}" 
+      style="background-color: #f8f9fa; color: #6c757d;" 
+      onfocus="this.style.backgroundColor='#fff'; this.style.color='#212529';" 
+      onblur="this.style.backgroundColor='#f8f9fa'; this.style.color='#6c757d';">
+    <button type="submit" class="btn btn-outline-secondary">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</form>
+        
          {# <div class="text-center">
             <a href="{{ path('event_order_by_date_desc') }}" class="btn btn-primary">Order By Date (Descending)</a>
         </div> #}
@@ -31,14 +44,14 @@
          <form method="get" action="{{ path('listblog') }}" class="form-inline">
   <div class="form-check-inline mr-3">
   <input class="form-check-input" type="radio" name="sort" id="sortDesc" value="desc" {% if sort == 'desc' %}checked{% endif %}>
-  <label class="form-check-label ml-1" for="sortDesc" style="color: #FF8519;"><i class="fa fa-arrow-down"></i> Newest first</label>
+  <label class="form-check-label ml-1" for="sortDesc" style="color: #AD9F96;"><i class="fa fa-arrow-down"></i> Newest first</label>
 </div>
 <div class="form-check-inline mr-3">
   <input class="form-check-input" type="radio" name="sort" id="sortAsc" value="asc" {% if sort == 'asc' %}checked{% endif %}>
-  <label class="form-check-label ml-1" for="sortAsc" style="color: #FF8519;"><i class="fa fa-arrow-up"></i> Oldest first</label>
+  <label class="form-check-label ml-1" for="sortAsc" style="color: #AD9F96;"><i class="fa fa-arrow-up"></i> Oldest first</label>
 </div>
   
-  <button type="submit" class="btn btn-light" style="color:OrangeRed;">Sort</button>
+  <button type="submit" class="btn btn-light" style="color: #5F5A56;">Sort</button>
 </form>
 </div>
 <br>
@@ -64,7 +77,7 @@
             </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-         <a  href="{{ path('blog_pdf') }}" target="_blank" class="btn btn-light" style="color:OrangeRed;">Telecharger la blog en PDF</a>
+         <a  href="{{ path('blog_pdf') }}" target="_blank" class="btn btn-light" style="color: #5F5A56;">Telecharger la blog en PDF</a>
          </div>
          <br>
 
@@ -74,5 +87,14 @@
   
             
 {% endblock %}
-
-       
+{% block stylesheet %}
+<style>
+.input-group input[type="text"] {
+    background-color: #f2f2f2;
+    color: #fff;
+  }
+  .input-group input[type="text"]::placeholder {
+    color: #fff;
+  }
+</style>
+{% endblock %}

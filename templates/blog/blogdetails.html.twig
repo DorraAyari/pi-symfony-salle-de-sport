@@ -89,7 +89,7 @@
 
     <a href="{{ path('comment_like', {'id': commentaire.id}) }}" class="{% if commentLike is defined and commentLike.isLiked %}like-button liked{% else %}like-button not-liked{% endif %}" id="like-{{ commentaire.id }}"><i class="fa fa-thumbs-up"></i></a>
     <a href="{{ path('comment_dislike', {'id': commentaire.id}) }}" class="dislike-button{% if commentLike is defined and not commentLike.isLiked %} disliked{% else %} not-disliked{% endif %}" id="dislike-{{ commentaire.id }}"><i class="fa fa-thumbs-down"></i></a>
-   <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="color:Bleu; margin-left: 10px;">Delete</a>
+   <a href="{{ path('delete_comment', {'id': commentaire.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="color:#FF4040; margin-left: 10px;">Delete</a>
 
 </div>
 
@@ -133,7 +133,7 @@
                                             </div>
                                            <div id="popup" class="overlay">
                                              <div class="popup">
-                                              <h2> Historique des mes commentaires  </h2>
+                                              <h2> Historique de mes commentaires  </h2>
                                               <a href="#" class="cross">&times;</a>
                                               {# houni chnkteb #}
                                                      <div class="col-lg-6">

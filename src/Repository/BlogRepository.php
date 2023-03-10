@@ -47,6 +47,17 @@ public function findAllSortedByDate()
         ->getQuery()
         ->getResult();
 }
+
+public function searchByBlogName($query)
+{
+    return $this->createQueryBuilder('b')
+        ->where('b.nom LIKE :query')
+        ->setParameter('query', '%'.$query.'%')
+        ->orderBy('b.createdAt', 'DESC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
 //     */
