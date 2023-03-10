@@ -22,7 +22,7 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/shows/{id}', name: 'shows')]
+    #[Route('/showsaa/{id}', name: 'showsaa')]
     public function show(ProduitRepository $produitR,$id): Response
     {
         $produit=$produitR->find($id);
